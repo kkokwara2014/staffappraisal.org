@@ -16,7 +16,7 @@ class StaffAccess
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->hasAnyRole('Staff')) {
+        if (Auth::user()->hasAnyRole('Staff') || Auth::user()->hasAnyRole('Adhoc Staff')) {
             return $next($request);
         }
         return redirect()->route('home');

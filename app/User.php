@@ -117,7 +117,6 @@ class User extends Authenticatable
         return $this->hasMany(Uploadedfile::class);
     }
 
-
     public function creatorinfos(){
         return $this->hasMany(Creatorinfo::class);
     }

@@ -43,7 +43,10 @@ class HomeController extends Controller
         $maritalstatuses=Maritalstatus::where('id','>','1')->orderBy('id','asc')->get();
         $staffcategories=Category::where('id','>','1')->orderBy('name','asc')->get();
         $ranks=Rank::where('id','>','1')->orderBy('id','asc')->get();
-        return view('admin.index',array('user'=>Auth::user()),compact('titles','schools','states','maritalstatuses','staffcategories','ranks'));
+
+        $creatorExists=User::where('creator_id','=',Auth::user()->id)->count();
+        
+        return view('admin.index',array('user'=>Auth::user()),compact('titles','schools','states','maritalstatuses','staffcategories','ranks','creatorExists'));
     }
 
     public function myformAjax($id)

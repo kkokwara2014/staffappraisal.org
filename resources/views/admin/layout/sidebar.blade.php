@@ -38,9 +38,13 @@
             <li><a href="{{ route('departments.index') }}"><i class="fa fa-tag"></i> Department</a></li>
             <li><a href="{{ route('staffsbydept') }}"><i class="fa fa-users"></i> Staff By Department</a></li>
             @endhasrole
-            
-            
-            <li class="treeview">
+
+            @endif
+
+
+
+            @if ($user->profileupdated==1 && $user->hasAnyRole(['Staff']))
+                <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-pdf-o"></i>
                     <span>Appraisals</span>
@@ -72,17 +76,16 @@
                 </a>
                 <ul class="treeview-menu">
 
-                    <li><a href="#"><i class="fa fa-users"></i> Management</a></li>
+                    {{-- <li><a href="#"><i class="fa fa-users"></i> Management</a></li>
                     <li><a href="#"><i class="fa fa-users"></i> Deans</a></li>
-                    <li><a href="#"><i class="fa fa-users"></i> HODs</a></li>
+                    <li><a href="#"><i class="fa fa-users"></i> HODs</a></li> --}}
                     <li><a href="{{ route('staffs.index') }}"><i class="fa fa-users"></i> Staff</a></li>
+                    <li><a href="{{ route('adhocstaffs.index') }}"><i class="fa fa-users"></i> Adhoc Staff</a></li>
                     <li><a href="#"><i class="fa fa-user-plus"></i> Admins</a></li>
 
                 </ul>
             </li>
             @endhasrole
-
-
             @endif
             
 
@@ -120,6 +123,14 @@
         </li>
         
         @endhasrole
+
+        {{-- only Admin and Adhoc Staff --}}
+         @if ($user->profileupdated==1 && ($user->hasAnyRole(['Admin'])|| $user->hasAnyRole(['Adhoc Staff'])))
+            <li>
+                <a href="{{ route('staffs.index') }}"><i class="fa fa-users"></i> Staff</a>
+            </li>
+         @endif
+
 
 
             <li>

@@ -61,6 +61,9 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     });
     
     Route::resource('staffs', 'StaffController');
+    Route::resource('adhocstaffs', 'AdhocStaffController');
+
+    Route::post('addnew-adhocstaff','StaffController@storeAdhocStaff')->name('createnew.adhocstaff');
 
     Route::get('myform/ajax/{id}','HomeController@myformAjax')->name('myform.ajax');
     Route::get('myform/ajax2/{id}','HomeController@myformAjax2')->name('myform.ajax2');
@@ -68,6 +71,12 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
 
     Route::post('update/profile','ProfileController@store')->name('update.profile');
     Route::get('/profile','ProfileController@profile')->name('my.profile');
+    //adhoc staff profile
+    Route::post('/adhoc-staff/update/profile','ProfileController@storeadhocstaff')->name('update.adhocstaffprofile');
+    
+    Route::get('/adhoc-staff/edit/profile/{id}','ProfileController@editadhocstaffprofile')->name('edit.adhocstaffprofile');
+    Route::post('/update/adhoc-staff/profile','ProfileController@updateadhocstaffprofile')->name('adhocstaffprofileupdate');
+    
     
     Route::resource('users', 'UserController');
    
@@ -77,6 +86,8 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     Route::get('department/{id}', 'StaffController@departmentalstaff')->name('departmentalstaff');
     Route::resource('appraisals', 'AppraisalController');
     Route::get('/staff-appraisal/details/{appraisal_id}/{staffid}','StaffController@showappraisal')->name('staffappraisal.show');
+
+    Route::get('/staff-created-by/{id}','StaffController@showPeopleCreatedByOthers')->name('peoplecreatedbyothers');
     // Route::post('/staff-appraisal/details/{appraisal_id}','StaffController@showappraisal')->name('staffappraisal.show');
 
     Route::get('/my-appraisals','MyAppraisalController@index')->name('myappraisal.index');

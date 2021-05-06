@@ -32,12 +32,7 @@
             <div>
                 Staff Number: <strong>{{ $user->staffnumb }}</strong>
             </div>
-            <div>
-                Staff Rank: <strong>{{ $user->rank->name }}</strong>
-            </div>
-            <div>
-                Staff Category: <strong>{{ $user->category->name }}</strong>
-            </div>
+            
             <div>
                 State: <strong>{{ $user->state->name }}</strong>
             </div>
@@ -70,30 +65,13 @@
                 Phone : <strong>{{ $user->phone }}</strong>
             </div>
             <hr>
-            <div>
-                School: <strong>{{ $user->school->name }}</strong>
-            </div>
-            <div>
-                Department: <strong>{{ $user->department->name }}</strong>
-            </div>
+                        
             
             <div>
                 Assumption Date : <strong>{{ date('d M, Y',strtotime($user->assumptiondate)) }}</strong>
             </div>
-            <div>
-                First Assumption Status : <strong>{{ $user->firstassumptionstatus }}</strong>
-            </div>
-            <div>
-                Confirmation Date :
-                @if ($user->confirmationdate!='')
-                <span class="badge badge-success" style="background-color: green; color: honeydew">Confirmed</span>
-                {{ date('d M, Y',strtotime($user->confirmationdate)) }}
-                @else
-                <span class="badge badge-danger" style="background-color: red; color: honeydew">Not Confirmed</span>
-                @endif
-
-            </div>
-            <hr>
+            
+            
             <div>
                 Profile Updated?:
                 @if ($user->profileupdated!=0)
@@ -104,8 +82,7 @@
             </div>
             <hr>
             <div>
-            <a href="{{ route('staffs.edit',$user->id) }}" class="btn btn-warning btn-sm"><span class="fa fa-pencil"></span> Edit Details</a>    
-            <a href="{{ route('staffs.show',$user->id) }}" class="btn btn-primary btn-sm"><span class="fa fa-eye"></span> More Details</a>    
+            <a href="{{ route('edit.adhocstaffprofile',$user->id) }}" class="btn btn-warning btn-sm"><span class="fa fa-pencil"></span> Edit Details</a>       
             <a href="" data-toggle="modal" data-target="#modal-default" class="btn btn-success btn-sm"><span class="fa fa-lock"></span> Change Password</a>
         
             @if ($user->hasAnyRole('Admin') || $creatorExists>0)

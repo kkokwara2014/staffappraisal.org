@@ -47,7 +47,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staffs=User::latest()->get();
+        $staffs=User::latest()->paginate(50);
 
         return view('admin.staff.index',array('user'=>Auth::user()),compact('staffs'));
     }
@@ -95,11 +95,39 @@ class StaffController extends Controller
         // Mail::to($staff->email)->send(new NewStaffMail($staff,$generated_password));
 
 
+        //redirecting to all staff page
+        return redirect()->route('staffs.index')->with('success','New Staff created successfully!');
+    }
 
+    public function storeAdhocStaff(StaffStoreRequest $request){
         
+        $generated_password= bin2hex(random_bytes(4));
+        
+        //adding new Adhoc staff
+        $staff=new User;
+        $staff->lastname=$request->lastname;
+        $staff->middlename=$request->middlename;
+        $staff->firstname=$request->firstname;
+        $staff->staffnumb=$request->staffnumb;
+        $staff->email=$request->email;
+        $staff->phone=$request->phone;
+        $staff->password=bcrypt($generated_password);
+        $staff->creator_id=auth()->user()->id;
+        $staff->save();
+
+        //attaching newly created staff to a role
+        $userRole=Role::where('name','Adhoc Staff')->first();
+        $staff->roles()->attach($userRole);
+
+        //sending login credentials via SMS
+        $this->sendLoginCredentialBySMS($staff, $generated_password);
+
+        //send login credentials via email
+        // Mail::to($staff->email)->send(new NewStaffMail($staff,$generated_password));
+
 
         //redirecting to all staff page
-        return redirect()->route('staffs.index')->with('staff_added','New Sales Staff created successfully!');
+        return redirect()->route('adhocstaffs.index')->with('success','New Adhoc Staff created successfully!');
     }
 
     /**
@@ -115,13 +143,29 @@ class StaffController extends Controller
         // $staff_id=$request->segments(3);
 
         $staff_id=$id;
+        $creatorExists=User::where('creator_id','=',$id)->count();
 
-        // return $staff_id;
-
-       
+        // return $staff_id;       
         $staffappraisals=Appraisaluser::where('user_id',$staff->id)->get();
         // $staffappraisals=Appraisaluser::where('user_id',$staff->id)->first();
-        return view('admin.staff.show',array('user'=>Auth::user()),compact('staff','staffappraisals','staff_id'));
+        return view('admin.staff.show',array('user'=>Auth::user()),compact('staff','staffappraisals','staff_id','creatorExists'));
+    }
+
+    public function showPeopleCreatedByOthers($id)
+    {
+        $creatorExists=User::where('creator_id','=',$id)->count();
+        if (Auth::user()->hasAnyRole(['Admin']) || $creatorExists>0) {
+            $staff=User::find($id);
+
+        $staffcreatedbyothers=User::where('creator_id',$id)->latest()->get();       
+        $totalstaffcount=User::where('creator_id',$id)->count();       
+       
+        return view('admin.staff.peoplecreated',array('user'=>Auth::user()),compact('staff','staffcreatedbyothers','totalstaffcount','creatorExists'));
+        } else {
+            
+            return view('admin.unauthorized.accessdenied');
+        }
+        
     }
 
     /**
@@ -407,4 +451,5 @@ class StaffController extends Controller
             return array('error' => 0 );
         }
     }
+
 }

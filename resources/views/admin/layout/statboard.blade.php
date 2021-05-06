@@ -72,19 +72,32 @@
 
 @include('admin.messages.success')
 
+@if (Auth::user()->hasAnyRole(['Adhoc Staff']))
 @can('update-profile', Auth::user())
-    @include('admin.layout.updateprofile')
+@include('admin.adhocstaffs.updateinfo')
 @endcan
+@else
+@can('update-profile', Auth::user())
+@include('admin.layout.updateprofile')
+@endcan
+@endif
 
+
+@if (Auth::user()->hasAnyRole(['Adhoc Staff']))
 @can('profile-updated', Auth::user())
-    @include('admin.layout.profileupdated')
+@include('admin.adhocstaffs.updatedinfo')
 @endcan
+@else
+@can('profile-updated', Auth::user())
+@include('admin.layout.profileupdated')
+@endcan
+@endif
 
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-8">
 
-        
-</div>
+
+    </div>
 </div>
 <!-- /.row -->

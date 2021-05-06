@@ -97,83 +97,29 @@
                                         </strong>
                                         @endif
                                     </div>
-                                    <div>
-                                        @if ($staff->school_id!='1')
-                                        School: {{ $staff->school->name }}
-                                        @endif
-                                    </div>
-                                    <div>
-                                        @if ($staff->department_id!='1')
-                                        Department: {{ $staff->department->name }}
-                                        @endif
-                                    </div>
+                                    
                                     <div>
                                         @if ($staff->assumptiondate!='')
                                         Assumption Date : {{ date('d M, Y',strtotime($staff->assumptiondate)) }}
                                         @endif
                                     </div>
-                                    <div>
-                                        @if ($staff->firstassumptionstatus!='')
-                                        First Assumption Status : {{ $staff->firstassumptionstatus }}
-                                        @endif
-                                    </div>
-                                    <div>
-                                        Confirmation Date :
-                                        @if ($staff->confirmationdate!='')
-                                        <span class="badge badge-success"
-                                            style="background-color: green; color: honeydew">Confirmed</span>
-                                        {{ date('d M, Y',strtotime($staff->confirmationdate)) }}
-                                        @else
-                                        <span class="badge badge-danger"
-                                            style="background-color: red; color: honeydew">Not
-                                            Confirmed</span>
-                                        @endif
-                                    </div>
-
                                     <br>
-                                    @if ($user->hasAnyRole('Admin') || $creatorExists>0)
                                     <div>
-                                        <a href="{{ route('peoplecreatedbyothers',$user->id) }}" class="btn btn-default btn-sm">Staff created by {{ $user->firstname.' '.$user->lastname }}</a>
+                                        @if ($user->hasAnyRole('Admin') || $creatorExists>0)
+                                        <a href="{{ route('peoplecreatedbyothers',$staff->id) }}" class="btn btn-default btn-sm">Staff created by {{ $staff->firstname.' '.$staff->lastname }}</a>   
+                                       @endif
                                     </div>
-                                    @endif
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-md-10">
-                        <div class="box">
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                                <p>
-                                    <h2>Appraisals</h2>
-                                </p>
-                                <hr>
-
-                                @forelse ($staffappraisals as $staffapp)
-
-                                <div class="panel panel-default">
                                     
-                                        <div class="panel-body"> 
-                                            <a href="{{ route('staffappraisal.show',[$staffapp->appraisal_id,$staff_id]) }}">{{ $staffapp->appraisal->title }}</a>
-                                        </div>
+                                    
 
-                                </div>
-                                @empty
-                                <span style="background-color: red; color: seashell">
-                                    Staff has not filled any appraisal form.
-                                </span>
-                                @endforelse
-
+                                    
 
                             </div>
 
                         </div>
                     </div>
                 </div>
+                
             </div>
 
     </section>
