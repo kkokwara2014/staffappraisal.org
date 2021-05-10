@@ -75,7 +75,7 @@ Academic Staff Appraisal Form
                                                 <select name="sentto_id" class="form-control" required>
                                                     <option selected="disabled">Select Appriaser</option>
                                                     @foreach ($appraisers as $appraiser)
-                                                    <option value="{{$appraiser->id}}">{{$appraiser->firstname.' '.$appraiser->lastname.'  - '.$appraiser->department->name}}</option>
+                                                    <option value="{{$appraiser->id}}">{{$appraiser->title->title.' '.$appraiser->firstname.' '.$appraiser->lastname.'  - '.$appraiser->department->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
