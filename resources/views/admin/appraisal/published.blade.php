@@ -20,7 +20,7 @@ Create Appraisal
         </p>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
 
                 <div class="box">
                     <!-- /.box-header -->
@@ -32,13 +32,18 @@ Create Appraisal
                         <small><a href="{{ route('appraisal.unpublish',$appraisal->id) }}">Unpublish {{ $appraisal->title }}</a></small>
                         @endhasrole
                         
+                        
                         <h5>
                         {{ $appraisal->title }}  
                           <small>
                               <a href="{{ route('appraisalform',$appraisal->id) }}">Fill Appraisal Form</a>
+                              &nbsp; &nbsp; &nbsp;
+                              <span style="color: red">
+                                  Open from {{ date('d M, Y',strtotime($appraisal->starting)) }} to {{ date('d M, Y',strtotime($appraisal->ending)) }} 
+                              </span>
                           </small>
                         </h5> 
-                                    
+                                                            
                         @endforeach
 
                     </div>

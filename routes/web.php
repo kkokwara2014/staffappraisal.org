@@ -102,8 +102,23 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     Route::post('/appraisal-form','AppraisalController@getappraisalform')->name('getappraisalform');
 
     Route::get('/submitted-appraisals','AppraisalController@allsubmittedappraisals')->name('submitted.appraisals');
-    Route::delete('/delete/submitted-appraisals/{id}','AppraisalController@deletesubmittedappraisal')->name('delete.submitted.appraisal');
+    Route::delete('/delete/submitted-appraisals/{appraisal_id}/{user_id}','AppraisalController@deletesubmittedappraisal')->name('delete.submitted.appraisal');
 
+    //submitting each appraisal details
+    Route::post('/appraisal/qualification','QualificationController@store')->name('qualification.store');
+    Route::post('/appraisal/professional/membership','ProfessionalMembershipController@store')->name('profmembership.store');
+    Route::post('/appraisal/promotion','PromotionController@store')->name('promotion.store');
+    Route::post('/appraisal/salaryscale','SalaryscaleController@store')->name('salaryscale.store');
+    Route::post('/appraisal/training','TrainingController@store')->name('training.store');
+    Route::post('/appraisal/additionalqualification','AdditionalQualificationController@store')->name('additionalqualif.store');
+    Route::post('/appraisal/performedduty','PerformedDutiesController@store')->name('performedduty.store');
+    Route::post('/appraisal/publication','PublicationController@store')->name('publication.store');
+    Route::post('/appraisal/production','ProductionController@store')->name('production.store');
+    Route::post('/appraisal/adminresponsibility','AdminResponsibilityController@store')->name('adminrespons.store');
+    Route::post('/appraisal/coursetaught','CourseTaughtController@store')->name('coursetaught.store');
+    Route::post('/appraisal/tloadsummary','TeachingLoadSummaryController@store')->name('tloadsummary.store');
+    Route::post('/appraisal/anyotherinfo','AnyOtherInfoController@store')->name('anyotherinfo.store');
+    Route::post('/appraisal/supportingdoc','SupportingDocumentController@store')->name('supportingdoc.store');
     
     
     

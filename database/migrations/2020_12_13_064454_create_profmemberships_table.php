@@ -18,10 +18,10 @@ class CreateProfmembershipsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('appraisal_id')->index()->unsigned()->nullable();
             $table->bigInteger('user_id')->index()->unsigned()->nullable();
-            $table->string('award')->nullable();
-            $table->string('honour')->nullable();
-            $table->string('member')->nullable();
-            // $table->string('profmembfilename')->nullable();          
+            $table->text('profbody')->nullable();
+            $table->string('membcategory')->nullable();
+            $table->string('membnumb')->nullable();        
+            $table->string('awardyear')->nullable();        
             $table->foreign('appraisal_id')->references('id')->on('appraisals')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

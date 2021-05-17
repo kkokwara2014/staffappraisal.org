@@ -1,12 +1,12 @@
 <div>
-    <h4>2. Professional Membership</h4>
+    <h4>Professional Membership</h4>
     <table class="table">
         <thead>
             <tr>
-                <th>Award </th>
-                <th>Honor </th>
-                <th>Member </th>
-                {{-- <th>File <small style="color: red">[PDF only]</small></th> --}}
+                <th>Professional Body </th>
+                <th>Membership Category </th>
+                <th>Memb. Num. </th>
+                <th>Award Year </th>
                 <th>
                     <button wire:click.prevent="add({{$i}})" class="btn btn-sm btn-success">
                         <span class="fa fa-plus"></span>
@@ -17,26 +17,28 @@
         <tbody>
             @foreach($inputs as $key => $value)
             <tr>
-                <td style="width: 30%">
-                    <input type="text" class="form-control form-control-sm"
-                        name="award[]" 
-                        placeholder="Award">
-    
-                </td>
                 <td style="width: 40%">
                     <input type="text" class="form-control form-control-sm"
-                        name="honour[]" 
-                        placeholder="Honour">
+                        name="profbody[]" 
+                        placeholder="Professional Body">
     
                 </td>
-                <td style="width: 30%">
+                <td style="width: 25%">
                     <input type="text" class="form-control form-control-sm"
-                        name="member[]" 
-                        placeholder="Member">
+                        name="membcategory[]" 
+                        placeholder="Memb. Category">
+    
+                </td>
+                <td style="width: 15%">
+                    <input type="text" class="form-control form-control-sm"
+                        name="membnumb[]" 
+                        placeholder="Memb. Num.">
                 </td>            
-                {{-- <td style="width: 10%">
-                    <input type="file" name="profmembfilename[]" required>
-                </td> --}}
+                <td style="width: 20%">
+                    <input type="date" class="form-control form-control-sm"
+                        name="awardyear[]">
+                </td>            
+                
                 <td>
                     <button wire:click.prevent="remove({{$key}})" class="btn btn-danger btn-sm">
                         <span class="fa fa-times"></span>

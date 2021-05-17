@@ -11,11 +11,11 @@ use App\Appraisaluser;
 use App\Coursetaught;
 use App\Http\Requests\AppraisalStoreRequest;
 use App\Performedduty;
+use App\Production;
 use App\Profmembership;
 use App\Promotion;
 use App\Publication;
 use App\Qualification;
-use App\Role;
 use App\Salaryscale;
 use App\Teachingloadsummary;
 use App\Training;
@@ -48,6 +48,8 @@ class AppraisalController extends Controller
     public function appraisalform($id){
 
         $appraisal_id= $id;
+        $appraisal=Appraisal::where('id',$id)->where('ispublished','1')->first();
+        
         $appraisers=User::whereHas(
             'roles',function($q){
                 $q->where('name','HOD')
@@ -57,12 +59,27 @@ class AppraisalController extends Controller
             }
         )->get();
 
+        $qualifications=Qualification::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $profmembs=Profmembership::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $promotions=Promotion::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $salaryscales=Salaryscale::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $trainings=Training::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $additionalquals=Additionalqualif::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $performedduties=Performedduty::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $publications=Publication::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $productions=Production::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $adminrespons=Adminresponsibility::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $taughtcourses=Coursetaught::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $tloadsummaries=Teachingloadsummary::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $anyotherinfos=Anyotherinfo::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+        $uploadedfiles=UploadedFile::where('appraisal_id',$id)->where('user_id',auth()->user()->id)->count();
+
         if (Auth::user()->category_id==2) {
-            return view('admin.appraisal.academicform',array('user'=>Auth::user()),compact('appraisal_id','appraisers'));
+            return view('admin.appraisal.academicform',array('user'=>Auth::user()),compact('appraisal_id','appraisers','appraisal','qualifications','profmembs','promotions','salaryscales','trainings','additionalquals','performedduties','publications','productions','adminrespons','taughtcourses','tloadsummaries','anyotherinfos','uploadedfiles'));
         } elseif (Auth::user()->category_id==3) {
-            return view('admin.appraisal.nonacademicform',array('user'=>Auth::user()),compact('appraisal_id','appraisers'));
+            return view('admin.appraisal.nonacademicform',array('user'=>Auth::user()),compact('appraisal_id','appraisers','appraisal','qualifications','profmembs','promotions','salaryscales','trainings','additionalquals','performedduties','publications','productions','adminrespons','taughtcourses','tloadsummaries','anyotherinfos','uploadedfiles'));
         } elseif(Auth::user()->category_id==4) {
-            return view('admin.appraisal.juniorstaffform',array('user'=>Auth::user()),compact('appraisal_id','appraisers'));
+            return view('admin.appraisal.juniorstaffform',array('user'=>Auth::user()),compact('appraisal_id','appraisers','appraisal','qualifications','profmembs','promotions','salaryscales','trainings','additionalquals','performedduties','publications','productions','adminrespons','taughtcourses','tloadsummaries','anyotherinfos','uploadedfiles'));
         }
 
         
@@ -215,59 +232,108 @@ class AppraisalController extends Controller
         return view('admin.staff.submittedappraisals',array('user'=>Auth::user()),compact('submittedappraisals'));
     }
 
-    public function deletesubmittedappraisal($id){
+    // public function deletesubmittedappraisal($id){
+    public function deletesubmittedappraisal($appraisal_id,$user_id){
         //deleting submitted appraisals
-        $submittedappraisal=Appraisaluser::find($id);
+        $appraisaluser=Appraisaluser::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->first();
+        $appraisaluser->delete();
         
-        $quali=Qualification::find($submittedappraisal->appraisal_id);
-        $quali->delete();
+        
+        $qualifs=Qualification::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($qualifs)>0){
+            foreach($qualifs as $qualif){
+                    $qualif->delete();
+            }
+        }
 
-        $profmemb=Profmembership::find($submittedappraisal->appraisal_id);
-        $profmemb->delete();
+        $profmembs=Profmembership::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($profmembs)>0){
+            foreach($profmembs as $profmemb){
+                $profmemb->delete();
+            }
+        }
 
-        $promo=Promotion::find($submittedappraisal->appraisal_id);
-        $promo->delete();
+        $promos=Promotion::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($promos)>0){
+            foreach($promos as $promo){
+                $promo->delete();
+            }
+        }
 
-        $salscal=Salaryscale::find($submittedappraisal->appraisal_id);
-        $salscal->delete();
+        $salscale=Salaryscale::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->first();
+        $salscale->delete();
+        
+        
 
-        $tran=Training::find($submittedappraisal->appraisal_id);
-        $tran->delete();
+        $trainings=Training::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($trainings)>0){
+            foreach($trainings as $training){
+                $training->delete();
+            }
+        }
 
-        $aditqual=Additionalqualif::find($submittedappraisal->appraisal_id);
-        $aditqual->delete();
+        $aditqualifs=Additionalqualif::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($aditqualifs)>0){
+            foreach($aditqualifs as $aditqualif){
+                $aditqualif->delete();
+            }
+        }
 
-        $perfduty=Performedduty::find($submittedappraisal->appraisal_id);
+        $perfduty=Performedduty::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->first();
         $perfduty->delete();
+       
+        
 
-        $publica=Publication::find($submittedappraisal->appraisal_id);
-        $publica->delete();
+        $publications=Publication::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($publications)>0){
+            foreach($publications as $publication){
+                $publication->delete();
+            }
+        }
 
-        $adminres=Adminresponsibility::find($submittedappraisal->appraisal_id);
-        $adminres->delete();
+        $adminrespons=Adminresponsibility::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($adminrespons)>0){
+            foreach($adminrespons as $adminrespon){
+                $adminrespon->delete();
+            }
+        }
 
-        $cotaught=Coursetaught::find($submittedappraisal->appraisal_id);
-        $cotaught->delete();
+        $cotaughts=Coursetaught::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($cotaughts)>0){
+            foreach($cotaughts as $cotaught){
+                $cotaught->delete();
+            }
+        }
 
-        $teachload=Teachingloadsummary::find($submittedappraisal->appraisal_id);
-        $teachload->delete();
+        $teachloads=Teachingloadsummary::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($teachloads)>0){
+            foreach($teachloads as $teachload){
+                    $teachload->delete();
+            }
+        }
 
-        $anyotherinfo=Anyotherinfo::find($submittedappraisal->appraisal_id);
+        $anyotherinfo=Anyotherinfo::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->first();
         $anyotherinfo->delete();
 
-        $apprascore=Appraisalscore::find($submittedappraisal->appraisal_id);
+        
+
+        $apprascore=Appraisalscore::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->first();            
         $apprascore->delete();
+        
+        
 
-
-        $submittedappraisal->delete();
 
         //deleting uploaded appraisal documents
-        $uploadedfile=Uploadedfile::find($id);
-        $uploadedfile->delete();
+        $uploadedfiles=where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($uploadedfiles)>0){
+            foreach($uploadedfiles as $uploadedfile){
+                $uploadedfile->delete();
+                //deleting manifesto files from folder
+                // File::delete([public_path('storage/staff_appraisal_documents/' . $uploadedfile->filename)]);
+            }
+        }
 
-        //deleting manifesto files from folder
-        File::delete([public_path('storage/staff_appraisal_documents/' . $uploadedfile->filename)]);
 
-        return redirect()->back()->with('deleted','Appraisal deleted successfully!');
+        return redirect()->back()->with('deleted','Staff Appraisal deleted successfully!');
     }
 }

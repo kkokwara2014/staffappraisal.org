@@ -53,7 +53,7 @@
                                     <td>{{$staff->lastname}}</td>
                                     <td>{{$staff->firstname}}</td>
                                     <td>{{$staff->staffnumb}}</td>
-                                    <td>{{$staff->phone}}</td>
+                                    <td><a href="tel:{{$staff->phone}}" title="Tap to Call">{{$staff->phone}}</a></td>
                                     <td>
                                         @if ($staff->department->id!=1)
                                         {{$staff->department->name}} <small>[{{ $staff->school->name }}]</small>

@@ -64,21 +64,23 @@
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
-                                    <th>Honour</th>
-                                    <th>Institution</th>
-                                    <th>Acronym</th>
+                                    <th>Professional Body</th>
+                                    <th>Member Category</th>
+                                    <th>Member Number</th>
+                                    <th>Award Year</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($staffs as $staff) --}}
+                                
                                 @foreach ($profmemberships as $profmemb)
                                 <div>
                                     @if ($profmemb->user_id==$staff->id)
                                     <tr>
-                                        <td>{{ $profmemb->honour }}</td>
-                                        <td>{{ $profmemb->award }}</td>
-                                        <td>{{ $profmemb->member }}</td>
+                                        <td>{{ $profmemb->profbody }}</td>
+                                        <td>{{ $profmemb->membcategory }}</td>
+                                        <td>{{ $profmemb->membnumb }}</td>
+                                        <td>{{ $profmemb->awardyear }}</td>
 
                                     </tr>
 
@@ -433,8 +435,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">
-                                                    <strong>Appraisal Score
-                                                        {{ $staff->id.'-'.request()->segment(4) }}</strong>
+                                                    <strong>Appraisal Score for 
+                                                        {{ $staff->firstname.' '.$staff->lastname }}</strong>
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-hidden="true">&times;</button>

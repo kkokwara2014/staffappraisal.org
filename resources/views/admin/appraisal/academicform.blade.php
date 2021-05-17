@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Non-Academic Staff Appraisal Form
+Academic Staff Appraisal Form
 @endsection
 
 @section('content')
@@ -41,6 +41,7 @@ Non-Academic Staff Appraisal Form
                             </p>
                             @endif
                             <div class="row">
+                                
                                 <div class="col-md-6">
                                     <ul class="list-group">
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -85,7 +86,7 @@ Non-Academic Staff Appraisal Form
                                                                         more submission <span </small> 
                                                                         </span>
                                                                            
-                                                                @endif
+                                                                @endif 
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -111,7 +112,7 @@ Non-Academic Staff Appraisal Form
                                                                         more submission <span </small> 
                                                                         </span>
                                                                            
-                                                                @endif
+                                                                @endif 
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -177,56 +178,111 @@ Non-Academic Staff Appraisal Form
                                                                 <small>
                                                                     <span class="badge badge-success"
                                                                         style="background-color: red; color: honeydew">No
-                                                                        more submission <span </small> @endif </span>
-                                                                            </li> </ul> </div> <div class="col-md-6">
-                                                                            <ul class="list-group">
-                                                                                <li class="list-group-item"
-                                                                                    style="margin-bottom: 4px">
+                                                                        more submission <span </small> 
+                                                                        </span>
+                                                                           
+                                                                @endif 
+                                                                        
+                                                            </li> 
+                                                                <li class="list-group-item"
+                                                                            style="margin-bottom: 4px">
+                                                                            <span
+                                                                                style="font-size: 17px; font-weigth:bold">Duties
+                                                                                Performed <i
+                                                                                    style="color: red">*</i></span>
+                                                                            <span style="float: right">
+                                                                                @if (!$performedduties>0)
+                                                                                <a href="#" data-toggle="modal"
+                                                                                    data-target="#modal-perfduties-{{ $appraisal_id }}">
                                                                                     <span
-                                                                                        style="font-size: 17px; font-weigth:bold">Duties
-                                                                                        Performed <i
-                                                                                            style="color: red">*</i></span>
-                                                                                    <span style="float: right">
-                                                                                        @if (!$performedduties>0)
-                                                                                        <a href="#" data-toggle="modal"
-                                                                                            data-target="#modal-perfduties-{{ $appraisal_id }}">
-                                                                                            <span
-                                                                                                class="fa fa-plus-circle fa-2x"></span>
-                                                                                        </a>
-                                                                                        @else
-                                                                                        <small>
-                                                                                            <span
-                                                                                                class="badge badge-success"
-                                                                                                style="background-color: green; color: honeydew">Submitted
-                                                                                                <span
-                                                                                                    class="fa fa-check-circle-o"></span></span>
-                                                                                        </small>
-                                                                                        @endif
-                                                                                    </span>
-                                                                                </li>
+                                                                                        class="fa fa-plus-circle fa-2x"></span>
+                                                                                </a>
+                                                                                @else
+                                                                                <small>
+                                                                                    <span class="badge badge-success"
+                                                                                        style="background-color: green; color: honeydew">Submitted
+                                                                                        <span
+                                                                                            class="fa fa-check-circle-o"></span></span>
+                                                                                </small>
+                                                                                @endif
+                                                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-group">
 
-                                                                                <li class="list-group-item"
-                                                                                    style="margin-bottom: 4px">
-                                                                                    <span
-                                                                                        style="font-size: 17px; font-weigth:bold">Publications</span>
-                                                                                    <span style="float: right">
-                                                                                        @if (!$uploadedfiles>0)
-                                                                                        @if (!$publications>0)
-                                                                                        <a href="#" data-toggle="modal"
-                                                                                            data-target="#modal-publication-{{ $appraisal_id }}">
-                                                                                            <span
-                                                                                                class="fa fa-plus-circle fa-2x"></span>
-                                                                                        </a>
-                                                                                        @else
-                                                                                        <small>
-                                                                                            <span
-                                                                                                class="badge badge-success"
-                                                                                                style="background-color: green; color: honeydew">Submitted
-                                                                                                <span
-                                                                                                    class="fa fa-check-circle-o"></span></span>
-                                                                                        </small>
-                                                                                        @endif
-                                                                                        @else
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Publications</span>
+                                            <span style="float: right">
+                                                @if (!$uploadedfiles>0)
+                                                @if (!$publications>0)
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-publication-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+                                                @else
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: green; color: honeydew">Submitted <span
+                                                            class="fa fa-check-circle-o"></span></span>
+                                                </small>
+                                                @endif
+                                                @else
+                                                                <small>
+                                                                    <span class="badge badge-success"
+                                                                        style="background-color: red; color: honeydew">No
+                                                                        more submission <span </small> 
+                                                                        </span>
+                                                                           
+                                                                @endif 
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Production &
+                                                Achievements</span>
+                                            <span style="float: right">
+                                                @if (!$uploadedfiles>0)
+                                                @if (!$productions>0)
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-production-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+                                                @else
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: green; color: honeydew">Submitted <span
+                                                            class="fa fa-check-circle-o"></span></span>
+                                                </small>
+                                                @endif
+                                                @else
+                                                                <small>
+                                                                    <span class="badge badge-success"
+                                                                        style="background-color: red; color: honeydew">No
+                                                                        more submission <span </small> 
+                                                                        </span>
+                                                                           
+                                                                @endif 
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Administrative
+                                                Responsibility</span>
+                                            <span style="float: right">
+                                                @if (!$uploadedfiles>0)
+                                                @if (!$adminrespons>0)
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-adminrespons-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+                                                @else
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: green; color: honeydew">Submitted <span
+                                                            class="fa fa-check-circle-o"></span></span>
+                                                </small>
+                                                @endif
+                                                @else
                                                                 <small>
                                                                     <span class="badge badge-success"
                                                                         style="background-color: red; color: honeydew">No
@@ -234,32 +290,57 @@ Non-Academic Staff Appraisal Form
                                                                         </span>
                                                                            
                                                                 @endif
-                                                                                    </span>
-                                                                                </li>
 
-                                                                                <li class="list-group-item"
-                                                                                    style="margin-bottom: 4px">
-                                                                                    <span
-                                                                                        style="font-size: 17px; font-weigth:bold">Administrative
-                                                                                        Responsibility</span>
-                                                                                    <span style="float: right">
-                                                                                        @if (!$uploadedfiles>0)
-                                                                                        @if (!$adminrespons>0)
-                                                                                        <a href="#" data-toggle="modal"
-                                                                                            data-target="#modal-adminrespons-{{ $appraisal_id }}">
-                                                                                            <span
-                                                                                                class="fa fa-plus-circle fa-2x"></span>
-                                                                                        </a>
-                                                                                        @else
-                                                                                        <small>
-                                                                                            <span
-                                                                                                class="badge badge-success"
-                                                                                                style="background-color: green; color: honeydew">Submitted
-                                                                                                <span
-                                                                                                    class="fa fa-check-circle-o"></span></span>
-                                                                                        </small>
-                                                                                        @endif
-                                                                                        @else
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Course(s) Taught</span>
+                                                <span style="float: right">
+                                                @if (!$uploadedfiles>0)
+                                                @if (!$taughtcourses>0)
+                                                    <a href="#" data-toggle="modal"
+                                                        data-target="#modal-taughtcourses-{{ $appraisal_id }}">
+                                                        <span class="fa fa-plus-circle fa-2x"></span>
+                                                    </a>
+                                                
+                                                    @else
+                                                    <small>
+                                                        <span class="badge badge-success"
+                                                            style="background-color: green; color: honeydew">Submitted
+                                                            <span class="fa fa-check-circle-o"></span>
+                                                        </span>
+                                                    </small>
+                                                    @endif
+                                                    @else
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: red; color: honeydew">No
+                                                                        more submission 
+                                                            </span>
+                                                        </small> 
+                                                                
+                                                                           
+                                                    @endif
+                                            </span>
+                                                
+                                        </li>
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Teaching Load Summary </span>
+                                            <span style="float: right">
+                                                @if (!$uploadedfiles>0)
+                                                @if (!$tloadsummaries>0)
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-tloadsummary-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+                                                @else
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: green; color: honeydew">Submitted <span
+                                                            class="fa fa-check-circle-o"></span></span>
+                                                </small>
+                                                @endif
+                                                @else
                                                                 <small>
                                                                     <span class="badge badge-success"
                                                                         style="background-color: red; color: honeydew">No
@@ -267,86 +348,64 @@ Non-Academic Staff Appraisal Form
                                                                         </span>
                                                                            
                                                                 @endif
-                                                                                    </span>
-                                                                                </li>
-
-
-                                                                                <li class="list-group-item"
-                                                                                    style="margin-bottom: 4px">
-                                                                                    <span
-                                                                                        style="font-size: 17px; font-weigth:bold">Any
-                                                                                        Other Information <i
-                                                                                            style="color: red">*</i></span>
-                                                                                    <span style="float: right">
-                                                                                        @if (!$anyotherinfos>0)
-                                                                                        <a href="#" data-toggle="modal"
-                                                                                            data-target="#modal-anyotherinfo-{{ $appraisal_id }}">
-                                                                                            <span
-                                                                                                class="fa fa-plus-circle fa-2x"></span>
-                                                                                        </a>
-                                                                                        @else
-                                                                                        <small>
-                                                                                            <span
-                                                                                                class="badge badge-success"
-                                                                                                style="background-color: green; color: honeydew">Submitted
-                                                                                                <span
-                                                                                                    class="fa fa-check-circle-o"></span></span>
-                                                                                        </small>
-                                                                                        @endif
-                                                                                    </span>
-                                                                                </li>
-                                                                                
-                                                                                @if ($qualifications>0 && $salaryscales>0 && $performedduties>0 && $anyotherinfos>0)
-                                                                                    
-                                                                                <li class="list-group-item"
-                                                                                    style="margin-bottom: 4px">
-                                                                                    <span
-                                                                                        style="font-size: 17px; font-weigth:bold">Upload
-                                                                                        Supporting Documents
-                                                                                        <i
-                                                                                            style="color: red">*</i></span>
-                                                                                    <span style="float: right">
-                                                                                        @if (!$uploadedfiles>0)
-                                                                                        <a href="#" data-toggle="modal"
-                                                                                            data-target="#modal-uploadfiles-{{ $appraisal_id }}">
-                                                                                            <span
-                                                                                                class="fa fa-plus-circle fa-2x"></span>
-                                                                                        </a>
-                                                                                        @else
-                                                                                        <small>
-                                                                                            <span
-                                                                                                class="badge badge-success"
-                                                                                                style="background-color: green; color: honeydew">Submitted
-                                                                                                <span
-                                                                                                    class="fa fa-check-circle-o"></span></span>
-                                                                                        </small>
-                                                                                        @endif
-                                                                                    </span>
-                                                                                </li>
-                                                                                @endif  
-
-
-                                                                            </ul>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Any Other Information <i
+                                                    style="color: red">*</i></span>
+                                            <span style="float: right">
+                                                @if (!$anyotherinfos>0)
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-anyotherinfo-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+                                                @else
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: green; color: honeydew">Submitted <span
+                                                            class="fa fa-check-circle-o"></span></span>
+                                                </small>
+                                                @endif
+                                            </span>
+                                        </li>
+                                        @if ($qualifications>0 && $salaryscales>0 && $performedduties>0 && $anyotherinfos>0)
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Upload Supporting Documents
+                                                <i style="color: red">*</i></span>
+                                            <span style="float: right">
+                                                @if (!$uploadedfiles>0)
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-uploadfiles-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+                                                @else
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: green; color: honeydew">Submitted <span
+                                                            class="fa fa-check-circle-o"></span></span>
+                                                </small>
+                                                @endif
+                                            </span>
+                                        </li>
+                                        @endif
+                                    </ul>
                                 </div>
                             </div>
 
                             <p>
-                                <a href="{{ route('submitted.appraisals') }}" class="btn btn-primary btn-sm"><span
-                                        class="fa fa-eye"></span> Submitted Appraisals</a>
+                                <a href="{{ route('submitted.appraisals') }}" class="btn btn-primary btn-sm"><span class="fa fa-eye"></span> Submitted Appraisals</a>
                             </p>
 
                             @else
                             <p style="text-align: justify; font-size: 20px; color: red">
 
-                                Dear {{ $user->title->title.' '.$user->firstname.' '.$user->lastname }}, no form to be
-                                filled at the moment! <br>
+                                Dear {{ $user->title->title.' '.$user->firstname.' '.$user->lastname }}, no form to be filled at the moment! <br>
                                 {{ $appraisal->title }} will start on
                                 {{ date('d M, Y',strtotime($appraisal->starting)) }} and
                                 end on {{ date('d M, Y',strtotime($appraisal->ending)) }}.
                             </p>
                             <p>
-                                <a href="{{ route('appraisals.published') }}" class="btn btn-primary btn-sm">Published
-                                    Appraisals</a>
+                                <a href="{{ route('appraisals.published') }}" class="btn btn-primary btn-sm">Published Appraisals</a>
                             </p>
 
                             @endif
@@ -362,7 +421,7 @@ Non-Academic Staff Appraisal Form
         <div class="modal fade" id="modal-qualification-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('qualification.store') }}" method="post"  onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('qualification.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
