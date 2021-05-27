@@ -28,4 +28,8 @@ class TeachingLoadSummaryController extends Controller
         return redirect()->back()->with('success','Teaching Laod summary submitted successfully!');
 
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

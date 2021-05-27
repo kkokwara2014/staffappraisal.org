@@ -23,4 +23,8 @@ class ProductionController extends Controller
 
         return redirect()->back()->with('success','Production/Workshop submitted successfully!');
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

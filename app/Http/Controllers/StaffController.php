@@ -339,6 +339,8 @@ class StaffController extends Controller
 
         $staff_id=$staffid;
 
+        $staffappraisalscore=Appraisalscore::where('appraisal_id',$appraisal_id)->where('user_id',$staffid)->first();
+
         // return $staff_id;
         
         // $staffs=User::where('profileupdated','1')->get();
@@ -375,7 +377,7 @@ class StaffController extends Controller
         $anyotherinfos=Anyotherinfo::where('appraisal_id',$lastAnyInfoID)->get();
 
 
-        $staffappraisalscores=Appraisalscore::where('appraisal_id',$lastAppScoreID)->where('user_id',$staff_id)->get();
+        // $staffappraisalscore=Appraisalscore::where('appraisal_id',$lastAppScoreID)->where('user_id',$staff_id)->get();
         
         // $qualifications=Qualification::where('appraisal_id',$appraisal_id)->get();
         // $profmemberships=Profmembership::where('appraisal_id',$appraisal_id)->get();
@@ -394,7 +396,7 @@ class StaffController extends Controller
 
         // $staffappraisalscores=Appraisalscore::where('appraisal_id',$appraisal_id)->where('user_id',$staff_id)->get();
                 
-        return view('admin.staff.staffappraisaldetails',array('user'=>Auth::user()),compact('qualifications','salaryscales','staff','profmemberships','promotions','trainings','additionalqualifs','performedduties','publications','productions','adminrespons','taughtcourses','teachingloadsummaries','anyotherinfos','staff_id','staffappraisalscores'));
+        return view('admin.staff.staffappraisaldetails',array('user'=>Auth::user()),compact('qualifications','salaryscales','staff','profmemberships','promotions','trainings','additionalqualifs','performedduties','publications','productions','adminrespons','taughtcourses','teachingloadsummaries','anyotherinfos','staff_id','staffappraisalscore'));
     }
 
 

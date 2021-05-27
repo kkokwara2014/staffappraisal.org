@@ -18,6 +18,7 @@ class CreateAppraisalusersTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('appraisal_id')->index()->unsigned()->nullable();
             $table->bigInteger('user_id')->index()->unsigned()->nullable();
+            $table->bigInteger('sentto_id')->index()->unsigned()->nullable();
             $table->foreign('appraisal_id')->references('id')->on('appraisals')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

@@ -22,4 +22,8 @@ class PromotionController extends Controller
 
         return redirect()->back()->with('success','Promotion submitted successfully!');
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

@@ -57,4 +57,8 @@ class SupportingDocumentController extends Controller
         return redirect()->back()->with('success','Supporting Document(s) uploaded successfully!');
 
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

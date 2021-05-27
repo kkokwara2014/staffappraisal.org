@@ -19,4 +19,8 @@ class SalaryscaleController extends Controller
 
         return redirect()->back()->with('success','Salary Scale submitted successfully!');
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

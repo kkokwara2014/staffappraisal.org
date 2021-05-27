@@ -18,4 +18,8 @@ class AnyOtherInfoController extends Controller
 
         return redirect()->back()->with('success','Any other information submitted successfully!');
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

@@ -23,4 +23,7 @@ class Appraisal extends Model
     public function uploadedfiles(){
         return $this->hasMany(Uploadedfile::class);
     }
+    public function appraisalscores(){
+        return $this->hasMany(Appraisalscore::class);
+    }
 }

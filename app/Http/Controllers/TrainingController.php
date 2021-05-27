@@ -22,4 +22,8 @@ class TrainingController extends Controller
 
         return redirect()->back()->with('success','Training submitted successfully!');
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

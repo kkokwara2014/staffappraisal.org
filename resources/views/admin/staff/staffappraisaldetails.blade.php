@@ -15,7 +15,8 @@
 
         <div class="row">
             <div class="col-md-12">
-               
+                @include('admin.messages.success')
+
                 <p>
                     <a href="{{ url()->previous() }}" class="btn btn-primary btn-sm">
                         Back</a>
@@ -72,7 +73,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                                 @foreach ($profmemberships as $profmemb)
                                 <div>
                                     @if ($profmemb->user_id==$staff->id)
@@ -401,42 +402,48 @@
                                 {{-- only HOD can score staff under him/her --}}
 
                                 @hasrole('HOD')
-                                    @if ($staff->department_id==Auth::user()->department_id)
-                                    <form action="{{ route('appraisalscoreform',$staff->id) }}" method="post">
-                                        @csrf
+                                @if ($staff->department_id==Auth::user()->department_id)
 
-                                        <input type="hidden" name="user_id" value="{{ $staff->id }}">
-                                        <input type="hidden" name="appraisal_id" value="{{ request()->segment(4) }}">
+                                @if ($staffappraisalscore==NULL)
+                                <p>
+                                    <a href="{{ route('getappraisalscoreform',[$aoi->appraisal_id,$staff->id]) }}"
+                                        class="btn btn-primary btn-sm">Score this Staff</a>
+                                </p>
+                                @endif
 
-                                        <button type="submit" class="btn btn-primary btn-sm"><span
-                                                class="fa fa-check"></span> Score this Staff</button>
-                                    </form>
-                                    @endif
+                                {{-- <form action="{{ route('appraisalscoreform',$staff->id) }}" method="post">
+                                @csrf
+
+                                <input type="hidden" name="user_id" value="{{ $staff->id }}">
+                                <input type="hidden" name="appraisal_id" value="{{ request()->segment(4) }}">
+
+                                <button type="submit" class="btn btn-primary btn-sm"><span class="fa fa-check"></span>
+                                    Score this Staff</button>
+                                </form> --}}
+                                @endif
                                 @endhasrole
 
 
-                                @if (count($staffappraisalscores)>0)
-                                
-                                @foreach ($staffappraisalscores as $sascore)
-                                
-                                {{-- @if (($sascore->appraisal_id!=request()->segment(4) && $sascore->user_id!=$staff->id)) --}}
-                                
-                                    <br>
-                                    <a href="#" data-toggle="modal"
-                                        data-target="#modal-{{ $staff->id.'-'.request()->segment(4) }}"
-                                        class="btn btn-primary btn-sm"><span class="fa fa-eye"></span> Check Score</a>
-                                
+                                @if ($staffappraisalscore!=NULL)
+                                <br>
+                                @if ($staff->id==auth()->user()->id)
+                                    
+                                <a href="#" data-toggle="modal"
+                                    data-target="#modal-{{ $staffappraisalscore->appraisal_id.'-'.$staffappraisalscore->user_id }}"
+                                    class="btn btn-primary btn-sm"><span class="fa fa-eye"></span> Check Score</a>
+                                @endif
 
                                 {{-- appraisal score modal  --}}
-                                <div class="modal fade" id="modal-{{ $staff->id.'-'.request()->segment(4) }}"
+                                <div class="modal fade"
+                                    id="modal-{{ $staffappraisalscore->appraisal_id.'-'.$staffappraisalscore->user_id }}"
                                     tabindex="-1" role="dialog">
                                     <div class="modal-dialog modal-lg">
 
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">
-                                                    <strong>Appraisal Score for 
-                                                        {{ $staff->firstname.' '.$staff->lastname }}</strong>
+                                                    <strong>Appraisal Score for
+                                                        {{ $staff->firstname.' '.$staff->lastname.' ['.$staff->staffnumb.']' }}</strong>
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-hidden="true">&times;</button>
@@ -459,68 +466,82 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($staffappraisalscores as $stappscore)
+
                                                                     <tr>
-                                                                        <td>{{ $stappscore->publicationscore }}</td>
-                                                                        <td>{{ $stappscore->productionscore }}</td>
-                                                                        <td>{{ $stappscore->adminresponscore }}</td>
-                                                                        <td>{{ $stappscore->qualificationscore }}</td>
-                                                                        <td>{{ $stappscore->abilityscore }}</td>
-                                                                        <td>{{ $stappscore->servicelengthscore }}</td>
+                                                                        <td>{{ $staffappraisalscore->publicationscore }}
+                                                                        </td>
+                                                                        <td>{{ $staffappraisalscore->productionscore }}
+                                                                        </td>
+                                                                        <td>{{ $staffappraisalscore->adminresponscore }}
+                                                                        </td>
+                                                                        <td>{{ $staffappraisalscore->qualificationscore }}
+                                                                        </td>
+                                                                        <td>{{ $staffappraisalscore->abilityscore }}
+                                                                        </td>
+                                                                        <td>{{ $staffappraisalscore->servicelengthscore }}
+                                                                        </td>
                                                                         <td>
-                                                                            @if ($stappscore->totalscore>50)
+                                                                            @if ($staffappraisalscore->totalscore>50)
                                                                             <span class="badge badge-pill badge-success"
-                                                                                style="color:white;background:green;">{{ $stappscore->totalscore }}</span>
+                                                                                style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
                                                                             @else
                                                                             <span class="badge badge-pill badge-success"
-                                                                                style="color:white;background:red;">{{ $stappscore->totalscore }}</span>
+                                                                                style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
                                                                             @endif
 
 
                                                                         </td>
                                                                     </tr>
-                                                                    @endforeach
+
                                                                 </tbody>
 
                                                             </table>
                                                         </div>
                                                         <hr>
                                                         <div>
-                                                            @foreach ($staffappraisalscores as $stappscore)
-                                                                <div>
-                                                                    <label>Free comment</label>
-                                                                    <p style="text-align:justify">
-                                                                        {{ $stappscore->freecomment }}
-                                                                    </p>
-                                                                </div>
-                                                                <div>
-                                                                    <label>Recommendation</label>
-                                                                    <p style="text-align:justify">
-                                                                    {{ $stappscore->recommendation }}
-                                                                    </p>
-                                                                </div>
-                                                            @endforeach
+
+                                                            <div>
+                                                                <label>Free comment by the Appraiser</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->freecomment }}
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <label>Recommendation by the Appraiser</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->recommendation }}
+                                                                </p>
+                                                            </div>
+
 
                                                         </div>
-                                                        
+
+                                                        @if ($staffappraisalscore->staffcommented==0)
                                                         <div>
                                                             <p>
                                                                 <label>Accept or Reject</label>
                                                             </p>
-                                                            
-                                                            <form action="" method="post">
-                                                                @csrf
-                                                                <textarea class="form-control" name="reason" cols="30" rows="3" required placeholder="Your comment here" autofocus>
 
-                                            </textarea>
-<br>
-                                                                
-                                                                    <button type="submit"
+                                                            <form action="{{ route('appraisalscore.acceptorreject',[$staffappraisalscore->appraisal_id,$staffappraisalscore->user_id]) }}" method="post">
+                                                                @csrf
+                                                                <textarea class="form-control"
+                                                                    name="acceptorrejectreason" cols="30" rows="3"
+                                                                    required placeholder="Your comment here"
+                                                                    autofocus></textarea>
+                                                                <br> <button type="submit"
                                                                     class="btn btn-primary btn-sm">Submit</button>
-                                                                
+
                                                             </form>
 
                                                         </div>
+
+                                                        @else
+                                                        <label>Staff Comment</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->acceptorrejectcomment }}
+                                                        </p>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -532,17 +553,15 @@
                                     </div>
 
                                 </div>
-                                
-                                
-                                {{-- @endif --}}
-                                @endforeach
+
+
                                 @else
                                 <br>
                                 <p>No Score yet!</p>
-                                    
+
                                 @endif
-                                
-                                {{-- @livewire('scorestaff') --}}
+
+
                             </p>
 
                             @endif

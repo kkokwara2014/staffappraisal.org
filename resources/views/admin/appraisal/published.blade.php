@@ -36,7 +36,7 @@ Create Appraisal
                         <h5>
                         {{ $appraisal->title }}  
                           <small>
-                              <a href="{{ route('appraisalform',$appraisal->id) }}">Fill Appraisal Form</a>
+                              <a href="{{ route('appraisalform',$appraisal->slug) }}">Fill Appraisal Form</a>
                               &nbsp; &nbsp; &nbsp;
                               <span style="color: red">
                                   Open from {{ date('d M, Y',strtotime($appraisal->starting)) }} to {{ date('d M, Y',strtotime($appraisal->ending)) }} 

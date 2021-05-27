@@ -97,7 +97,7 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     Route::get('appraisal/{id}/publish', 'AppraisalController@publish')->name('appraisal.publish');
     Route::get('appraisal/{id}/unpublish', 'AppraisalController@unpublish')->name('appraisal.unpublish');
 
-    Route::get('/appraisal/form/{id?}','AppraisalController@appraisalform')->name('appraisalform');
+    Route::get('/appraisal/form/{slug}','AppraisalController@appraisalform')->name('appraisalform');
 
     Route::post('/appraisal-form','AppraisalController@getappraisalform')->name('getappraisalform');
 
@@ -141,6 +141,8 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
 
 
     Route::post('appraisal/score-form/{staff_id?}',[AppraisalscoreController::class,'scoreform'])->name('appraisalscoreform');
+    Route::get('staff/appraisal/score-form/{appraisalid}/{staffid}',[AppraisalscoreController::class,'getscoreform'])->name('getappraisalscoreform');
+    Route::post('staff/appraisal/acceptorreject/{appraisalid}/{staffid}',[ScoreAppraisalController::class,'acceptorrejectcomment'])->name('appraisalscore.acceptorreject');
     
     Route::post('save/appraisal/score',[ScoreAppraisalController::class,'store'])->name('store.appraisal.score');
 

@@ -22,4 +22,8 @@ class QualificationController extends Controller
 
         return redirect()->back()->with('success','Qualification submitted successfully!');
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

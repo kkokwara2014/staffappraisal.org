@@ -27,4 +27,8 @@ class CourseTaughtController extends Controller
         return redirect()->back()->with('success','Courses Taught submitted successfully!');
 
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }

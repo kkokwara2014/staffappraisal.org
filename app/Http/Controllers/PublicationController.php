@@ -24,4 +24,8 @@ class PublicationController extends Controller
 
         return redirect()->back()->with('success','Publication submitted successfully!');
     }
+
+    public function delete($appraisal_id,$user_id){
+
+    }
 }
