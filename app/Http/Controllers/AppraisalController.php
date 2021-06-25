@@ -408,7 +408,7 @@ class AppraisalController extends Controller
         return true;
     }
 
-    public function destroyQulif($appraisal_id, $position){
+    public function destroyAppraisal($appraisal_id, $position){
       
        if((int)$position === 1) $this->deleteMulti($model = new Qualification, $appraisal_id);
 

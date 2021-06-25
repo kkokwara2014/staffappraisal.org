@@ -69,7 +69,7 @@ Academic Staff Appraisal Form
                                                         </a> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 1])}}" >
+                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 1])}}" >
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
@@ -103,7 +103,7 @@ Academic Staff Appraisal Form
                                                         </a> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 2])}}" >
+                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 2])}}" >
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
@@ -144,7 +144,7 @@ Academic Staff Appraisal Form
                                                         </a> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 3])}}" >
+                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 3])}}" >
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
@@ -185,7 +185,7 @@ Academic Staff Appraisal Form
                                                         </a> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 4])}}" >
+                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 4])}}" >
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
@@ -219,7 +219,7 @@ Academic Staff Appraisal Form
                                                         </a> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 5])}}" >
+                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 5])}}" >
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
@@ -257,7 +257,7 @@ Academic Staff Appraisal Form
                                                                         </a> 
                                                                     </div>
                                                                     <div class="col-md-3 col-xs-3">
-                                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 6])}}">
+                                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 6])}}">
                                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                                         </a>
                                                                     </div>
@@ -298,7 +298,7 @@ Academic Staff Appraisal Form
                                                                                 </a> 
                                                                             </div>
                                                                             <div class="col-md-3 col-xs-3">
-                                                                                <a href="{{route('delete.appraisals', [$appraisal_id, 7])}}" >
+                                                                                <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 7])}}" >
                                                                                     <span class="fa fa-trash-o fa-2x"></span>
                                                                                 </a>
                                                                             </div>
@@ -336,7 +336,7 @@ Academic Staff Appraisal Form
                                                         </a> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 8])}}" >
+                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 8])}}" >
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
@@ -379,7 +379,7 @@ Academic Staff Appraisal Form
                                                         </a> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 9])}}" >
+                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 9])}}" >
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
@@ -420,7 +420,7 @@ Academic Staff Appraisal Form
                                                         </a> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 10])}}" >
+                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 10])}}" >
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
@@ -462,7 +462,7 @@ Academic Staff Appraisal Form
                                                             </a> 
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
-                                                            <a href="{{route('delete.appraisals', [$appraisal_id, 11])}}" >
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 11])}}" >
                                                                 <span class="fa fa-trash-o fa-2x"></span>
                                                             </a>
                                                         </div>
@@ -504,7 +504,7 @@ Academic Staff Appraisal Form
                                                             </a> 
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
-                                                            <a href="{{route('delete.appraisals', [$appraisal_id, 12])}}" >
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 12])}}" >
                                                                 <span class="fa fa-trash-o fa-2x"></span>
                                                             </a>
                                                         </div>
@@ -545,7 +545,7 @@ Academic Staff Appraisal Form
                                                             </a> 
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
-                                                            <a href="{{route('delete.appraisals', [$appraisal_id, 13])}}" >
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 13])}}" >
                                                                 <span class="fa fa-trash-o fa-2x"></span>
                                                             </a>
                                                         </div>
@@ -579,7 +579,7 @@ Academic Staff Appraisal Form
                                                             </a> 
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
-                                                            <a href="{{route('delete.appraisals', [$appraisal_id, 14])}}" >
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 14])}}" >
                                                                 <span class="fa fa-trash-o fa-2x"></span>
                                                             </a>
                                                         </div>
