@@ -54,11 +54,26 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                    class="fa fa-check-circle-o"></span></span>
+                                                        </small> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                            data-target="#modal-qualification-{{ $appraisal_id }}">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 1])}}" >
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 @endif
                                             </span>
                                         </li>
@@ -73,11 +88,26 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                    class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                            data-target="#modal-profmemb-{{ $appraisal_id }}">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 2])}}" >
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 @endif
                                                 @else
                                                                 <small>
@@ -99,11 +129,26 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                    class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                            data-target="#modal-promotion-{{ $appraisal_id }}">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 3])}}" >
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 @endif
                                                 @else
                                                                 <small>
@@ -125,11 +170,26 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                    class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                            data-target="#modal-salaryscale-{{ $appraisal_id }}">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 4])}}" >
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 @endif
                                             </span>
                                         </li>
@@ -144,17 +204,32 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                    class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                            data-target="#modal-training-{{ $appraisal_id }}">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 5])}}" >
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 @endif
                                                 @else
                                                 <small>
                                                     <span class="badge badge-success"
                                                         style="background-color: red; color: honeydew">No more
-                                                        submission <span </small> @endif </span> </li> <li
+                                                        submission </span> </small> @endif  </li> <li
                                                             class="list-group-item" style="margin-bottom: 4px">
                                                             <span style="font-size: 17px; font-weigth:bold">Additional
                                                                 Qualification</span>
@@ -167,45 +242,69 @@ Academic Staff Appraisal Form
                                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                                 </a>
                                                                 @else
-                                                                <small>
-                                                                    <span class="badge badge-success"
-                                                                        style="background-color: green; color: honeydew">Submitted
-                                                                        <span
-                                                                            class="fa fa-check-circle-o"></span></span>
-                                                                </small>
+                                                                <div class="row">
+                                                                    <div class="col-md-6 col-xs-6">
+                                                                        <small>
+                                                                            <span class="badge badge-success"
+                                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                                    class="fa fa-check-circle-o"></span></span>
+                                                                        </small>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-3">
+                                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                                            data-target="#modal-additionalquali-{{ $appraisal_id }}">
+                                                                            <span class="fa fa-edit fa-2x"></span>
+                                                                        </a> 
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-3">
+                                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 6])}}">
+                                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
                                                                 @endif
                                                                 @else
                                                                 <small>
                                                                     <span class="badge badge-success"
                                                                         style="background-color: red; color: honeydew">No
-                                                                        more submission <span </small> 
-                                                                        </span>
+                                                                        more submission </span> 
+                                                                    </small> 
                                                                            
                                                                 @endif 
                                                                         
                                                             </li> 
-                                                                <li class="list-group-item"
-                                                                            style="margin-bottom: 4px">
+                                                                <li class="list-group-item" style="margin-bottom: 4px">
+                                                                    <span style="font-size: 17px; font-weigth:bold">Duties Performed <i style="color: red">*</i></span>
+                                                                    <span style="float: right">
+                                                                        @if (!$performedduties>0)
+                                                                        <a href="#" data-toggle="modal"
+                                                                            data-target="#modal-perfduties-{{ $appraisal_id }}">
                                                                             <span
-                                                                                style="font-size: 17px; font-weigth:bold">Duties
-                                                                                Performed <i
-                                                                                    style="color: red">*</i></span>
-                                                                            <span style="float: right">
-                                                                                @if (!$performedduties>0)
-                                                                                <a href="#" data-toggle="modal"
-                                                                                    data-target="#modal-perfduties-{{ $appraisal_id }}">
-                                                                                    <span
-                                                                                        class="fa fa-plus-circle fa-2x"></span>
-                                                                                </a>
-                                                                                @else
+                                                                                class="fa fa-plus-circle fa-2x"></span>
+                                                                        </a>
+                                                                        @else
+                                                                        <div class="row">
+                                                                            <div class="col-md-6 col-xs-6">
                                                                                 <small>
                                                                                     <span class="badge badge-success"
-                                                                                        style="background-color: green; color: honeydew">Submitted
-                                                                                        <span
+                                                                                        style="background-color: green; color: honeydew">Submitted <span
                                                                                             class="fa fa-check-circle-o"></span></span>
                                                                                 </small>
-                                                                                @endif
-                                                                            </span>
+                                                                            </div>
+                                                                            <div class="col-md-3 col-xs-3">
+                                                                                <a href="#" data-toggle="modal" class="text-warning" 
+                                                                                    data-target="#modal-perfduties-{{ $appraisal_id }}">
+                                                                                    <span class="fa fa-edit fa-2x"></span>
+                                                                                </a> 
+                                                                            </div>
+                                                                            <div class="col-md-3 col-xs-3">
+                                                                                <a href="{{route('delete.appraisals', [$appraisal_id, 7])}}" >
+                                                                                    <span class="fa fa-trash-o fa-2x"></span>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        @endif
+                                                                    </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -222,20 +321,36 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                    class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                            data-target="#modal-publication-{{ $appraisal_id }}">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 8])}}" >
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 @endif
                                                 @else
-                                                                <small>
-                                                                    <span class="badge badge-success"
-                                                                        style="background-color: red; color: honeydew">No
-                                                                        more submission <span </small> 
-                                                                        </span>
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: red; color: honeydew">No
+                                                        more submission 
+                                                    </span> 
+                                                </small>
                                                                            
-                                                                @endif 
+                                                @endif 
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -249,20 +364,34 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                    class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                            data-target="#modal-production-{{ $appraisal_id }}">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 9])}}" >
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 @endif
                                                 @else
-                                                                <small>
-                                                                    <span class="badge badge-success"
-                                                                        style="background-color: red; color: honeydew">No
-                                                                        more submission <span </small> 
-                                                                        </span>
-                                                                           
-                                                                @endif 
+                                                <small>
+                                                    <span class="badge badge-success" style="background-color: red; color: honeydew">No more submission
+                                                    </span>
+                                                </small>
+                                                           
+                                                @endif 
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -276,20 +405,34 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted <span
+                                                                    class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                            data-target="#modal-adminrespons-{{ $appraisal_id }}">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a> 
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="{{route('delete.appraisals', [$appraisal_id, 10])}}" >
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                                 @endif
                                                 @else
-                                                                <small>
-                                                                    <span class="badge badge-success"
-                                                                        style="background-color: red; color: honeydew">No
-                                                                        more submission <span </small> 
-                                                                        </span>
-                                                                           
-                                                                @endif
+                                                <small>
+                                                    <span class="badge badge-success" style="background-color: red; color: honeydew">No
+                                                        more submission
+                                                    </span>
+                                                </small>
+                                                @endif
 
                                             </span>
                                         </li>
@@ -304,12 +447,26 @@ Academic Staff Appraisal Form
                                                     </a>
                                                 
                                                     @else
-                                                    <small>
-                                                        <span class="badge badge-success"
-                                                            style="background-color: green; color: honeydew">Submitted
-                                                            <span class="fa fa-check-circle-o"></span>
-                                                        </span>
-                                                    </small>
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-xs-6">
+                                                            <small>
+                                                                <span class="badge badge-success"
+                                                                    style="background-color: green; color: honeydew">Submitted <span
+                                                                        class="fa fa-check-circle-o"></span></span>
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning" 
+                                                                data-target="#modal-taughtcourses-{{ $appraisal_id }}">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a> 
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="{{route('delete.appraisals', [$appraisal_id, 11])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                     @endif
                                                     @else
                                                         <small>
@@ -317,9 +474,7 @@ Academic Staff Appraisal Form
                                                                 style="background-color: red; color: honeydew">No
                                                                         more submission 
                                                             </span>
-                                                        </small> 
-                                                                
-                                                                           
+                                                        </small>                
                                                     @endif
                                             </span>
                                                 
@@ -334,20 +489,35 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                        <div class="col-md-6 col-xs-6">
+                                                            <small>
+                                                                <span class="badge badge-success"
+                                                                    style="background-color: green; color: honeydew">Submitted <span
+                                                                        class="fa fa-check-circle-o"></span></span>
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning" 
+                                                                data-target="#modal-tloadsummary-{{ $appraisal_id }}">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a> 
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="{{route('delete.appraisals', [$appraisal_id, 12])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                                 @else
-                                                                <small>
-                                                                    <span class="badge badge-success"
-                                                                        style="background-color: red; color: honeydew">No
-                                                                        more submission <span </small> 
-                                                                        </span>
-                                                                           
-                                                                @endif
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: red; color: honeydew">No
+                                                        more submission  
+                                                        </span>
+                                                </small>                                                           
+                                                @endif
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -360,11 +530,26 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                        <div class="col-md-6 col-xs-6">
+                                                            <small>
+                                                                <span class="badge badge-success"
+                                                                    style="background-color: green; color: honeydew">Submitted <span
+                                                                        class="fa fa-check-circle-o"></span></span>
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning" 
+                                                                data-target="#modal-anyotherinfo-{{ $appraisal_id }}">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a> 
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="{{route('delete.appraisals', [$appraisal_id, 13])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                             </span>
                                         </li>
@@ -379,11 +564,26 @@ Academic Staff Appraisal Form
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
-                                                <small>
-                                                    <span class="badge badge-success"
-                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                            class="fa fa-check-circle-o"></span></span>
-                                                </small>
+                                                <div class="row">
+                                                        <div class="col-md-6 col-xs-6">
+                                                            <small>
+                                                                <span class="badge badge-success"
+                                                                    style="background-color: green; color: honeydew">Submitted <span
+                                                                        class="fa fa-check-circle-o"></span></span>
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning" 
+                                                                data-target="#modal-uploadfiles-{{ $appraisal_id }}">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a> 
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="{{route('delete.appraisals', [$appraisal_id, 14])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                             </span>
                                         </li>

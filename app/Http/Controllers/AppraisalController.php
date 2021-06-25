@@ -75,11 +75,64 @@ class AppraisalController extends Controller
         $uploadedfiles=UploadedFile::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
 
         if (Auth::user()->category_id==2) {
-            return view('admin.appraisal.academicform',array('user'=>Auth::user()),compact('appraisal_id','appraisers','appraisal','qualifications','profmembs','promotions','salaryscales','trainings','additionalquals','performedduties','publications','productions','adminrespons','taughtcourses','tloadsummaries','anyotherinfos','uploadedfiles'));
+            return view('admin.appraisal.academicform',array('user'=>Auth::user())
+                        ,compact('appraisal_id'
+                                ,'appraisers'
+                                ,'appraisal'
+                                ,'qualifications'
+                                ,'profmembs'
+                                ,'promotions'
+                                ,'salaryscales'
+                                ,'trainings'
+                                ,'additionalquals'
+                                ,'performedduties'
+                                ,'publications'
+                                ,'productions'
+                                ,'adminrespons'
+                                ,'taughtcourses'
+                                ,'tloadsummaries'
+                                ,'anyotherinfos'
+                                ,'uploadedfiles'));
         } elseif (Auth::user()->category_id==3) {
-            return view('admin.appraisal.nonacademicform',array('user'=>Auth::user()),compact('appraisal_id','appraisers','appraisal','qualifications','profmembs','promotions','salaryscales','trainings','additionalquals','performedduties','publications','productions','adminrespons','taughtcourses','tloadsummaries','anyotherinfos','uploadedfiles'));
+            return view('admin.appraisal.nonacademicform',array('user'=>Auth::user())
+                    ,compact('appraisal_id'
+                            ,'appraisers'
+                            ,'appraisal'
+                            ,'qualifications'
+                            ,'profmembs'
+                            ,'promotions'
+                            ,'salaryscales'
+                            ,'trainings'
+                            ,'additionalquals'
+                            ,'performedduties'
+                            ,'publications'
+                            ,'productions'
+                            ,'adminrespons'
+                            ,'taughtcourses'
+                            ,'tloadsummaries'
+                            ,'anyotherinfos'
+                            ,'uploadedfiles'));
+
         } elseif(Auth::user()->category_id==4) {
-            return view('admin.appraisal.juniorstaffform',array('user'=>Auth::user()),compact('appraisal_id','appraisers','appraisal','qualifications','profmembs','promotions','salaryscales','trainings','additionalquals','performedduties','publications','productions','adminrespons','taughtcourses','tloadsummaries','anyotherinfos','uploadedfiles'));
+            return view('admin.appraisal.juniorstaffform',
+                        array('user'=>Auth::user())
+                        ,compact('appraisal_id'
+                                ,'appraisers'
+                                ,'appraisal'
+                                ,'qualifications'
+                                ,'profmembs'
+                                ,'promotions'
+                                ,'salaryscales'
+                                ,'trainings'
+                                ,'additionalquals'
+                                ,'performedduties'
+                                ,'publications'
+                                ,'productions'
+                                ,'adminrespons'
+                                ,'taughtcourses'
+                                ,'tloadsummaries'
+                                ,'anyotherinfos'
+                                ,'uploadedfiles'));
         }
 
         
@@ -337,5 +390,54 @@ class AppraisalController extends Controller
         }
 
         return redirect()->back()->with('deleted','Staff Appraisal deleted successfully!');
+    }
+
+    private function deleteMulti($model, $appraisal_id, $position = 0)
+    {
+        $user_id = Auth::guard()->user()->id;
+        $appraisals = $model->whereAppraisalId($appraisal_id)->whereUserId($user_id)->get();
+        if(count($appraisals)>0){
+            foreach($appraisals as $appraisal){
+                    $appraisal->delete();
+                    if($position){
+                        File::delete([public_path('storage/staff_appraisal_documents/' . $appraisal->filename)]);
+                    }
+            }
+        }
+
+        return true;
+    }
+
+    public function destroyQulif($appraisal_id, $position){
+      
+       if((int)$position === 1) $this->deleteMulti($model = new Qualification, $appraisal_id);
+
+       if((int)$position === 2) $this->deleteMulti($model = new Profmembership, $appraisal_id);
+
+       if((int)$position === 3) $this->deleteMulti($model = new Promotion, $appraisal_id);
+
+       if((int)$position === 4) $this->deleteMulti($model = new Salaryscale, $appraisal_id);
+
+       if((int)$position === 5) $this->deleteMulti($model = new Training, $appraisal_id);
+
+       if((int)$position === 6) $this->deleteMulti($model = new Additionalqualif, $appraisal_id);
+
+       if((int)$position === 7) $this->deleteMulti($model = new Performedduty, $appraisal_id);
+
+       if((int)$position === 8) $this->deleteMulti($model = new Publication, $appraisal_id);
+
+       if((int)$position === 9) $this->deleteMulti($model = new Production, $appraisal_id);
+
+       if((int)$position === 10) $this->deleteMulti($model = new Adminresponsibility, $appraisal_id);
+
+       if((int)$position === 11) $this->deleteMulti($model = new Coursetaught, $appraisal_id);
+
+       if((int)$position === 12) $this->deleteMulti($model = new Teachingloadsummary, $appraisal_id);
+
+       if((int)$position === 13) $this->deleteMulti($model = new Anyotherinfo, $appraisal_id);
+
+       if((int)$position === 14) $this->deleteMulti($model = new Uploadedfile, $appraisal_id, 1);
+        
+        return redirect()->back()->withSuccess('Staff Appraisal deleted successfully!');
     }
 }
