@@ -251,6 +251,8 @@
 <script src="{{asset('admin_assets/dist/js/demo.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@section('footer-scripts')
+    @show;
 
 <!-- page script -->
 <script>

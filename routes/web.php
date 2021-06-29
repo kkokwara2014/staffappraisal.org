@@ -104,6 +104,7 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     Route::get('/submitted-appraisals','AppraisalController@allsubmittedappraisals')->name('submitted.appraisals');
     Route::delete('/delete/submitted-appraisals/{appraisal_id}/{user_id}','AppraisalController@deletesubmittedappraisal')->name('delete.submitted.appraisal');
     Route::get('/delete/submitted-appraisals/{appraisal_id}/{position}','AppraisalController@destroyAppraisal')->name('delete.appraisals');
+    Route::get('/fetch/submitted-appraisals/data/{appraisal_id}/{position}','AppraisalController@fetchData')->name('appraisal.data');
 
     //submitting each appraisal details
     Route::post('/appraisal/qualification','QualificationController@store')->name('qualification.store');

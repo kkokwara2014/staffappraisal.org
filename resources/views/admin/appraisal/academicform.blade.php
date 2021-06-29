@@ -49,7 +49,7 @@ Academic Staff Appraisal Form
                                                     style="color: red">*</i></span>
                                             <span style="float: right">
                                                 @if (!$qualifications>0)
-                                                <a href="#" data-toggle="modal"
+                                                <a href="#" data-toggle="modal" 
                                                     data-target="#modal-qualification-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
@@ -64,7 +64,8 @@ Academic Staff Appraisal Form
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
                                                         <a href="#" data-toggle="modal" class="text-warning" 
-                                                            data-target="#modal-qualification-{{ $appraisal_id }}">
+                                                            data-target="#modal-qualification-{{ $appraisal_id }}" 
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 1])}}" id="editQualification">
                                                             <span class="fa fa-edit fa-2x"></span>
                                                         </a> 
                                                     </div>
@@ -154,9 +155,9 @@ Academic Staff Appraisal Form
                                                                 <small>
                                                                     <span class="badge badge-success"
                                                                         style="background-color: red; color: honeydew">No
-                                                                        more submission <span </small> 
+                                                                        more submission   
                                                                         </span>
-                                                                           
+                                                                    </small>
                                                                 @endif 
                                             </span>
                                         </li>
@@ -1105,4 +1106,133 @@ Academic Staff Appraisal Form
 </div>
 <!-- /.content-wrapper -->
 
+@endsection
+
+@section('footer-scripts')
+<script>
+    $('#editQualification').click(function(){
+        let route = $(this).data('route');
+        $.ajax({
+            url: route,
+            type:'GET',
+            success: function(res){
+                // console.log(res.data);
+                autoFillFormData(res.data);
+            }
+        });
+    });
+
+    let autoFillFormData = function(data){
+        let html = '';
+        let i = 0;
+        for(i = 0; i < data.length; i++){
+            html+='<tr><td style="width: 20%"><select name="qualname[]" class="form-control form-control-sm qualname"required>';
+                html+='<option value="">Select Qualification</option>';
+                if(data[i].qualname == 'PhD'){
+                    html+='<option value="PhD" selected>Ph.D</option>';
+                }else{
+                    html+='<option value="PhD">Ph.D</option>';
+                }
+                if(data[i].qualname == 'MSc'){
+                    html+='<option value="MSc" selected>MSc</option>';
+                }else{
+                    html+='<option value="MSc">MSc</option>';
+                }
+                if(data[i].qualname == 'MEd'){
+                    html+='<option value="MEd" selected>MEd</option>';
+                }else{
+                    html+='<option value="MEd">MEd</option>';
+                }
+
+                if(data[i].qualname == 'MBA'){
+                    html+='<option value="MBA" selected>MBA</option>';
+                }else{
+                    html+='<option value="MBA">MBA</option>';
+                }
+                if(data[i].qualname == 'MA'){
+                    html+='<option value="MA" selected>MA</option>';
+                }else{
+                    html+='<option value="MA">MA</option>';
+                }
+                if(data[i].qualname == 'PGD'){
+                    html+='<option value="PGD" selected>PGD</option>';
+                }else{
+                    html+='<option value="PGD">PGD</option>';
+                }
+                if(data[i].qualname == 'PGDE'){
+                    html+='<option value="PGDE" selected>PGDE</option>';
+                }else{
+                    html+='<option value="PGDE">PGDE</option>';
+                }
+                if(data[i].qualname == 'BA'){
+                    html+='<option value="BA" selected>BA</option>';
+                }else{
+                    html+='<option value="BA">BA</option>';
+                }
+                if(data[i].qualname == 'BSc'){
+                    html+='<option value="BSc" selected>BSc</option>';
+                }else{
+                    html+='<option value="BSc" >BSc</option>';
+                }
+                if(data[i].qualname == 'HND'){
+                    html+='<option value="HND" selected>HND</option>';
+                }else{
+                    html+='<option value="HND">HND</option>';
+                }
+                if(data[i].qualname == 'BEd'){
+                    html+='<option value="BEd" selected>BEd</option>';
+                }else{
+                    html+='<option value="BEd">BEd</option>';
+                }
+                if(data[i].qualname == 'ND'){
+                    html+='<option value="ND" selected>ND</option>';
+                }else{
+                    html+='<option value="ND">ND</option>';
+                }
+                if(data[i].qualname == 'NCE'){
+                    html+='<option value="NCE" selected>NCE</option>';
+                }else{
+                    html+='<option value="NCE">NCE</option>';
+                }
+                if(data[i].qualname == 'O-level'){
+                    html+='<option value="O-level" selected>O-level</option>';
+                }else{
+                    html+='<option value="O-level">O-level</option>';
+                }
+            html+='</select>';
+            html+='</td><td style="width: 60%">';
+            html+='<input type="text" class="form-control form-control-sm" name="awardinginst[]" value="'+data[i].awardinginst+'" required placeholder="Awarding Institution e.g. AIFPU"></td>';
+            html+='<td style="width: 20%"><input type="date" value="'+data[i].dateofgrad+'" class="form-control form-control-sm" name="dateofgrad[]" required placeholder="Grad. Year"> <input type="hidden" value="'+data[i].id+'" class="" name="qualid[]"></td>';
+            html+='<td><button wire:click.prevent="remove('+i+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+        }
+
+        let key = i++;
+        html+='<tr><td style="width: 20%"><select name="qualname[]" class="form-control form-control-sm qualname">';
+        html+='<option value="">Select Qualification</option>';
+        html+='<option value="PhD" >Ph.D</option>';
+        html+='<option value="MSc" >MSc</option>';
+        html+='<option value="MEd" >MEd</option>';
+        html+='<option value="MBA" >MBA</option>';
+        html+='<option value="MA" >MA</option>';
+        html+='<option value="PGD" >PGD</option>';
+        html+='<option value="PGDE" >PGDE</option>';
+        html+='<option value="BA" >BA</option>';
+        html+='<option value="BSc" >BSc</option>';
+        html+='<option value="HND" >HND</option>';
+        html+='<option value="BEd" >BEd</option>';
+        html+='<option value="ND" >ND</option>';
+        html+='<option value="NCE" >NCE</option>';
+        html+='<option value="O-level" >O-level</option>';
+        html+='</select>';
+        html+='</td><td style="width: 60%">';
+        html+='<input type="text" class="form-control form-control-sm" name="awardinginst[]" placeholder="Awarding Institution e.g. AIFPU"></td>';
+        html+='<td style="width: 20%"><input type="date" class="form-control form-control-sm" name="dateofgrad[]" placeholder="Grad. Year"></td>';
+        html+='<td><button wire:click.prevent="remove('+key+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+
+        $('.moreQualification').empty();
+        $('.moreQualification').prepend(html);
+        console.log(html);
+    }
+</script>
+    
 @endsection

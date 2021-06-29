@@ -440,4 +440,42 @@ class AppraisalController extends Controller
         
         return redirect()->back()->withSuccess('Staff Appraisal deleted successfully!');
     }
+
+    private function fetchAppraisalData($model, $appraisal_id)
+    {
+        $user_id = Auth::guard()->user()->id;
+        $appraisals = $model->whereAppraisalId($appraisal_id)->whereUserId($user_id)->get();
+        return response()->json(['status'=>'ok', 'data'=>$appraisals], 200);
+    }
+
+    public function fetchData($appraisal_id, $position)
+    {
+        if((int)$position === 1) return $this->fetchAppraisalData($model = new Qualification, $appraisal_id);
+
+           if((int)$position === 2) return $this->fetchAppraisalData($model = new Profmembership, $appraisal_id);
+
+           if((int)$position === 3) return $this->fetchAppraisalData($model = new Promotion, $appraisal_id);
+
+           if((int)$position === 4) return $this->fetchAppraisalData($model = new Salaryscale, $appraisal_id);
+
+           if((int)$position === 5) return $this->fetchAppraisalData($model = new Training, $appraisal_id);
+
+           if((int)$position === 6) return $this->fetchAppraisalData($model = new Additionalqualif, $appraisal_id);
+
+           if((int)$position === 7) return $this->fetchAppraisalData($model = new Performedduty, $appraisal_id);
+
+           if((int)$position === 8) return $this->fetchAppraisalData($model = new Publication, $appraisal_id);
+
+           if((int)$position === 9) return $this->fetchAppraisalData($model = new Production, $appraisal_id);
+
+           if((int)$position === 10) return $this->fetchAppraisalData($model = new Adminresponsibility, $appraisal_id);
+
+           if((int)$position === 11) return $this->fetchAppraisalData($model = new Coursetaught, $appraisal_id);
+
+           if((int)$position === 12) return $this->fetchAppraisalData($model = new Teachingloadsummary, $appraisal_id);
+
+           if((int)$position === 13) return $this->fetchAppraisalData($model = new Anyotherinfo, $appraisal_id);
+
+           if((int)$position === 14) return $this->fetchAppraisalData($model = new Uploadedfile, $appraisal_id, 1);
+    }
 }
