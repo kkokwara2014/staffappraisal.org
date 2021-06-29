@@ -10,7 +10,13 @@ class AnyOtherInfoController extends Controller
     
 
     public function store(Request $request){
+
         $otherinfo=new Anyotherinfo();
+
+        if($request->has('otherinfoid')){
+            $id = $request->otherinfoid;
+            $otherinfo= Anyotherinfo::findOrFail($id);
+        }
         $otherinfo->user_id=auth()->user()->id;
         $otherinfo->appraisal_id=$request->appraisal_id;
         $otherinfo->anyotherinfo=$request->anyotherinfo;

@@ -13,7 +13,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="editAdminResp">
             @foreach($inputs as $key => $value)
             <tr>
                 <td style="width: 60%">

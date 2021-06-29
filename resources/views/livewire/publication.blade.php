@@ -14,7 +14,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="editPublicationtable">
             @foreach($inputs as $key => $value)
             <tr>
                 <td style="width: 25%">

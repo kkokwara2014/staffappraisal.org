@@ -16,7 +16,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="editTeachingLoad">
             @foreach($inputs as $key => $value)
             <tr>
                 <td style="width: 20%">
