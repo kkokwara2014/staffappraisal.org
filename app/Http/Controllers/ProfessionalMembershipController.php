@@ -11,15 +11,23 @@ class ProfessionalMembershipController extends Controller
     public function store(Request $request){
 
         foreach ($request->profbody as $key => $profbody) {
-            
-            $profmemb=new Profmembership;
-            $profmemb->user_id=auth()->user()->id;
-            $profmemb->appraisal_id=$request->appraisal_id;
-            $profmemb->profbody=$request->profbody[$key];
-            $profmemb->membcategory=$request->membcategory[$key];
-            $profmemb->membnumb=$request->membnumb[$key];
-            $profmemb->awardyear=$request->awardyear[$key];
-            $profmemb->save();
+            if(!empty($request->profbody[$key])){
+                $profmemb=new Profmembership;
+                
+                if($request->has('profbodyid')){
+                    if($key < count($request->profbodyid)){
+                        $id = $request->profbodyid[$key];
+                        $profmemb = Profmembership::findOrFail($id);
+                    }
+                }
+                $profmemb->user_id=auth()->user()->id;
+                $profmemb->appraisal_id=$request->appraisal_id;
+                $profmemb->profbody=$request->profbody[$key];
+                $profmemb->membcategory=$request->membcategory[$key];
+                $profmemb->membnumb=$request->membnumb[$key];
+                $profmemb->awardyear=$request->awardyear[$key];
+                $profmemb->save();
+            }
         }
 
         return redirect()->back()->with('success','Professional Membership submitted successfully!');

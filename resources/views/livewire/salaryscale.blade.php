@@ -8,7 +8,7 @@
                
             </tr>
         </thead>
-        <tbody>
+        <tbody id="editSalarScale">
            
             <tr>
                 <td style="width: 50%">

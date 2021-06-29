@@ -63,7 +63,7 @@ Academic Staff Appraisal Form
                                                         </small> 
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning" 
+                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="1" 
                                                             data-target="#modal-qualification-{{ $appraisal_id }}" 
                                                             data-route="{{route('appraisal.data', [$appraisal_id, 1])}}" id="editQualification">
                                                             <span class="fa fa-edit fa-2x"></span>
@@ -98,10 +98,11 @@ Academic Staff Appraisal Form
                                                         </small>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning" 
-                                                            data-target="#modal-profmemb-{{ $appraisal_id }}">
+                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="2" 
+                                                            data-target="#modal-profmemb-{{ $appraisal_id }}" 
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 2])}}"  id="editProfmemb">
                                                             <span class="fa fa-edit fa-2x"></span>
-                                                        </a> 
+                                                        </a>  
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
                                                         <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 2])}}" >
@@ -111,13 +112,13 @@ Academic Staff Appraisal Form
                                                 </div>
                                                 @endif
                                                 @else
-                                                                <small>
-                                                                    <span class="badge badge-success"
-                                                                        style="background-color: red; color: honeydew">No
-                                                                        more submission <span </small> 
-                                                                        </span>
-                                                                           
-                                                                @endif 
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: red; color: honeydew">No
+                                                        more submission 
+                                                    </span>
+                                                </small>
+                                                @endif 
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -139,10 +140,11 @@ Academic Staff Appraisal Form
                                                         </small>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning" 
-                                                            data-target="#modal-promotion-{{ $appraisal_id }}">
+                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="3" 
+                                                            data-target="#modal-promotion-{{ $appraisal_id }}" 
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 3])}}" id="editPromotion">
                                                             <span class="fa fa-edit fa-2x"></span>
-                                                        </a> 
+                                                        </a>  
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
                                                         <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 3])}}" >
@@ -152,13 +154,13 @@ Academic Staff Appraisal Form
                                                 </div>
                                                 @endif
                                                 @else
-                                                                <small>
-                                                                    <span class="badge badge-success"
-                                                                        style="background-color: red; color: honeydew">No
-                                                                        more submission   
-                                                                        </span>
-                                                                    </small>
-                                                                @endif 
+                                                <small>
+                                                    <span class="badge badge-success"
+                                                        style="background-color: red; color: honeydew">No
+                                                        more submission   
+                                                        </span>
+                                                    </small>
+                                                @endif 
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -179,11 +181,13 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning" 
-                                                            data-target="#modal-salaryscale-{{ $appraisal_id }}">
+                                                    <div class="col-md-3 col-xs-3"> 
+                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="4" 
+                                                            data-target="#modal-salaryscale-{{ $appraisal_id }}" 
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 4])}}" id="editSalary">
                                                             <span class="fa fa-edit fa-2x"></span>
                                                         </a> 
+                                                        
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
                                                         <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 4])}}" >
@@ -214,10 +218,11 @@ Academic Staff Appraisal Form
                                                         </small>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning" 
-                                                            data-target="#modal-training-{{ $appraisal_id }}">
+                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="5" 
+                                                            data-target="#modal-training-{{ $appraisal_id }}" 
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 5])}}" id="editTraining">
                                                             <span class="fa fa-edit fa-2x"></span>
-                                                        </a> 
+                                                        </a>  
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
                                                         <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 5])}}" >
@@ -252,8 +257,9 @@ Academic Staff Appraisal Form
                                                                         </small>
                                                                     </div>
                                                                     <div class="col-md-3 col-xs-3">
-                                                                        <a href="#" data-toggle="modal" class="text-warning" 
-                                                                            data-target="#modal-additionalquali-{{ $appraisal_id }}">
+                                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="6" 
+                                                                            data-target="#modal-additionalquali-{{ $appraisal_id }}" 
+                                                                            data-route="{{route('appraisal.data', [$appraisal_id, 6])}}" id="editAdditQuali">
                                                                             <span class="fa fa-edit fa-2x"></span>
                                                                         </a> 
                                                                     </div>
@@ -293,8 +299,9 @@ Academic Staff Appraisal Form
                                                                                 </small>
                                                                             </div>
                                                                             <div class="col-md-3 col-xs-3">
-                                                                                <a href="#" data-toggle="modal" class="text-warning" 
-                                                                                    data-target="#modal-perfduties-{{ $appraisal_id }}">
+                                                                                <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="7" 
+                                                                                    data-target="#modal-perfduties-{{ $appraisal_id }}" 
+                                                                                    data-route="{{route('appraisal.data', [$appraisal_id, 7])}}" id="editPerfduties">
                                                                                     <span class="fa fa-edit fa-2x"></span>
                                                                                 </a> 
                                                                             </div>
@@ -330,9 +337,10 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning" 
-                                                            data-target="#modal-publication-{{ $appraisal_id }}">
+                                                    <div class="col-md-3 col-xs-3"> 
+                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="8" 
+                                                            data-target="#modal-publication-{{ $appraisal_id }}" 
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 8])}}" id="editPublication">
                                                             <span class="fa fa-edit fa-2x"></span>
                                                         </a> 
                                                     </div>
@@ -373,11 +381,12 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning" 
-                                                            data-target="#modal-production-{{ $appraisal_id }}">
+                                                    <div class="col-md-3 col-xs-3"> 
+                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="9" 
+                                                            data-target="#modal-production-{{ $appraisal_id }}" 
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 9])}}" id="editProduction">
                                                             <span class="fa fa-edit fa-2x"></span>
-                                                        </a> 
+                                                        </a>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
                                                         <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 9])}}" >
@@ -415,10 +424,11 @@ Academic Staff Appraisal Form
                                                         </small>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning" 
-                                                            data-target="#modal-adminrespons-{{ $appraisal_id }}">
+                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="10" 
+                                                            data-target="#modal-adminrespons-{{ $appraisal_id }}" 
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 10])}}" id="editAdminrespons">
                                                             <span class="fa fa-edit fa-2x"></span>
-                                                        </a> 
+                                                        </a>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
                                                         <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 10])}}" >
@@ -457,10 +467,11 @@ Academic Staff Appraisal Form
                                                             </small>
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning" 
-                                                                data-target="#modal-taughtcourses-{{ $appraisal_id }}">
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="11" 
+                                                                data-target="#modal-taughtcourses-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 11])}}" id="editTaughtcourses">
                                                                 <span class="fa fa-edit fa-2x"></span>
-                                                            </a> 
+                                                            </a>
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
                                                             <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 11])}}" >
@@ -499,10 +510,11 @@ Academic Staff Appraisal Form
                                                             </small>
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning" 
-                                                                data-target="#modal-tloadsummary-{{ $appraisal_id }}">
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="12" 
+                                                                data-target="#modal-tloadsummary-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 12])}}" id="editTloadsummary">
                                                                 <span class="fa fa-edit fa-2x"></span>
-                                                            </a> 
+                                                            </a>
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
                                                             <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 12])}}" >
@@ -540,8 +552,9 @@ Academic Staff Appraisal Form
                                                             </small>
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning" 
-                                                                data-target="#modal-anyotherinfo-{{ $appraisal_id }}">
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="13" 
+                                                                data-target="#modal-anyotherinfo-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 13])}}" id="editAnyotherinfo">
                                                                 <span class="fa fa-edit fa-2x"></span>
                                                             </a> 
                                                         </div>
@@ -577,7 +590,12 @@ Academic Staff Appraisal Form
                                                             <a href="#" data-toggle="modal" class="text-warning" 
                                                                 data-target="#modal-uploadfiles-{{ $appraisal_id }}">
                                                                 <span class="fa fa-edit fa-2x"></span>
-                                                            </a> 
+                                                            </a>
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="14" 
+                                                                data-target="#modal-uploadfiles-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 14])}}" id="editUploadfiles">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a>  
                                                         </div>
                                                         <div class="col-md-3 col-xs-3">
                                                             <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 14])}}" >
@@ -824,7 +842,7 @@ Academic Staff Appraisal Form
                                 <span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title"> Add Performed Duties for {{ $appraisal->title }}</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id="dutyContainer">
                             <input type="hidden" name="appraisal_id" value="{{ $appraisal_id }}">
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
@@ -1110,19 +1128,21 @@ Academic Staff Appraisal Form
 
 @section('footer-scripts')
 <script>
-    $('#editQualification').click(function(){
+    $('.editappraisal').click(function(){
         let route = $(this).data('route');
+        let position = $(this).data('position');
+        // alert(route);
         $.ajax({
             url: route,
             type:'GET',
             success: function(res){
-                // console.log(res.data);
-                autoFillFormData(res.data);
+                console.log(res.data);
+                fillFormByPosition(res.data, position);
             }
         });
     });
 
-    let autoFillFormData = function(data){
+    let autoFillQualilficationFormData = function(data){
         let html = '';
         let i = 0;
         for(i = 0; i < data.length; i++){
@@ -1232,6 +1252,127 @@ Academic Staff Appraisal Form
         $('.moreQualification').empty();
         $('.moreQualification').prepend(html);
         console.log(html);
+    }
+
+    let autfillProfMembFormData = function(data)
+    {
+        let html = '';
+        let i = 0;
+        for(i = 0; i < data.length; i++){
+            html+='<tr><td style="width: 40%"><input type="text" value="'+data[i].profbody+'" class="form-control form-control-sm" name="profbody[]" placeholder="Professional Body"></td>';
+            html+='<td style="width: 25%"><input type="text" value="'+data[i].membcategory+'" class="form-control form-control-sm" name="membcategory[]" placeholder="Memb. Category"></td>';
+            html+='<td style="width: 15%"><input type="text" value="'+data[i].membnumb+'" class="form-control form-control-sm" name="membnumb[]" placeholder="Memb. Num."></td>';
+            html+='<td style="width: 20%"><input type="date" value="'+data[i].awardyear+'" class="form-control form-control-sm" name="awardyear[]"><input type="hidden" value="'+data[i].id+'" name="profbodyid[]"></td>';
+            html+='<td><button wire:click.prevent="remove('+i+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+        }
+        let key = i++;
+        html+='<tr><td style="width: 40%"><input type="text" class="form-control form-control-sm" name="profbody[]" placeholder="Professional Body"></td>';
+        html+='<td style="width: 25%"><input type="text" class="form-control form-control-sm" name="membcategory[]" placeholder="Memb. Category"></td>';
+        html+='<td style="width: 15%"><input type="text" class="form-control form-control-sm" name="membnumb[]" placeholder="Memb. Num."></td>';
+        html+='<td style="width: 20%"><input type="date" class="form-control form-control-sm" name="awardyear[]"></td>';
+        html+='<td><button wire:click.prevent="remove('+key+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+        
+        $('#editProfbody').empty();
+        $('#editProfbody').prepend(html);
+    }
+
+    let autfillPromotionFormData = function(data)
+    {
+        let html = '';
+        let i = 0;
+        for(i = 0; i < data.length; i++){
+            html+='<tr><td style="width: 50%"><input type="date" value="'+data[i].promodate+'" class="form-control form-control-sm" name="promodate[]" placeholder="Promotion Date"></td>';
+            html+='<td style="width: 50%"><input type="text" value="'+data[i].grade+'" class="form-control form-control-sm" name="grade[]" placeholder="Grade"><input type="hidden" value="'+data[i].id+'" name="promoid[]"></td>';
+            html+='<td><button wire:click.prevent="remove('+i+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+                
+        }
+        let key = i++;
+        html+='<tr><td style="width: 50%"><input type="date" class="form-control form-control-sm" name="promodate[]" placeholder="Promotion Date"></td>';
+        html+='<td style="width: 50%"><input type="text" class="form-control form-control-sm" name="grade[]" placeholder="Grade"></td>';
+        html+='<td><button wire:click.prevent="remove('+key+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+
+        $('#editPromotiontable').empty();
+        $('#editPromotiontable').prepend(html);
+    }
+
+    let autofillSalaryScale = function(data){
+        let html = '';
+        let i = 0;
+        html+='<tr><td style="width: 50%"><input type="text" value="'+data[0].presentpost+'" class="form-control form-control-sm" name="presentpost" required placeholder="Present Scale"></td>';
+        html+='<td style="width: 50%"><input type="text" value="'+data[0].salaryscale+'" class="form-control form-control-sm" name="salaryscale" required placeholder="Salary Scale"><input type="hidden" value="'+data[0].id+'" name="salaryid"></td></tr>';
+        
+        $('#editSalarScale').empty();
+        $('#editSalarScale').prepend(html);
+    }
+
+    let autofillTrainings = function(data){
+        let html = '';
+        let i = 0;
+        for(i = 0; i < data.length; i++){
+            html+='<tr><td style="width: 25%"><select name="trainingtype[]" value="'+data[i].trainingtype+'" class="form-control form-control-sm">';
+            html+='<option value="">Select Training Type</option>';
+            if(data[i].trainingtype == 'Course'){
+                html+='<option value="Course" selected>Course</option>';
+            }else{
+                html+='<option value="Course">Course</option>';
+            }
+            if(data[i].trainingtype == 'Workshop'){
+                html+='<option value="Workshop" selected>Workshop</option>';
+            }else{
+                html+='<option value="Workshop">Workshop</option>';
+            }
+            html+='</select></td>';
+            html+='<td style="width: 50%"><input type="text" value="'+data[i].caption+'" class="form-control form-control-sm" name="caption[]" placeholder="Caption"></td>';
+            html+='<td style="width: 25%"><input type="date" value="'+data[i].trainingdate+'" class="form-control form-control-sm" name="trainingdate[]"><input type="hidden" value="'+data[i].id+'" name="trainingid[]"></td>';
+            html+='<td><button wire:click.prevent="remove('+i+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+        }
+        html+='<tr><td style="width: 25%"><select name="trainingtype[]" class="form-control form-control-sm">';
+        html+='<option value="">Select Training Type</option>';
+        html+='<option value="Course">Course</option>';
+        html+='<option value="Workshop">Workshop</option>';
+        html+='</select></td>';
+        html+='<td style="width: 50%"><input type="text" class="form-control form-control-sm" name="caption[]" placeholder="Caption"></td>';
+        html+='<td style="width: 25%"><input type="date" class="form-control form-control-sm" name="trainingdate[]"></td>';
+        html+='<td><button wire:click.prevent="remove('+i+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+        
+        $('#editTrainingtable').empty();
+        $('#editTrainingtable').prepend(html);
+    }
+
+    let autofillAdditQuali = function(data){
+        let html = '';
+        let i = 0;
+        for(i = 0; i < data.length; i++){
+            html+='<tr><td style="width: 75%"><input type="text" value="'+data[i].qualificationtype+'" class="form-control form-control-sm" name="qualificationtype[]" placeholder="Qualification Name"></td>';
+            html+='<td style="width: 25%"><input type="date" value="'+data[i].dateobtained+'" class="form-control form-control-sm" name="dateobtained[]"><input type="hidden" value="'+data[i].id+'" name="qtypeid[]"></td>';
+            html+='<td><button wire:click.prevent="remove('+i+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+        }
+        let key = i++;
+        html+='<tr><td style="width: 75%"><input type="text" class="form-control form-control-sm" name="qualificationtype[]" placeholder="Qualification Name"></td>';
+        html+='<td style="width: 25%"><input type="date" class="form-control form-control-sm" name="dateobtained[]"></td>';
+        html+='<td><button wire:click.prevent="remove('+key+')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+        
+        $('#editAdditionalQualif').empty();
+        $('#editAdditionalQualif').prepend(html);
+
+    }
+
+    let autofillDuties = function(data){
+        let html='<input type="hidden" value="'+data[0].id+'" name="dutyid">';
+        $('#dutyContainer').prepend(html);
+
+        let duty = $('#performedduty');
+        duty.text(data[0].performedduty);
+    }
+
+    let fillFormByPosition = function(data, position){
+        if(position === 1 ) autoFillQualilficationFormData(data, position);
+        if(position === 2 ) autfillProfMembFormData(data, position);
+        if(position === 3 ) autfillPromotionFormData(data, position);
+        if(position === 4 ) autofillSalaryScale(data, position);
+        if(position === 5 ) autofillTrainings(data, position);
+        if(position === 6 ) autofillAdditQuali(data, position);
+        if(position === 7 ) autofillDuties(data, position);
     }
 </script>
     

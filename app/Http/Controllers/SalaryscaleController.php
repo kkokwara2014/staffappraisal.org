@@ -10,12 +10,17 @@ class SalaryscaleController extends Controller
     
     public function store(Request $request){
 
-        $salscale=new Salaryscale;
-        $salscale->user_id=auth()->user()->id;
-        $salscale->appraisal_id=$request->appraisal_id;
-        $salscale->presentpost=$request->presentpost;
-        $salscale->salaryscale=$request->salaryscale;
-        $salscale->save();
+        if(!empty(trim($request->presentpost))){
+            $salscale=new Salaryscale;
+            if($request->has('salaryid')){
+                $salscale= Salaryscale::findOrFail($request->salaryid);
+            }
+            $salscale->user_id=auth()->user()->id;
+            $salscale->appraisal_id=$request->appraisal_id;
+            $salscale->presentpost=$request->presentpost;
+            $salscale->salaryscale=$request->salaryscale;
+            $salscale->save();
+        }
 
         return redirect()->back()->with('success','Salary Scale submitted successfully!');
     }

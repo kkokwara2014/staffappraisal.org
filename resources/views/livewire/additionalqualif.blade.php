@@ -12,7 +12,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="editAdditionalQualif">
             @foreach($inputs as $key => $value)
             <tr>
                 <td style="width: 75%">
