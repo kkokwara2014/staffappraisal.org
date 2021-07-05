@@ -50,3 +50,6 @@ Junior Staff Appraisal Form
 <!-- /.content-wrapper -->
 
 @endsection
+@section('footer-scripts')
+<script src="{{asset('admin_assets/dist/js/pages/appraisalupdate.js')}}"></script>
+@endsection

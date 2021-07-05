@@ -73,6 +73,7 @@ class AppraisalController extends Controller
         $tloadsummaries=Teachingloadsummary::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
         $anyotherinfos=Anyotherinfo::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
         $uploadedfiles=UploadedFile::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+        $appraisalscore=Appraisalscore::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
 
         if (Auth::user()->category_id==2) {
             return view('admin.appraisal.academicform',array('user'=>Auth::user())
@@ -92,6 +93,7 @@ class AppraisalController extends Controller
                                 ,'taughtcourses'
                                 ,'tloadsummaries'
                                 ,'anyotherinfos'
+                                ,'appraisalscore'
                                 ,'uploadedfiles'));
         } elseif (Auth::user()->category_id==3) {
             return view('admin.appraisal.nonacademicform',array('user'=>Auth::user())
@@ -111,6 +113,7 @@ class AppraisalController extends Controller
                             ,'taughtcourses'
                             ,'tloadsummaries'
                             ,'anyotherinfos'
+                            ,'appraisalscore'
                             ,'uploadedfiles'));
 
         } elseif(Auth::user()->category_id==4) {
@@ -132,6 +135,7 @@ class AppraisalController extends Controller
                                 ,'taughtcourses'
                                 ,'tloadsummaries'
                                 ,'anyotherinfos'
+                                ,'appraisalscore'
                                 ,'uploadedfiles'));
         }
 

@@ -48,7 +48,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Academic Qualification <i
                                                     style="color: red">*</i></span>
                                             <span style="float: right">
-                                                @if (!$qualifications>0)
+                                                @if (!$qualifications>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal" 
                                                     data-target="#modal-qualification-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -62,18 +62,20 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small> 
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="1" 
-                                                            data-target="#modal-qualification-{{ $appraisal_id }}" 
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 1])}}" id="editQualification">
-                                                            <span class="fa fa-edit fa-2x"></span>
-                                                        </a> 
-                                                    </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 1])}}" >
-                                                            <span class="fa fa-trash-o fa-2x"></span>
-                                                        </a>
-                                                    </div>
+                                                    @if (!$appraisalscore>0)    
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="1" 
+                                                                data-target="#modal-qualification-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 1])}}" id="editQualification">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a> 
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 1])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 @endif
                                             </span>
@@ -83,7 +85,7 @@ Academic Staff Appraisal Form
                                                 Membership</span>
                                             <span style="float: right">
                                                 @if (!$uploadedfiles>0)
-                                                @if (!$profmembs>0)
+                                                @if (!$profmembs>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-profmemb-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -97,18 +99,20 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="2" 
-                                                            data-target="#modal-profmemb-{{ $appraisal_id }}" 
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 2])}}"  id="editProfmemb">
-                                                            <span class="fa fa-edit fa-2x"></span>
-                                                        </a>  
-                                                    </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 2])}}" >
-                                                            <span class="fa fa-trash-o fa-2x"></span>
-                                                        </a>
-                                                    </div>
+                                                    @if (!$appraisalscore>0)
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="2" 
+                                                                data-target="#modal-profmemb-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 2])}}"  id="editProfmemb">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a>  
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 2])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 @endif
                                                 @else
@@ -125,7 +129,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Promotions</span>
                                             <span style="float: right">
                                                 @if (!$uploadedfiles>0)
-                                                @if (!$promotions>0)
+                                                @if (!$promotions>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-promotion-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -139,18 +143,20 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="3" 
-                                                            data-target="#modal-promotion-{{ $appraisal_id }}" 
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 3])}}" id="editPromotion">
-                                                            <span class="fa fa-edit fa-2x"></span>
-                                                        </a>  
-                                                    </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 3])}}" >
-                                                            <span class="fa fa-trash-o fa-2x"></span>
-                                                        </a>
-                                                    </div>
+                                                    @if (!$appraisalscore>0)
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="3" 
+                                                                data-target="#modal-promotion-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 3])}}" id="editPromotion">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a>  
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 3])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 @endif
                                                 @else
@@ -167,7 +173,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Present Post & Salary Scale
                                                 <i style="color: red">*</i></span>
                                             <span style="float: right">
-                                                @if (!$salaryscales>0)
+                                                @if (!$salaryscales>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-salaryscale-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -181,19 +187,21 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3"> 
-                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="4" 
-                                                            data-target="#modal-salaryscale-{{ $appraisal_id }}" 
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 4])}}" id="editSalary">
-                                                            <span class="fa fa-edit fa-2x"></span>
-                                                        </a> 
-                                                        
-                                                    </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 4])}}" >
-                                                            <span class="fa fa-trash-o fa-2x"></span>
-                                                        </a>
-                                                    </div>
+                                                    @if (!$appraisalscore>0)
+                                                        <div class="col-md-3 col-xs-3"> 
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="4" 
+                                                                data-target="#modal-salaryscale-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 4])}}" id="editSalary">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a> 
+                                                            
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 4])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 @endif
                                             </span>
@@ -203,7 +211,7 @@ Academic Staff Appraisal Form
                                                 Courses/Workshops</span>
                                             <span style="float: right">
                                                 @if (!$uploadedfiles>0)
-                                                @if (!$trainings>0)
+                                                @if (!$trainings>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-training-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -217,18 +225,20 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="5" 
-                                                            data-target="#modal-training-{{ $appraisal_id }}" 
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 5])}}" id="editTraining">
-                                                            <span class="fa fa-edit fa-2x"></span>
-                                                        </a>  
-                                                    </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 5])}}" >
-                                                            <span class="fa fa-trash-o fa-2x"></span>
-                                                        </a>
-                                                    </div>
+                                                    @if (!$appraisalscore>0)
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="5" 
+                                                                data-target="#modal-training-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 5])}}" id="editTraining">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a>  
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 5])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 @endif
                                                 @else
@@ -242,7 +252,7 @@ Academic Staff Appraisal Form
                                                             <span style="float: right">
                                                                 @if (!$uploadedfiles>0)
 
-                                                                @if (!$additionalquals>0)
+                                                                @if (!$additionalquals>0 && !$appraisalscore>0)
                                                                 <a href="#" data-toggle="modal"
                                                                     data-target="#modal-additionalquali-{{ $appraisal_id }}">
                                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -256,6 +266,7 @@ Academic Staff Appraisal Form
                                                                                     class="fa fa-check-circle-o"></span></span>
                                                                         </small>
                                                                     </div>
+                                                                    @if (!$appraisalscore>0)
                                                                     <div class="col-md-3 col-xs-3">
                                                                         <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="6" 
                                                                             data-target="#modal-additionalquali-{{ $appraisal_id }}" 
@@ -268,6 +279,8 @@ Academic Staff Appraisal Form
                                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                                         </a>
                                                                     </div>
+                                                                        
+                                                                    @endif
                                                                 </div>
                                                                 @endif
                                                                 @else
@@ -283,7 +296,7 @@ Academic Staff Appraisal Form
                                                                 <li class="list-group-item" style="margin-bottom: 4px">
                                                                     <span style="font-size: 17px; font-weigth:bold">Duties Performed <i style="color: red">*</i></span>
                                                                     <span style="float: right">
-                                                                        @if (!$performedduties>0)
+                                                                        @if (!$performedduties>0 && !$appraisalscore>0)
                                                                         <a href="#" data-toggle="modal"
                                                                             data-target="#modal-perfduties-{{ $appraisal_id }}">
                                                                             <span
@@ -298,6 +311,7 @@ Academic Staff Appraisal Form
                                                                                             class="fa fa-check-circle-o"></span></span>
                                                                                 </small>
                                                                             </div>
+                                                                            @if (!$appraisalscore>0)
                                                                             <div class="col-md-3 col-xs-3">
                                                                                 <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="7" 
                                                                                     data-target="#modal-perfduties-{{ $appraisal_id }}" 
@@ -310,6 +324,8 @@ Academic Staff Appraisal Form
                                                                                     <span class="fa fa-trash-o fa-2x"></span>
                                                                                 </a>
                                                                             </div>
+                                                                                
+                                                                            @endif
                                                                         </div>
                                                                         @endif
                                                                     </span>
@@ -323,7 +339,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Publications</span>
                                             <span style="float: right">
                                                 @if (!$uploadedfiles>0)
-                                                @if (!$publications>0)
+                                                @if (!$publications>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-publication-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -337,6 +353,7 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-3 col-xs-3"> 
                                                         <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="8" 
                                                             data-target="#modal-publication-{{ $appraisal_id }}" 
@@ -349,6 +366,8 @@ Academic Staff Appraisal Form
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
+                                                        
+                                                    @endif
                                                 </div>
                                                 @endif
                                                 @else
@@ -367,7 +386,7 @@ Academic Staff Appraisal Form
                                                 Achievements</span>
                                             <span style="float: right">
                                                 @if (!$uploadedfiles>0)
-                                                @if (!$productions>0)
+                                                @if (!$productions>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-production-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -381,6 +400,7 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-3 col-xs-3"> 
                                                         <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="9" 
                                                             data-target="#modal-production-{{ $appraisal_id }}" 
@@ -393,6 +413,8 @@ Academic Staff Appraisal Form
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
+                                                        
+                                                    @endif
                                                 </div>
                                                 @endif
                                                 @else
@@ -409,7 +431,7 @@ Academic Staff Appraisal Form
                                                 Responsibility</span>
                                             <span style="float: right">
                                                 @if (!$uploadedfiles>0)
-                                                @if (!$adminrespons>0)
+                                                @if (!$adminrespons>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-adminrespons-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -423,18 +445,21 @@ Academic Staff Appraisal Form
                                                                     class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="10" 
-                                                            data-target="#modal-adminrespons-{{ $appraisal_id }}" 
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 10])}}" id="editAdminrespons">
-                                                            <span class="fa fa-edit fa-2x"></span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-3 col-xs-3">
-                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 10])}}" >
-                                                            <span class="fa fa-trash-o fa-2x"></span>
-                                                        </a>
-                                                    </div>
+                                                    @if (!$appraisalscore>0)
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="10" 
+                                                                data-target="#modal-adminrespons-{{ $appraisal_id }}" 
+                                                                data-route="{{route('appraisal.data', [$appraisal_id, 10])}}" id="editAdminrespons">
+                                                                <span class="fa fa-edit fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3">
+                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 10])}}" >
+                                                                <span class="fa fa-trash-o fa-2x"></span>
+                                                            </a>
+                                                        </div>
+                                                        
+                                                    @endif
                                                 </div>
                                                 @endif
                                                 @else
@@ -451,7 +476,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Course(s) Taught</span>
                                                 <span style="float: right">
                                                 @if (!$uploadedfiles>0)
-                                                @if (!$taughtcourses>0)
+                                                @if (!$taughtcourses>0 && !$appraisalscore>0)
                                                     <a href="#" data-toggle="modal"
                                                         data-target="#modal-taughtcourses-{{ $appraisal_id }}">
                                                         <span class="fa fa-plus-circle fa-2x"></span>
@@ -466,6 +491,7 @@ Academic Staff Appraisal Form
                                                                         class="fa fa-check-circle-o"></span></span>
                                                             </small>
                                                         </div>
+                                                        @if (!$appraisalscore>0)
                                                         <div class="col-md-3 col-xs-3">
                                                             <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="11" 
                                                                 data-target="#modal-taughtcourses-{{ $appraisal_id }}" 
@@ -478,6 +504,8 @@ Academic Staff Appraisal Form
                                                                 <span class="fa fa-trash-o fa-2x"></span>
                                                             </a>
                                                         </div>
+                                                            
+                                                        @endif
                                                     </div>
                                                     @endif
                                                     @else
@@ -495,7 +523,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Teaching Load Summary </span>
                                             <span style="float: right">
                                                 @if (!$uploadedfiles>0)
-                                                @if (!$tloadsummaries>0)
+                                                @if (!$tloadsummaries>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-tloadsummary-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -509,6 +537,7 @@ Academic Staff Appraisal Form
                                                                         class="fa fa-check-circle-o"></span></span>
                                                             </small>
                                                         </div>
+                                                        @if (!$appraisalscore>0)
                                                         <div class="col-md-3 col-xs-3">
                                                             <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="12" 
                                                                 data-target="#modal-tloadsummary-{{ $appraisal_id }}" 
@@ -521,6 +550,8 @@ Academic Staff Appraisal Form
                                                                 <span class="fa fa-trash-o fa-2x"></span>
                                                             </a>
                                                         </div>
+                                                            
+                                                        @endif
                                                     </div>
                                                 @endif
                                                 @else
@@ -537,7 +568,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Any Other Information <i
                                                     style="color: red">*</i></span>
                                             <span style="float: right">
-                                                @if (!$anyotherinfos>0)
+                                                @if (!$anyotherinfos>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-anyotherinfo-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -551,6 +582,7 @@ Academic Staff Appraisal Form
                                                                         class="fa fa-check-circle-o"></span></span>
                                                             </small>
                                                         </div>
+                                                        @if (!$appraisalscore>0)
                                                         <div class="col-md-3 col-xs-3">
                                                             <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="13" 
                                                                 data-target="#modal-anyotherinfo-{{ $appraisal_id }}" 
@@ -563,16 +595,18 @@ Academic Staff Appraisal Form
                                                                 <span class="fa fa-trash-o fa-2x"></span>
                                                             </a>
                                                         </div>
+                                                            
+                                                        @endif
                                                     </div>
                                                 @endif
                                             </span>
                                         </li>
-                                        @if ($qualifications>0 && $salaryscales>0 && $performedduties>0 && $anyotherinfos>0)
+                                        @if ($qualifications>0 && $salaryscales>0 && $performedduties>0 && $anyotherinfos>0 && $appraisalscore>0)
                                         <li class="list-group-item" style="margin-bottom: 4px">
                                             <span style="font-size: 17px; font-weigth:bold">Upload Supporting Documents
                                                 <i style="color: red">*</i></span>
                                             <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                                @if (!$uploadedfiles>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-uploadfiles-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
@@ -586,17 +620,16 @@ Academic Staff Appraisal Form
                                                                         class="fa fa-check-circle-o"></span></span>
                                                             </small>
                                                         </div>
+                                                        @if (!$appraisalscore>0)
                                                         <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning" 
-                                                                data-target="#modal-uploadfiles-{{ $appraisal_id }}">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a>
                                                             <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="14" 
                                                                 data-target="#modal-uploadfiles-{{ $appraisal_id }}" 
                                                                 data-route="{{route('appraisal.data', [$appraisal_id, 14])}}" id="editUploadfiles">
                                                                 <span class="fa fa-edit fa-2x"></span>
                                                             </a>  
                                                         </div>
+                                                            
+                                                        @endif
                                                         <div class="col-md-3 col-xs-3">
                                                             <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 14])}}" >
                                                                 <span class="fa fa-trash-o fa-2x"></span>
@@ -1128,5 +1161,4 @@ Academic Staff Appraisal Form
 
 @section('footer-scripts')
 <script src="{{asset('admin_assets/dist/js/pages/appraisalupdate.js')}}"></script>
-    
 @endsection
