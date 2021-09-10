@@ -1,5 +1,5 @@
 <div>
-    <h4>12. Summary of Teaching Load <small>(Normal teaching loead per week is as prescribed by the Polytechnic for each grade of Lecturer).</small></h4>
+    <h4>Summary of Teaching Load <small>(Normal teaching loead per week is as prescribed by the Polytechnic for each grade of Lecturer).</small></h4>
     <table class="table">
         <thead>
             <tr>

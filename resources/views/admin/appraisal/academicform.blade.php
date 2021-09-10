@@ -32,16 +32,18 @@ Academic Staff Appraisal Form
                             @if($uploadedfiles>0)
                             <p>
                                 <ul class="list-group">
-                                    <li class="list-group-item" style="margin-bottom: 5px;background-color:green;color:white;">
+                                    <li class="list-group-item"
+                                        style="margin-bottom: 5px;background-color:green;color:white;">
                                         <h4>
-                                            Congratulations! You have completed {{$appraisal->title}}. Please check your e-mail. Thank you.
+                                            Congratulations! You have completed {{$appraisal->title}}. Please check your
+                                            e-mail. Thank you.
                                         </h4>
                                     </li>
                                 </ul>
                             </p>
                             @endif
                             <div class="row">
-                                
+
                                 <div class="col-md-6">
                                     <ul class="list-group">
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -49,32 +51,44 @@ Academic Staff Appraisal Form
                                                     style="color: red">*</i></span>
                                             <span style="float: right">
                                                 @if (!$qualifications>0 && !$appraisalscore>0)
-                                                <a href="#" data-toggle="modal" 
+                                                <a href="#" data-toggle="modal"
                                                     data-target="#modal-qualification-{{ $appraisal_id }}">
                                                     <span class="fa fa-plus-circle fa-2x"></span>
                                                 </a>
                                                 @else
                                                 <div class="row">
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-6 col-xs-6">
                                                         <small>
                                                             <span class="badge badge-success"
-                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                    class="fa fa-check-circle-o"></span></span>
-                                                        </small> 
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
                                                     </div>
-                                                    @if (!$appraisalscore>0)    
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="1" 
-                                                                data-target="#modal-qualification-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 1])}}" id="editQualification">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a> 
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 1])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="1"
+                                                            data-target="#modal-qualification-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 1])}}"
+                                                            id="editQualification">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 1])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
                                                     @endif
                                                 </div>
                                                 @endif
@@ -84,7 +98,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Professional
                                                 Membership</span>
                                             <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                                {{-- @if (!$uploadedfiles>0) --}}
                                                 @if (!$profmembs>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-profmemb-{{ $appraisal_id }}">
@@ -92,43 +106,55 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-6 col-xs-6">
                                                         <small>
                                                             <span class="badge badge-success"
-                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                    class="fa fa-check-circle-o"></span></span>
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="2" 
-                                                                data-target="#modal-profmemb-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 2])}}"  id="editProfmemb">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a>  
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 2])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="2"
+                                                            data-target="#modal-profmemb-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 2])}}"
+                                                            id="editProfmemb">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 2])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
                                                     @endif
                                                 </div>
                                                 @endif
-                                                @else
+                                                {{-- @else
                                                 <small>
                                                     <span class="badge badge-success"
                                                         style="background-color: red; color: honeydew">No
                                                         more submission 
                                                     </span>
                                                 </small>
-                                                @endif 
+                                                @endif  --}}
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
                                             <span style="font-size: 17px; font-weigth:bold">Promotions</span>
                                             <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                                {{-- @if (!$uploadedfiles>0) --}}
                                                 @if (!$promotions>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-promotion-{{ $appraisal_id }}">
@@ -136,37 +162,49 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-6 col-xs-6">
                                                         <small>
                                                             <span class="badge badge-success"
-                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                    class="fa fa-check-circle-o"></span></span>
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="3" 
-                                                                data-target="#modal-promotion-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 3])}}" id="editPromotion">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a>  
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 3])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="3"
+                                                            data-target="#modal-promotion-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 3])}}"
+                                                            id="editPromotion">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 3])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
                                                     @endif
                                                 </div>
                                                 @endif
-                                                @else
+                                                {{-- @else
                                                 <small>
                                                     <span class="badge badge-success"
                                                         style="background-color: red; color: honeydew">No
                                                         more submission   
                                                         </span>
                                                     </small>
-                                                @endif 
+                                                @endif  --}}
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
@@ -180,27 +218,39 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-6 col-xs-6">
                                                         <small>
                                                             <span class="badge badge-success"
-                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                    class="fa fa-check-circle-o"></span></span>
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3"> 
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="4" 
-                                                                data-target="#modal-salaryscale-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 4])}}" id="editSalary">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a> 
-                                                            
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 4])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="4"
+                                                            data-target="#modal-salaryscale-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 4])}}"
+                                                            id="editSalary">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 4])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
                                                     @endif
                                                 </div>
                                                 @endif
@@ -210,7 +260,7 @@ Academic Staff Appraisal Form
                                             <span style="font-size: 17px; font-weigth:bold">Training
                                                 Courses/Workshops</span>
                                             <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                                {{-- @if (!$uploadedfiles>0) --}}
                                                 @if (!$trainings>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-training-{{ $appraisal_id }}">
@@ -218,117 +268,156 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-6 col-xs-6">
                                                         <small>
                                                             <span class="badge badge-success"
-                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                    class="fa fa-check-circle-o"></span></span>
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="5" 
-                                                                data-target="#modal-training-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 5])}}" id="editTraining">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a>  
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 5])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="5"
+                                                            data-target="#modal-training-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 5])}}"
+                                                            id="editTraining">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 5])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
                                                     @endif
                                                 </div>
                                                 @endif
-                                                @else
+                                                {{-- @else
                                                 <small>
                                                     <span class="badge badge-success"
                                                         style="background-color: red; color: honeydew">No more
-                                                        submission </span> </small> @endif  </li> <li
-                                                            class="list-group-item" style="margin-bottom: 4px">
-                                                            <span style="font-size: 17px; font-weigth:bold">Additional
-                                                                Qualification</span>
-                                                            <span style="float: right">
-                                                                @if (!$uploadedfiles>0)
+                                                        submission </span> </small> 
+                                                @endif   --}}
+                                        </li>
 
-                                                                @if (!$additionalquals>0 && !$appraisalscore>0)
-                                                                <a href="#" data-toggle="modal"
-                                                                    data-target="#modal-additionalquali-{{ $appraisal_id }}">
-                                                                    <span class="fa fa-plus-circle fa-2x"></span>
-                                                                </a>
-                                                                @else
-                                                                <div class="row">
-                                                                    <div class="col-md-6 col-xs-6">
-                                                                        <small>
-                                                                            <span class="badge badge-success"
-                                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                                    class="fa fa-check-circle-o"></span></span>
-                                                                        </small>
-                                                                    </div>
-                                                                    @if (!$appraisalscore>0)
-                                                                    <div class="col-md-3 col-xs-3">
-                                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="6" 
-                                                                            data-target="#modal-additionalquali-{{ $appraisal_id }}" 
-                                                                            data-route="{{route('appraisal.data', [$appraisal_id, 6])}}" id="editAdditQuali">
-                                                                            <span class="fa fa-edit fa-2x"></span>
-                                                                        </a> 
-                                                                    </div>
-                                                                    <div class="col-md-3 col-xs-3">
-                                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 6])}}">
-                                                                            <span class="fa fa-trash-o fa-2x"></span>
-                                                                        </a>
-                                                                    </div>
-                                                                        
-                                                                    @endif
-                                                                </div>
-                                                                @endif
-                                                                @else
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Additional
+                                                Qualification</span>
+                                            <span style="float: right">
+                                                {{-- @if (!$uploadedfiles>0) --}}
+
+                                                @if (!$additionalquals>0 && !$appraisalscore>0)
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-additionalquali-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+                                                @else
+                                                <div class="row">
+                                                    @if (!$appraisalscore>0)
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="6"
+                                                            data-target="#modal-additionalquali-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 6])}}"
+                                                            id="editAdditQuali">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 6])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+
+                                                    @endif
+                                                </div>
+                                                @endif
+                                                {{-- @else
                                                                 <small>
                                                                     <span class="badge badge-success"
                                                                         style="background-color: red; color: honeydew">No
                                                                         more submission </span> 
                                                                     </small> 
                                                                            
-                                                                @endif 
-                                                                        
-                                                            </li> 
-                                                                <li class="list-group-item" style="margin-bottom: 4px">
-                                                                    <span style="font-size: 17px; font-weigth:bold">Duties Performed <i style="color: red">*</i></span>
-                                                                    <span style="float: right">
-                                                                        @if (!$performedduties>0 && !$appraisalscore>0)
-                                                                        <a href="#" data-toggle="modal"
-                                                                            data-target="#modal-perfduties-{{ $appraisal_id }}">
-                                                                            <span
-                                                                                class="fa fa-plus-circle fa-2x"></span>
-                                                                        </a>
-                                                                        @else
-                                                                        <div class="row">
-                                                                            <div class="col-md-6 col-xs-6">
-                                                                                <small>
-                                                                                    <span class="badge badge-success"
-                                                                                        style="background-color: green; color: honeydew">Submitted <span
-                                                                                            class="fa fa-check-circle-o"></span></span>
-                                                                                </small>
-                                                                            </div>
-                                                                            @if (!$appraisalscore>0)
-                                                                            <div class="col-md-3 col-xs-3">
-                                                                                <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="7" 
-                                                                                    data-target="#modal-perfduties-{{ $appraisal_id }}" 
-                                                                                    data-route="{{route('appraisal.data', [$appraisal_id, 7])}}" id="editPerfduties">
-                                                                                    <span class="fa fa-edit fa-2x"></span>
-                                                                                </a> 
-                                                                            </div>
-                                                                            <div class="col-md-3 col-xs-3">
-                                                                                <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 7])}}" >
-                                                                                    <span class="fa fa-trash-o fa-2x"></span>
-                                                                                </a>
-                                                                            </div>
-                                                                                
-                                                                            @endif
-                                                                        </div>
-                                                                        @endif
-                                                                    </span>
+                                                                @endif  --}}
+
+                                        </li>
+                                        <li class="list-group-item" style="margin-bottom: 4px">
+                                            <span style="font-size: 17px; font-weigth:bold">Duties Performed <i
+                                                    style="color: red">*</i></span>
+                                            <span style="float: right">
+                                                @if (!$performedduties>0 && !$appraisalscore>0)
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-perfduties-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+                                                @else
+                                                <div class="row">
+                                                    @if (!$appraisalscore>0)
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="7"
+                                                            data-target="#modal-perfduties-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 7])}}"
+                                                            id="editPerfduties">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 7])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+
+                                                    @endif
+                                                </div>
+                                                @endif
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -338,7 +427,7 @@ Academic Staff Appraisal Form
                                         <li class="list-group-item" style="margin-bottom: 4px">
                                             <span style="font-size: 17px; font-weigth:bold">Publications</span>
                                             <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                                {{-- @if (!$uploadedfiles>0) --}}
                                                 @if (!$publications>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-publication-{{ $appraisal_id }}">
@@ -346,46 +435,57 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-6 col-xs-6">
                                                         <small>
                                                             <span class="badge badge-success"
-                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                    class="fa fa-check-circle-o"></span></span>
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    @if (!$appraisalscore>0)
-                                                    <div class="col-md-3 col-xs-3"> 
-                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="8" 
-                                                            data-target="#modal-publication-{{ $appraisal_id }}" 
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 8])}}" id="editPublication">
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="8"
+                                                            data-target="#modal-publication-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 8])}}"
+                                                            id="editPublication">
                                                             <span class="fa fa-edit fa-2x"></span>
-                                                        </a> 
+                                                        </a>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 8])}}" >
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 8])}}">
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
-                                                        
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+
                                                     @endif
                                                 </div>
                                                 @endif
-                                                @else
+                                                {{-- @else
                                                 <small>
                                                     <span class="badge badge-success"
                                                         style="background-color: red; color: honeydew">No
                                                         more submission 
                                                     </span> 
-                                                </small>
-                                                                           
-                                                @endif 
+                                                </small>                    
+                                                @endif  --}}
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
                                             <span style="font-size: 17px; font-weigth:bold">Production &
                                                 Achievements</span>
                                             <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                                {{-- @if (!$uploadedfiles>0) --}}
                                                 @if (!$productions>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-production-{{ $appraisal_id }}">
@@ -393,44 +493,55 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-6 col-xs-6">
                                                         <small>
                                                             <span class="badge badge-success"
-                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                    class="fa fa-check-circle-o"></span></span>
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    @if (!$appraisalscore>0)
-                                                    <div class="col-md-3 col-xs-3"> 
-                                                        <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="9" 
-                                                            data-target="#modal-production-{{ $appraisal_id }}" 
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 9])}}" id="editProduction">
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="9"
+                                                            data-target="#modal-production-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 9])}}"
+                                                            id="editProduction">
                                                             <span class="fa fa-edit fa-2x"></span>
                                                         </a>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 9])}}" >
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 9])}}">
                                                             <span class="fa fa-trash-o fa-2x"></span>
                                                         </a>
                                                     </div>
-                                                        
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+
                                                     @endif
                                                 </div>
                                                 @endif
-                                                @else
+                                                {{-- @else
                                                 <small>
                                                     <span class="badge badge-success" style="background-color: red; color: honeydew">No more submission
                                                     </span>
-                                                </small>
-                                                           
-                                                @endif 
+                                                </small>   
+                                                @endif  --}}
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
                                             <span style="font-size: 17px; font-weigth:bold">Administrative
                                                 Responsibility</span>
                                             <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                                {{-- @if (!$uploadedfiles>0) --}}
                                                 @if (!$adminrespons>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-adminrespons-{{ $appraisal_id }}">
@@ -438,91 +549,115 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
+                                                    @if (!$appraisalscore>0)
                                                     <div class="col-md-6 col-xs-6">
                                                         <small>
                                                             <span class="badge badge-success"
-                                                                style="background-color: green; color: honeydew">Submitted <span
-                                                                    class="fa fa-check-circle-o"></span></span>
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
                                                         </small>
                                                     </div>
-                                                    @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="10" 
-                                                                data-target="#modal-adminrespons-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 10])}}" id="editAdminrespons">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 10])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
-                                                        
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="10"
+                                                            data-target="#modal-adminrespons-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 10])}}"
+                                                            id="editAdminrespons">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 10])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+
                                                     @endif
                                                 </div>
                                                 @endif
-                                                @else
+                                                {{-- @else
                                                 <small>
                                                     <span class="badge badge-success" style="background-color: red; color: honeydew">No
                                                         more submission
                                                     </span>
                                                 </small>
-                                                @endif
-
+                                                @endif --}}
                                             </span>
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
                                             <span style="font-size: 17px; font-weigth:bold">Course(s) Taught</span>
-                                                <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                            <span style="float: right">
+                                                {{-- @if (!$uploadedfiles>0) --}}
                                                 @if (!$taughtcourses>0 && !$appraisalscore>0)
-                                                    <a href="#" data-toggle="modal"
-                                                        data-target="#modal-taughtcourses-{{ $appraisal_id }}">
-                                                        <span class="fa fa-plus-circle fa-2x"></span>
-                                                    </a>
-                                                
-                                                    @else
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-xs-6">
-                                                            <small>
-                                                                <span class="badge badge-success"
-                                                                    style="background-color: green; color: honeydew">Submitted <span
-                                                                        class="fa fa-check-circle-o"></span></span>
-                                                            </small>
-                                                        </div>
-                                                        @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="11" 
-                                                                data-target="#modal-taughtcourses-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 11])}}" id="editTaughtcourses">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 11])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
-                                                            
-                                                        @endif
+                                                <a href="#" data-toggle="modal"
+                                                    data-target="#modal-taughtcourses-{{ $appraisal_id }}">
+                                                    <span class="fa fa-plus-circle fa-2x"></span>
+                                                </a>
+
+                                                @else
+                                                <div class="row">
+                                                    @if (!$appraisalscore>0)
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
                                                     </div>
-                                                    @endif
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="11"
+                                                            data-target="#modal-taughtcourses-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 11])}}"
+                                                            id="editTaughtcourses">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 11])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
                                                     @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+
+                                                    @endif
+                                                </div>
+                                                @endif
+                                                {{-- @else
                                                         <small>
                                                             <span class="badge badge-success"
                                                                 style="background-color: red; color: honeydew">No
                                                                         more submission 
                                                             </span>
                                                         </small>                
-                                                    @endif
+                                                    @endif --}}
                                             </span>
-                                                
+
                                         </li>
                                         <li class="list-group-item" style="margin-bottom: 4px">
-                                            <span style="font-size: 17px; font-weigth:bold">Teaching Load Summary </span>
+                                            <span style="font-size: 17px; font-weigth:bold">Teaching Load Summary
+                                            </span>
                                             <span style="float: right">
-                                                @if (!$uploadedfiles>0)
+                                                {{-- @if (!$uploadedfiles>0) --}}
                                                 @if (!$tloadsummaries>0 && !$appraisalscore>0)
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#modal-tloadsummary-{{ $appraisal_id }}">
@@ -530,40 +665,53 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
-                                                        <div class="col-md-6 col-xs-6">
-                                                            <small>
-                                                                <span class="badge badge-success"
-                                                                    style="background-color: green; color: honeydew">Submitted <span
-                                                                        class="fa fa-check-circle-o"></span></span>
-                                                            </small>
-                                                        </div>
-                                                        @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="12" 
-                                                                data-target="#modal-tloadsummary-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 12])}}" id="editTloadsummary">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 12])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
-                                                            
-                                                        @endif
+                                                    @if (!$appraisalscore>0)
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
                                                     </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="12"
+                                                            data-target="#modal-tloadsummary-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 12])}}"
+                                                            id="editTloadsummary">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 12])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+
+                                                    @endif
+                                                </div>
                                                 @endif
-                                                @else
+                                                {{-- @else
                                                 <small>
                                                     <span class="badge badge-success"
                                                         style="background-color: red; color: honeydew">No
                                                         more submission  
                                                         </span>
                                                 </small>                                                           
-                                                @endif
+                                                @endif --}}
                                             </span>
                                         </li>
+
                                         <li class="list-group-item" style="margin-bottom: 4px">
                                             <span style="font-size: 17px; font-weigth:bold">Any Other Information <i
                                                     style="color: red">*</i></span>
@@ -575,33 +723,47 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
-                                                        <div class="col-md-6 col-xs-6">
-                                                            <small>
-                                                                <span class="badge badge-success"
-                                                                    style="background-color: green; color: honeydew">Submitted <span
-                                                                        class="fa fa-check-circle-o"></span></span>
-                                                            </small>
-                                                        </div>
-                                                        @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="13" 
-                                                                data-target="#modal-anyotherinfo-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 13])}}" id="editAnyotherinfo">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a> 
-                                                        </div>
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 13])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
-                                                            
-                                                        @endif
+                                                    @if (!$appraisalscore>0)
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
                                                     </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="13"
+                                                            data-target="#modal-anyotherinfo-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 13])}}"
+                                                            id="editAnyotherinfo">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 13])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+
+                                                    @endif
+                                                </div>
                                                 @endif
                                             </span>
                                         </li>
-                                        @if ($qualifications>0 && $salaryscales>0 && $performedduties>0 && $anyotherinfos>0 && $appraisalscore>0)
+
+                                        @if ($qualifications>0 && $salaryscales>0 && $performedduties>0 &&
+                                        $anyotherinfos>0)
                                         <li class="list-group-item" style="margin-bottom: 4px">
                                             <span style="font-size: 17px; font-weigth:bold">Upload Supporting Documents
                                                 <i style="color: red">*</i></span>
@@ -613,29 +775,41 @@ Academic Staff Appraisal Form
                                                 </a>
                                                 @else
                                                 <div class="row">
-                                                        <div class="col-md-6 col-xs-6">
-                                                            <small>
-                                                                <span class="badge badge-success"
-                                                                    style="background-color: green; color: honeydew">Submitted <span
-                                                                        class="fa fa-check-circle-o"></span></span>
-                                                            </small>
-                                                        </div>
-                                                        @if (!$appraisalscore>0)
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a href="#" data-toggle="modal" class="text-warning editappraisal" data-position="14" 
-                                                                data-target="#modal-uploadfiles-{{ $appraisal_id }}" 
-                                                                data-route="{{route('appraisal.data', [$appraisal_id, 14])}}" id="editUploadfiles">
-                                                                <span class="fa fa-edit fa-2x"></span>
-                                                            </a>  
-                                                        </div>
-                                                            
-                                                        @endif
-                                                        <div class="col-md-3 col-xs-3">
-                                                            <a class="text-danger" onclick="return confirm ('Do you want to delete the entries you made in this section?')" href="{{route('delete.appraisals', [$appraisal_id, 14])}}" >
-                                                                <span class="fa fa-trash-o fa-2x"></span>
-                                                            </a>
-                                                        </div>
+                                                    @if (!$appraisalscore>0)
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Submitted
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
                                                     </div>
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a href="#" data-toggle="modal"
+                                                            class="text-warning editappraisal" data-position="14"
+                                                            data-target="#modal-uploadfiles-{{ $appraisal_id }}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 14])}}"
+                                                            id="editUploadfiles">
+                                                            <span class="fa fa-edit fa-2x"></span>
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="col-md-3 col-xs-3">
+                                                        <a class="text-danger"
+                                                            onclick="return confirm ('Do you want to delete the entries you made in this section?')"
+                                                            href="{{route('delete.appraisals', [$appraisal_id, 14])}}">
+                                                            <span class="fa fa-trash-o fa-2x"></span>
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <small>
+                                                            <span class="badge badge-success"
+                                                                style="background-color: green; color: honeydew">Scored
+                                                                <span class="fa fa-check-circle-o"></span></span>
+                                                        </small>
+                                                    </div>
+                                                    @endif
+                                                </div>
                                                 @endif
                                             </span>
                                         </li>
@@ -645,19 +819,22 @@ Academic Staff Appraisal Form
                             </div>
 
                             <p>
-                                <a href="{{ route('submitted.appraisals') }}" class="btn btn-primary btn-sm"><span class="fa fa-eye"></span> Submitted Appraisals</a>
+                                <a href="{{ route('submitted.appraisals') }}" class="btn btn-primary btn-sm"><span
+                                        class="fa fa-eye"></span> Submitted Appraisals</a>
                             </p>
 
                             @else
                             <p style="text-align: justify; font-size: 20px; color: red">
 
-                                Dear {{ $user->title->title.' '.$user->firstname.' '.$user->lastname }}, no form to be filled at the moment! <br>
+                                Dear {{ $user->title->title.' '.$user->firstname.' '.$user->lastname }}, no form to be
+                                filled at the moment! <br>
                                 {{ $appraisal->title }} will start on
                                 {{ date('d M, Y',strtotime($appraisal->starting)) }} and
                                 end on {{ date('d M, Y',strtotime($appraisal->ending)) }}.
                             </p>
                             <p>
-                                <a href="{{ route('appraisals.published') }}" class="btn btn-primary btn-sm">Published Appraisals</a>
+                                <a href="{{ route('appraisals.published') }}" class="btn btn-primary btn-sm">Published
+                                    Appraisals</a>
                             </p>
 
                             @endif
@@ -673,7 +850,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-qualification-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('qualification.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('qualification.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -707,7 +885,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-profmemb-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('profmembership.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('profmembership.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -738,7 +917,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-promotion-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('promotion.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('promotion.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -770,7 +950,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-salaryscale-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('salaryscale.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('salaryscale.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -802,7 +983,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-training-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('training.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('training.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -834,7 +1016,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-additionalquali-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('additionalqualif.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('additionalqualif.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -862,11 +1045,14 @@ Academic Staff Appraisal Form
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+
         <!-- Modal for Performed Duties -->
         <div class="modal fade" id="modal-perfduties-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('performedduty.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('performedduty.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -898,7 +1084,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-publication-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('publication.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('publication.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -930,7 +1117,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-production-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('production.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('production.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -962,7 +1150,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-adminrespons-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('adminrespons.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('adminrespons.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -994,7 +1183,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-taughtcourses-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('coursetaught.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('coursetaught.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -1026,7 +1216,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-tloadsummary-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('tloadsummary.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('tloadsummary.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -1058,7 +1249,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-anyotherinfo-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('anyotherinfo.store') }}" method="post" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('anyotherinfo.store') }}" method="post"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -1090,7 +1282,8 @@ Academic Staff Appraisal Form
         <div class="modal fade" id="modal-uploadfiles-{{ $appraisal_id }}">
             <div class="modal-dialog modal-lg">
 
-                <form action="{{ route('supportingdoc.store') }}" method="post" enctype="multipart/form-data" onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                <form action="{{ route('supportingdoc.store') }}" method="post" enctype="multipart/form-data"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
                     @csrf
 
                     <div class="modal-content">
@@ -1120,10 +1313,7 @@ Academic Staff Appraisal Form
                             </div>
                             <div>
                                 @livewire('supporting-document')
-                                {{-- <div class="form-group">
-                                    <label for="">Select Supporting Document(s) <strong style="color:red;">* [Select all your documents at once]</strong></label>
-                                    <input type="file" name="supportingdoc[]" required multiple>
-                                </div> --}}
+
                             </div>
 
 

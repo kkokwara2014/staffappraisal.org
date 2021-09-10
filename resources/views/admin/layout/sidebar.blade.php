@@ -57,6 +57,7 @@
                     {{-- <li><a href="{{ route('myappraisal.index') }}"><i class="fa fa-file-pdf-o"></i> My Appraisals</a></li> --}}
                     @hasrole(['Admin','Registrar'])
                     <li><a href="{{ route('appraisals.index') }}"><i class="fa fa-file-pdf-o"></i> Unpublished</a></li>
+                    <li><a href="{{ route('appraisal.reports') }}"><i class="fa fa-file-pdf-o"></i> Reports</a></li>
                     @endhasrole
                     
                     <li><a href="{{ route('appraisals.published') }}"><i class="fa fa-file-pdf-o"></i> Published</a></li>
@@ -90,15 +91,15 @@
             
 
             {{-- @can('profile-updated', Auth::user()) --}}
-            <li><a href="{{ route('my.profile') }}"><i class="fa fa-picture-o"></i> My Profile Photo</a></li>
+            {{-- <li><a href="{{ route('my.profile') }}"><i class="fa fa-picture-o"></i> My Profile Photo</a></li> --}}
             {{-- @endcan --}}
 
             {{-- only Admin --}}
            @hasrole('Admin')
            <li class="treeview">
             <a href="#">
-                <i class="fa fa-user"></i>
-                <span>Admin Panel</span>
+                <i class="fa fa-cogs"></i>
+                <span>Settings</span>
                 <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -109,7 +110,7 @@
             </ul>
         </li>
         
-        <li class="treeview">
+        {{--  <li class="treeview">
             <a href="#">
                 <i class="fa fa-cogs"></i>
                 <span>Settings</span>
@@ -120,14 +121,25 @@
             <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-cog"></i> User Management</a></li>
             </ul>
-        </li>
+        </li>  --}}
         
         @endhasrole
 
         {{-- only Admin and Adhoc Staff --}}
          @if ($user->profileupdated==1 && ($user->hasAnyRole(['Admin'])|| $user->hasAnyRole(['Adhoc Staff'])))
-            <li>
-                <a href="{{ route('staffs.index') }}"><i class="fa fa-users"></i> Staff</a>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-users"></i>
+                    <span>Staff</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('staffs.create') }}"><i class="fa fa-user-plus"></i> Add New</a></li>
+                    <li><a href="{{ route('staffs.index') }}"><i class="fa fa-users"></i> All Staff</a></li>
+                </ul>
             </li>
          @endif
 

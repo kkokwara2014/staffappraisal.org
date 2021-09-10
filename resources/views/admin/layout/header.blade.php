@@ -19,6 +19,7 @@
     <meta name="keywords" content="">
 
     <title>@yield('title')</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/assets/img/small_logo.png') }}">
 
 
 		{{-- <link rel="shortcut icon" type="image/png" href="{{asset('bootstrap_assets/img/logo_amd.png')}}"/> --}}

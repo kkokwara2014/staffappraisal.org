@@ -11,26 +11,29 @@ Edit Appraisal
 <div class="row">
     <!-- Left col -->
     <section class="col-lg-12 connectedSortable">
-        <p>
-           <a href="{{ route('appraisals.index') }}" class="btn btn-success btn-sm">
-               <span class="fa fa-eye"></span> All Appraisals
-           </a>
-       </p>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
+                <p>
+                    <a href="{{ route('appraisals.index') }}" class="btn btn-success btn-sm">
+                        <span class="fa fa-eye"></span> All Appraisals
+                    </a>
+                </p>
+                
 
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
 
-                        <form action="{{ route('appraisals.store') }}" method="post">
+                        <form action="{{ route('appraisals.update',$appraisal->id) }}" method="post">
                             @csrf
+                            @method('put')
+                            
                             <div class="form-group">
                                 <label for="">Title *</label>
                                 <input type="text"
                                     class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
-                                    name="title" value="{{ old('title') }}" placeholder="Appraisal Title"
+                                    name="title" value="{{ $appraisal->title }}" placeholder="Appraisal Title"
                                     autofocus>
             
                                 @if ($errors->has('title'))
@@ -41,10 +44,21 @@ Edit Appraisal
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label for="">Appraisal Year *</label>
+                                <input type="text" id="datepicker5" class="form-control{{ $errors->has('appraisalyear') ? ' is-invalid' : '' }}"
+                                    name="appraisalyear" value="{{ $appraisal->appraisalyear }}" placeholder="Appraisal Year" required>
+
+                                @if ($errors->has('appraisalyear'))
+                                <span class="invalid-feedback" role="alert">
+                                    <span style="color: red">{{ $errors->first('appraisalyear') }}</span>
+                                </span>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <label for="">Starting Period *</label>
-                                <input type="date"
+                                <input type="text" id="datepicker3"
                                     class="form-control{{ $errors->has('starting') ? ' is-invalid' : '' }}"
-                                    name="starting" value="{{ old('starting') }}"
+                                    name="starting" value="{{ $appraisal->starting }}"
                                     autofocus>
             
                                 @if ($errors->has('starting'))
@@ -56,9 +70,9 @@ Edit Appraisal
                             </div>
                             <div class="form-group">
                                 <label for="">Ending Period *</label>
-                                <input type="date"
+                                <input type="text" id="datepicker4"
                                     class="form-control{{ $errors->has('ending') ? ' is-invalid' : '' }}"
-                                    name="ending" value="{{ old('ending') }}"
+                                    name="ending" value="{{ $appraisal->ending }}"
                                     autofocus>
             
                                 @if ($errors->has('ending'))
@@ -80,8 +94,6 @@ Edit Appraisal
                 <!-- /.box -->
             </div>
         </div>
-
-
 
     </section>
     <!-- /.Left col -->

@@ -1,5 +1,5 @@
 <div>
-    <h4> Supporting Documents <small>(Please ensure that all your documents are in Portable Document Format (PDF) only)</small></h4>
+    <h4>Supporting Documents <small>(Please ensure that all your documents are in Portable Document Format (PDF) only)</small></h4>
     <table class="table">
         <thead>
             <tr>
@@ -18,7 +18,7 @@
                 <td style="width: 60%">
                     <select name="documenttype[]" class="form-control form-control-sm">
                         <option value="">Select Document Type</option>
-                        <option value="Certification">Certificate</option>
+                        <option value="Certificate">Certificate</option>
                         <option value="Transcript">Transcript</option>
                         <option value="Statement of Result">Statement of Result</option>
                         <option value="OLevel">OLevel</option>

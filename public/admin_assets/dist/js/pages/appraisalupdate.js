@@ -89,6 +89,11 @@ let autoFillQualilficationFormData = function(data) {
         } else {
             html += '<option value="O-level">O-level</option>';
         }
+        if (data[i].qualname == 'FSLC') {
+            html += '<option value="FSLC" selected>FSLC</option>';
+        } else {
+            html += '<option value="FSLC">FSLC</option>';
+        }
         html += '</select>';
         html += '</td><td style="width: 60%">';
         html += '<input type="text" class="form-control form-control-sm" name="awardinginst[]" value="' + data[i].awardinginst + '" required placeholder="Awarding Institution e.g. AIFPU"></td>';
@@ -113,6 +118,7 @@ let autoFillQualilficationFormData = function(data) {
     html += '<option value="ND" >ND</option>';
     html += '<option value="NCE" >NCE</option>';
     html += '<option value="O-level" >O-level</option>';
+    html += '<option value="FSLC" >FSLC</option>';
     html += '</select>';
     html += '</td><td style="width: 60%">';
     html += '<input type="text" class="form-control form-control-sm" name="awardinginst[]" placeholder="Awarding Institution e.g. AIFPU"></td>';
@@ -536,6 +542,16 @@ let autofillOtherInfo = function(data) {
     $('#otherinfo').prepend(html);
 }
 
+//for junior staff
+let autofillAdhocPerfDuty = function(data) {
+    let html = '<input type="hidden" value="' + data[0].id + '" name="adhocdutyid">';
+    $('#dutyContainer').prepend(html);
+
+    let adhocduty = $('#adhocperfduty');
+    adhocduty.text(data[0].adhocperfduty);
+}
+
+
 let fillFormByPosition = function(data, position) {
     if (position === 1) autoFillQualilficationFormData(data, position);
     if (position === 2) autfillProfMembFormData(data, position);
@@ -550,4 +566,9 @@ let fillFormByPosition = function(data, position) {
     if (position === 11) autofillCourseTuaght(data, position);
     if (position === 12) autofillTeachingLoad(data, position);
     if (position === 13) autofillOtherInfo(data, position);
+
+    if (position === 14) autofillInstitution(data, position);
+    if (position === 15) autofillJuniorQualification(data, position);
+    if (position === 16) autofillPostQualiExperience(data, position);
+    if (position === 17) autofillAdhocPerfDuty(data, position);
 }

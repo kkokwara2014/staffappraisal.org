@@ -30,7 +30,8 @@ User Profile
                                     style="width: 180px; border-radius: 50%;">
                                 <form action="{{ route('user.profile.update') }}" method="post"
                                     enctype="multipart/form-data">
-                                    {{ csrf_field() }}
+                                    @csrf
+                                    
                                     <br>
                                     <input type="file" name="userimage" required>
                                     <p></p>

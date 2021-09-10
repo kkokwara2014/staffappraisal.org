@@ -120,4 +120,23 @@ class User extends Authenticatable
     public function creatorinfos(){
         return $this->hasMany(Creatorinfo::class);
     }
+
+    public function institutions(){
+        return $this->hasMany(Institution::class);
+    }
+    public function juniorqualifications(){
+        return $this->hasMany(Juniorqualification::class);
+    }
+
+    public function postqualiexperiences(){
+        return $this->hasMany(Postqualiexperience::class);
+    }
+    public function adhocperfduties(){
+        return $this->hasMany(Adhocperfduty::class);
+    }
+
+    public function appraisalreports(){
+        return $this->hasMany(Appraisalreport::class);
+    }
+    
 }

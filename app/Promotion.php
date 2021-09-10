@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Promotion extends Model
 {
-    //
+    
+
+    public function appraisalreports(){
+        return $this->hasMany(Appraisalreport::class);
+    }
 }

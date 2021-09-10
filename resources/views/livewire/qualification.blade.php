@@ -1,5 +1,5 @@
 <div>
-    <h4>1. Academic Qualification</h4>
+    <h4>Academic Qualification</h4>
     <table class="table">
         <thead>
             <tr>
@@ -37,6 +37,8 @@
                         <option value="NCE">NCE</option>
                         <option value="O-level">O-level
                         </option>
+                        <option value="FSLC">FSLC
+                        </option>
                     </select>
     
                 </td>
@@ -50,9 +52,6 @@
                         name="dateofgrad[]" required placeholder="Grad. Year">
                 </td>
                 
-                {{-- <td style="width: 10%">
-                    <input type="file" name="qualifilename[]" required>
-                </td> --}}
                 <td>
                     <button wire:click.prevent="remove({{$key}})" class="btn btn-danger btn-sm">
                         <span class="fa fa-times"></span>

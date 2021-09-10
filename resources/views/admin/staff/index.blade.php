@@ -40,33 +40,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($staffs as $staff)
+                                {{-- @foreach ($staffLists as $staff) --}}
 
-                                @if ($staff->creator_id==Auth::user()->id || Auth::user()->hasAnyRole(['Admin','Rector','Registrar']))
+                                @foreach ($staffLists as $staff)
+
+                                @if ($staff['creator_id']==auth()->user()->id || auth()->user()->hasAnyRole(['Admin','Rector','Registrar']))
 
                                     
                                             <tr>
                                     <td>
-                                        <img src="{{url('user_images',$staff->userimage)}}" alt="" class="img-responsive"
+                                        <img src="{{url('user_images',$staff['userimage'])}}" alt="" class="img-responsive"
                                         width="40" height="40" style="border-radius: 50%">
                                     </td>
-                                    <td>{{$staff->lastname}}</td>
-                                    <td>{{$staff->firstname}}</td>
-                                    <td>{{$staff->staffnumb}}</td>
-                                    <td><a href="tel:{{$staff->phone}}" title="Tap to Call">{{$staff->phone}}</a></td>
+                                    <td>{{$staff['lastname']}}</td>
+                                    <td>{{$staff['firstname']}}</td>
+                                    <td>{{$staff['staffnumb']}}</td>
+                                    <td><a href="tel:{{$staff['phone']}}" title="Tap to Call">{{$staff['phone']}}</a></td>
                                     <td>
-                                        @if ($staff->department->id!=1)
-                                        {{$staff->department->name}} <small>[{{ $staff->school->name }}]</small>
+                                        @if ($staff['department->id']!=1)
+                                        {{$staff['department->name']}} <small>[{{ $staff['school->name'] }}]</small>
                                         @else
 
-                                        <span class="badge badge-pill badge-danger" style="background-color: red; color: seashell">Staff needs to update profile!</span>
+                                        <span class="badge badge-pill badge-danger" style="background-color: red; color: seashell">Profile update required!</span>
                                             
                                         @endif
                                     </td>
-                                    <td><a href="{{ route('staffs.show',$staff->id) }}"><span
+                                    <td><a href="{{ route('staffs.show',$staff['id']) }}"><span
                                                 class="fa fa-eye fa-2x text-primary"></span></a></td>
                                     <td>
-                                        @if ($staff->isactive==1)
+                                        @if ($staff['isactive']==1)
                                         <span class="fa fa-check-circle fa-2x text-success"></span>
                                         @else
                                         <span class="fa fa-close fa-2x text-danger"></span>
@@ -82,9 +84,9 @@
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
                                                 @hasrole('Admin')
-                                                @if ($staff->isactive==1)
-                                                <form id="deact-{{$staff->id}}" style="display: none"
-                                                    action="{{ route('staffs.deactivate',$staff->id) }}" method="post">
+                                                @if ($staff['isactive']==1)
+                                                <form id="deact-{{$staff['id']}}" style="display: none"
+                                                    action="{{ route('staffs.deactivate',$staff['id']) }}" method="post">
                                                     {{ csrf_field() }}
                                                 </form>
 
@@ -92,7 +94,7 @@
                                                     <a role="menuitem" tabindex="-1" href="" onclick="
                                                                 if (confirm('Ban this User?')) {
                                                                     event.preventDefault();
-                                                                document.getElementById('deact-{{$staff->id}}').submit();
+                                                                document.getElementById('deact-{{$staff['id']}}').submit();
                                                                 } else {
                                                                     event.preventDefault();
                                                                 }
@@ -102,8 +104,8 @@
                                                 </li>
 
                                                 @else
-                                                <form id="act-{{$staff->id}}" style="display: none"
-                                                    action="{{ route('staffs.activate',$staff->id) }}" method="post">
+                                                <form id="act-{{$staff['id']}}" style="display: none"
+                                                    action="{{ route('staffs.activate',$staff['id']) }}" method="post">
                                                     {{ csrf_field() }}
                                                 </form>
 
@@ -111,7 +113,7 @@
                                                     <a role="menuitem" tabindex="-1" href="" onclick="
                                                                 if (confirm('Activate this User?')) {
                                                                     event.preventDefault();
-                                                                document.getElementById('act-{{$staff->id}}').submit();
+                                                                document.getElementById('act-{{$staff['id']}}').submit();
                                                                 } else {
                                                                     event.preventDefault();
                                                                 }
@@ -123,13 +125,13 @@
                                                 @endif
                                                 @endhasrole
 
-                                                @if ($staff->creator_id==Auth::user()->id || Auth::user()->hasAnyRole(['Admin']))
+                                                @if ($staff['creator_id']==Auth::user()->id || Auth::user()->hasAnyRole(['Admin']))
                                                 <li role="presentation"> <a role="menuitem" tabindex="-1"
-                                                        href="{{ route('staffs.edit',$staff->id) }}"><span
+                                                        href="{{ route('staff.modify',$staff['id']) }}"><span
                                                             class="fa fa-pencil-square"></span> Edit</a> </li>
 
-                                                <form id="remove-{{$staff->id}}" style="display: none"
-                                                    action="{{ route('staffs.destroy',$staff->id) }}" method="post">
+                                                <form id="remove-{{$staff['id']}}" style="display: none"
+                                                    action="{{ route('staffs.destroy',$staff['id']) }}" method="post">
                                                     {{ csrf_field() }}
                                                     {{method_field('DELETE')}}
                                                 </form>
@@ -138,7 +140,7 @@
                                                     <a role="menuitem" tabindex="-1" href="" onclick="
                                                                 if (confirm('Delete this?')) {
                                                                     event.preventDefault();
-                                                                document.getElementById('remove-{{$staff->id}}').submit();
+                                                                document.getElementById('remove-{{$staff['id']}}').submit();
                                                                 } else {
                                                                     event.preventDefault();
                                                                 }

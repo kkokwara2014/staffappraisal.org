@@ -12,11 +12,11 @@ Create Appraisal
     <!-- Left col -->
     <section class="col-lg-12 connectedSortable">
         <p>
-        @hasrole(['Admin','Registrar'])
+            @hasrole(['Admin','Registrar'])
             <a href="{{ route('appraisals.index') }}" class="btn btn-success btn-sm">
                 <span class="fa fa-eye"></span> All Appraisals
             </a>
-        @endhasrole
+            @endhasrole
         </p>
 
         <div class="row">
@@ -25,25 +25,44 @@ Create Appraisal
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        
+
                         @foreach ($appraisals as $appraisal)
-                        
+
                         @hasrole(['Admin','Registrar'])
-                        <small><a href="{{ route('appraisal.unpublish',$appraisal->id) }}">Unpublish {{ $appraisal->title }}</a></small>
+                        <small><a href="{{ route('appraisal.unpublish',$appraisal->id) }}">Unpublish
+                                {{ $appraisal->title }}</a></small>
                         @endhasrole
-                        
-                        
+
+
                         <h5>
-                        {{ $appraisal->title }}  
-                          <small>
-                              <a href="{{ route('appraisalform',$appraisal->slug) }}">Fill Appraisal Form</a>
-                              &nbsp; &nbsp; &nbsp;
-                              <span style="color: red">
-                                  Open from {{ date('d M, Y',strtotime($appraisal->starting)) }} to {{ date('d M, Y',strtotime($appraisal->ending)) }} 
-                              </span>
-                          </small>
-                        </h5> 
-                                                            
+
+                            {{ $appraisal->title }}
+
+                            @if (date('Y-m-d') > $appraisal->ending )
+                            <small>
+                                &nbsp; &nbsp; &nbsp;
+                                <span style="color: red">
+                                    Closed on {{ date('d M, Y',strtotime($appraisal->ending)) }}
+                                </span>
+                            </small>
+
+                            @else
+
+                            <small>
+                                
+                                <a href="{{ route('appraisalform',$appraisal->slug) }}">Fill Appraisal Form</a> 
+                               
+                                &nbsp; &nbsp; &nbsp;
+                                <span style="color: red">
+                                    Open from {{ date('d M, Y',strtotime($appraisal->starting)) }} to
+                                    {{ date('d M, Y',strtotime($appraisal->ending)) }}
+                                </span>
+                                
+                            </small>
+
+                            @endif
+                        </h5>
+
                         @endforeach
 
                     </div>

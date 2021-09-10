@@ -1,5 +1,5 @@
 <div>
-    <h4>9. Production and Achievements <small>(Patents, Inventions, Trademarks, Copyright, Designs, Consultancy, Feasibility Studies)</small></h4>
+    <h4>Production and Achievements <small>(Patents, Inventions, Trademarks, Copyright, Designs, Consultancy, Feasibility Studies)</small></h4>
     <table class="table">
         <thead>
             <tr>

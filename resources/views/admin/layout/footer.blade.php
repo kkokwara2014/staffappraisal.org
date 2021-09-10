@@ -1,14 +1,18 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        Powered by Done-Right Systems Inc.
+        Powered by Done-Right Systems.
     </div>
-    <strong>Copyright &copy; <script>
-            var y=new Date(); document.write(y.getFullYear());
-        </script> staffappraisal.org</strong> All rights
-    reserved.
+    <strong>Copyright &copy; 2020 - 
+        <script>
+            var y=new Date(); 
+            document.write(y.getFullYear());
+        </script> 
+        staffappraisal.org
+    </strong> All rights reserved.
 </footer>
 
 <!-- Control Sidebar -->
+
 <aside class="control-sidebar control-sidebar-dark" style="display: none;">
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -21,50 +25,7 @@
         <div class="tab-pane" id="control-sidebar-home-tab">
             <h3 class="control-sidebar-heading">Recent Activity</h3>
             <ul class="control-sidebar-menu">
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                            <p>Will be 23 on April 24th</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                            <p>New phone +1(800)555-1234</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                            <p>nora@example.com</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                            <p>Execution time 5 seconds</p>
-                        </div>
-                    </a>
-                </li>
+                
             </ul>
             <!-- /.control-sidebar-menu -->
 
@@ -198,9 +159,9 @@
     </div>
 </aside>
 <!-- /.control-sidebar -->
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
+
 <div class="control-sidebar-bg"></div>
+<div>
 </div>
 <!-- ./wrapper -->
 
@@ -251,6 +212,7 @@
 <script src="{{asset('admin_assets/dist/js/demo.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 @section('footer-scripts')
     @show;
 
@@ -328,6 +290,18 @@ $('select[name="classlevel_id"]').on('change', function() {
     });
       //Date picker2
     $('#datepicker2').datepicker({
+      autoclose: true,
+    });
+      //Date picker2
+    $('#datepicker3').datepicker({
+      autoclose: true,
+    });
+      //Date picker2
+    $('#datepicker4').datepicker({
+      autoclose: true,
+    });
+      //Date picker2
+    $('#datepicker5').datepicker({
       autoclose: true,
     });
 
@@ -600,6 +574,54 @@ $('select[name="classlevel_id"]').on('change', function() {
             }
         });
 
+    });
+</script>
+
+{{--  junior staff appraisal score  --}}
+<script type="text/javascript">
+    $(function(){
+
+        var juniorstafftotal_score=function(){
+            var sum=0;
+            $('.juniorappscore:checked').each(function(){
+                var num=$(this).val();
+                if(num!=0){
+                    sum+=parseInt(num);
+                }
+            });
+
+            if(sum<50){
+                $('#juniorstafftotalscore').val(sum);
+                $('#juniorstafftotalscore').css({'background-color':'red','color':'white','font-size':'18px'});
+                
+            }else if(sum>50){
+                $('#juniorstafftotalscore').val(sum);
+                $('#juniorstafftotalscore').css({'background-color':'green','color':'white','font-size':'18px'});
+            }
+
+        }
+
+        $('.juniorappscore').change(function(){
+            juniorstafftotal_score();
+        });
+        
+
+
+    });
+</script>
+
+
+<script> 
+    $(function () { $("[data-toggle='tooltip']").tooltip(); }); 
+</script>
+
+
+{{--  printing area  --}}
+<script src="{{ asset('js/jquery.printPage.js') }}"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.btnprnt').printPage();
     });
 </script>
 

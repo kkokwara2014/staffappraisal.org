@@ -25,6 +25,7 @@ class AppraisalStoreRequest extends FormRequest
     {
         return [
             'title'=>'required|min:5|max:40',
+            'appraisalyear'=>'required',
             'starting'=>'required',
             'ending'=>'required',
         ];

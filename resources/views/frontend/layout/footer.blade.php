@@ -11,7 +11,7 @@
                     </ul>
                 </div>
                 <div class="col-md-7 item text">
-                    <h3>About Staff<span style="color: rgb(86,198,198);">appraisal</span></h3>
+                    <h3>About OST<span style="color: rgb(86,198,198);">APP</span></h3>
                     <p style="text-align:justify">
                         Appraisal is the foundation on which Staff promotion is built. Appraisal reveals the 
                         efforts and contributions which each Staff in an organization has been making over a 

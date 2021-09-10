@@ -11,4 +11,11 @@ class FrontendController extends Controller
 
         return view('frontend.index');
     }
+
+    public function downloadusermanual($filename){
+        $file = public_path('usermanual/'.$filename);
+        $name = basename($file);
+        return response()->download($file, $name);
+    }
+
 }

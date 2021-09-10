@@ -7,7 +7,8 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
         
-        <title>Staffappraisal - @yield('title')</title>
+        <title>OSTAPP - @yield('title')</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/assets/img/small_logo.png') }}">
         
         <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('frontend/assets/fonts/ionicons.min.css')}}">
@@ -28,8 +29,8 @@
             <nav class="navbar navbar-light navbar-expand-md fixed-top navigation-clean-button"
                 style="font-family: Raleway, sans-serif;font-size: 14px;">
                 <div class="container"><a class="navbar-brand" href="{{ route('index') }}"
-                        style="font-family: Raleway, sans-serif;font-weight: bold;font-size: 28px;">Staff<span
-                            style="color: rgb(86,198,198);">Appraisal</span></a><button data-toggle="collapse"
+                        style="font-family: Raleway, sans-serif;font-weight: bold;font-size: 28px;">OST<span
+                            style="color: rgb(86,198,198);">APP</span></a><button data-toggle="collapse"
                         class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
                             navigation</span><span class="navbar-toggler-icon"
                             style="color: rgb(86,198,198);"></span></button>
@@ -38,6 +39,7 @@
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" href="{{route('index')}}" style="color: rgb(86,198,198);"><span class="icon ion-home"></span> Home</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="#">About us</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('download.usermanual','OSTAPP_user_guide.pdf') }}" download="OSTAPP_user_guide.pdf">Download Manual</a></li>
                         </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                 href="{{ route('login') }}">Sign in</a></span>
                     </div>

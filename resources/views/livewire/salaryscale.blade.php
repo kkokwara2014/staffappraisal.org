@@ -1,5 +1,5 @@
 <div>
-    <h4>4. Salary Scale</h4>
+    <h4>Salary Scale</h4>
     <table class="table">
         <thead>
             <tr>

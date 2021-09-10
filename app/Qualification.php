@@ -15,4 +15,8 @@ class Qualification extends Model
         'appraisal_id',
         'user_id',
     ];
+
+    public function appraisalreports(){
+        return $this->hasMany(Appraisalreport::class);
+    }
 }

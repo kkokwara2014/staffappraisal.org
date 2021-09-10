@@ -26,7 +26,7 @@ class SupportingDocumentController extends Controller
         //uploading appraisal documents
         if ($request->hasFile('supportingdoc')) {
             foreach ($allUploadedFiles as $key=> $docum) {
-                $filename=rand(1234567,6789099).'.'.$docum->getClientOriginalExtension();
+                $filename=auth()->user()->lastname.'_'.auth()->user()->staffnumb.'_'.rand(1234567,6789099).'.'.$docum->getClientOriginalExtension();
                 $docum->storeAs('public/staff_appraisal_documents/', $filename);
                 
                 $uploadeddoc=new Uploadedfile();

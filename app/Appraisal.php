@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Appraisal extends Model
 {
     
-    protected $fillable=['title','slug','starting','ending','user_id'];
+    protected $fillable=['title','slug','appraisalyear','starting','ending','user_id'];
+
+    protected $dates=['starting','ending'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -25,5 +27,9 @@ class Appraisal extends Model
     }
     public function appraisalscores(){
         return $this->hasMany(Appraisalscore::class);
+    }
+
+    public function appraisalreports(){
+        return $this->hasMany(Appraisalreport::class);
     }
 }

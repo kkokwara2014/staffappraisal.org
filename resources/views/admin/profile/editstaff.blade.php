@@ -139,8 +139,7 @@ Edit Profile
                     </div>
                     <div class="form-group">
                         <label for="">Department <b style="color:red">*</b></label>
-                            <select name="department_id" class="form-control" required>
-    
+                            <select name="department_id" class="form-control">
                             </select>
                     </div>
                                                                                
@@ -160,8 +159,7 @@ Edit Profile
                     </div>
                     <div class="form-group">
                         <label for="">LGA <b style="color:red">*</b></label>
-                            <select name="lga_id" class="form-control" required>
-    
+                            <select name="lga_id" class="form-control">
                             </select>
                     </div>
 
@@ -240,13 +238,14 @@ Edit Profile
                     <div class="form-group">
                         <label for="">Profile Image </label>
                         <input class="form-control" type="file" name="userimage">
-
-                        <input type="hidden" name="existing_image" value="{{ $staff->userimage }}">
                     </div>
                 </div>
                 
             </div>
             
+            <input type="hidden" name="existing_image" value="{{ $staff->userimage }}">
+            <input type="hidden" name="existingdepartment_id" value="{{ $staff->department_id }}">
+            <input type="hidden" name="existinglga_id" value="{{ $staff->lga_id }}">
     
             <button type="reset" class="btn btn-danger btn-sm">Cancel</button>
             <button type="submit" class="btn btn-primary btn-sm">Update</button>

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 // });
 
 Route::get('/',[FrontendController::class,'index'])->name('index');
+Route::get('download/usermanual/{filename}', [FrontendController::class,'downloadusermanual'])->name('download.usermanual');
 
 // Auth::routes(['register'=>false]);
 // Auth::routes();
@@ -61,6 +62,9 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     });
     
     Route::resource('staffs', 'StaffController');
+    Route::get('staff/modify/{id}','StaffController@modifystaff')->name('staff.modify');
+    Route::put('staff/updatedetails/{id}','StaffController@updatemodifiedstaff')->name('staff.updatestaffdetail');
+
     Route::resource('adhocstaffs', 'AdhocStaffController');
 
     Route::post('addnew-adhocstaff','StaffController@storeAdhocStaff')->name('createnew.adhocstaff');
@@ -89,6 +93,9 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
 
     Route::get('/staff-created-by/{id}','StaffController@showPeopleCreatedByOthers')->name('peoplecreatedbyothers');
     // Route::post('/staff-appraisal/details/{appraisal_id}','StaffController@showappraisal')->name('staffappraisal.show');
+    Route::get('/download/uploaded-appraisal-document/{filename}', 'StaffController@uploadedfiledownload')->name('uploadedfile.download');
+    Route::get('/view/uploaded-appraisal-document/{filename}', 'StaffController@viewuploadedfile')->name('view.uploadedfile');
+
 
     Route::get('/my-appraisals','MyAppraisalController@index')->name('myappraisal.index');
     Route::get('/my-appraisal/details/{id}','MyAppraisalController@show')->name('myappraisal.show');
@@ -107,20 +114,43 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     Route::get('/fetch/submitted-appraisals/data/{appraisal_id}/{position}','AppraisalController@fetchData')->name('appraisal.data');
 
     //submitting each appraisal details
-    Route::post('/appraisal/qualification','QualificationController@store')->name('qualification.store');
-    Route::post('/appraisal/professional/membership','ProfessionalMembershipController@store')->name('profmembership.store');
-    Route::post('/appraisal/promotion','PromotionController@store')->name('promotion.store');
-    Route::post('/appraisal/salaryscale','SalaryscaleController@store')->name('salaryscale.store');
-    Route::post('/appraisal/training','TrainingController@store')->name('training.store');
-    Route::post('/appraisal/additionalqualification','AdditionalQualificationController@store')->name('additionalqualif.store');
-    Route::post('/appraisal/performedduty','PerformedDutiesController@store')->name('performedduty.store');
-    Route::post('/appraisal/publication','PublicationController@store')->name('publication.store');
-    Route::post('/appraisal/production','ProductionController@store')->name('production.store');
-    Route::post('/appraisal/adminresponsibility','AdminResponsibilityController@store')->name('adminrespons.store');
-    Route::post('/appraisal/coursetaught','CourseTaughtController@store')->name('coursetaught.store');
-    Route::post('/appraisal/tloadsummary','TeachingLoadSummaryController@store')->name('tloadsummary.store');
-    Route::post('/appraisal/anyotherinfo','AnyOtherInfoController@store')->name('anyotherinfo.store');
-    Route::post('/appraisal/supportingdoc','SupportingDocumentController@store')->name('supportingdoc.store');
+    Route::group(['prefix' => 'appraisal'], function() {
+        Route::post('/qualification','QualificationController@store')->name('qualification.store');
+        Route::post('/professional/membership','ProfessionalMembershipController@store')->name('profmembership.store');
+        Route::post('/promotion','PromotionController@store')->name('promotion.store');
+        Route::post('/salaryscale','SalaryscaleController@store')->name('salaryscale.store');
+        Route::post('/training','TrainingController@store')->name('training.store');
+        Route::post('/additionalqualification','AdditionalQualificationController@store')->name('additionalqualif.store');
+        Route::post('/performedduty','PerformedDutiesController@store')->name('performedduty.store');
+        Route::post('/publication','PublicationController@store')->name('publication.store');
+        Route::post('/production','ProductionController@store')->name('production.store');
+        Route::post('/adminresponsibility','AdminResponsibilityController@store')->name('adminrespons.store');
+        Route::post('/coursetaught','CourseTaughtController@store')->name('coursetaught.store');
+        Route::post('/tloadsummary','TeachingLoadSummaryController@store')->name('tloadsummary.store');
+        Route::post('/anyotherinfo','AnyOtherInfoController@store')->name('anyotherinfo.store');
+        Route::post('/supportingdoc','SupportingDocumentController@store')->name('supportingdoc.store');
+
+    //addendum for junior staff
+        Route::post('/institution','InstitutionController@store')->name('institution.store');
+        Route::post('/junior-staff-qualification','JuniorQualificationController@store')->name('juniorqualification.store');
+        Route::post('/post-qualification-experience','PostQualiExperienceController@store')->name('postqualiexperience.store');
+        Route::post('/adhoc-peformed-duty','AdhocPerfDutyController@store')->name('adhocperfduty.store');
+        
+
+        //printing submitted appraisal
+        Route::get('print/submitted/appraisal/{appraisal_id}/{user_id}','PrintSubmittedAppraisalController@printsubmittedappraisal')->name('print.submitted.appraisal');
+
+        //appraisal reports
+        Route::get('appraisal/reports','ReportController@allreports')->name('appraisal.reports');
+        Route::get('print/appraisal/report/{id}','ReportController@printreport')->name('print.report');
+        Route::get('generate/yearly/appraisal/report','ReportController@getappraisalyear')->name('getappraisal.year');
+        Route::post('yearly/appraisal/report','ReportController@getyearlyappraisalreport')->name('getyearlyappraisal.report');
+        Route::get('print/yearly/appraisal/report/{appyear}','ReportController@generalreport')->name('printyearlyappraisal.report');
+
+    });
+    
+    Route::resource('user', 'UserController');
+    
     
     
     

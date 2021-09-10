@@ -1,5 +1,5 @@
 <div>
-    <h4>5. Training</h4>
+    <h4>Training</h4>
     <table class="table">
         <thead>
             <tr>
@@ -21,6 +21,7 @@
                         <option value="">Select Training Type</option>
                         <option value="Course">Course</option>
                         <option value="Workshop">Workshop</option>
+                        <option value="Seminar">Seminar</option>
                        
                     </select>
     

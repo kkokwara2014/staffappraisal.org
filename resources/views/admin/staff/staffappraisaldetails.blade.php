@@ -2,7 +2,7 @@
 
 @section('title')
 {{ucfirst($staff->firstname).' '.($staff->middlename!=''?ucfirst($staff->middlename):'').' '.ucfirst($staff->lastname)}}
-[{{ $staff->staffnumb }}] Appraisal Details
+[{{ $staff->staffnumb }}] Appraisal Details - Category: {{ $staff->category->name }}
 @endsection
 
 @section('content')
@@ -14,18 +14,23 @@
     <section class="col-lg-12 connectedSortable">
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-11">
                 @include('admin.messages.success')
 
                 <p>
                     <a href="{{ url()->previous() }}" class="btn btn-primary btn-sm">
                         Back</a>
+
+                        {{--  printing submitted appraisal  --}}
+                        <a target="_blank" href="{{ route('print.submitted.appraisal',[$appraisal_id,$staff->id]) }}" class="btn btn-primary btn-sm btnprnt" style="float: right"><span class="fa fa-print"></span>
+                            Print Appraisal</a>
                 </p>
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
 
                         <h4>Qualifications</h4>
+                        @if (count($qualifications)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -59,9 +64,14 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
 
                         <hr>
                         <h4>Professional Membership</h4>
+                        @if (count($profmemberships)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -92,9 +102,14 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
                         <hr>
                         <h4>Promotions</h4>
 
+                        @if (count($promotions)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -120,9 +135,15 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
+
                         <hr>
                         <h4>Salary Scale</h4>
 
+                        @if (count($salaryscales)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -148,8 +169,14 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
+
                         <hr>
                         <h4>Training</h4>
+                        @if (count($trainings)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -177,9 +204,13 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
                         <hr>
                         <h4>Additional Educational/Professional Qualification</h4>
-
+                        @if (count($additionalqualifs)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -205,9 +236,13 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
                         <hr>
                         <h4>Duties Performed</h4>
-                        {{-- @foreach ($staffs as $staff) --}}
+                        @if (count($performedduties)>0)
                         @foreach ($performedduties as $perfduty)
                         <div>
                             @if ($perfduty->user_id==$staff->id)
@@ -218,10 +253,15 @@
                             @endif
                         </div>
                         @endforeach
-                        {{-- @endforeach --}}
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
+                        
 
                         <hr>
                         <h4>Publications</h4>
+                        @if (count($publications)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -255,8 +295,13 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
                         <hr>
                         <h4>Productions</h4>
+                        @if (count($productions)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -290,8 +335,13 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>  
+                        @endif
                         <hr>
                         <h4>Administrative Responsibility</h4>
+                        @if (count($adminrespons)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -320,8 +370,13 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
                         <hr>
                         <h4>Courses Taught</h4>
+                        @if (count($taughtcourses)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -354,8 +409,13 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
                         <hr>
                         <h4>Summary of Teaching Load</h4>
+                        @if (count($teachingloadsummaries)>0)
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -388,46 +448,93 @@
 
                             </tbody>
                         </table>
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span>
+                        @endif
                         <hr>
                         <h4>Any Other Information</h4>
-                        {{-- @foreach ($staffs as $staff) --}}
+                        @if (count($anyotherinfos)>0)
                         @foreach ($anyotherinfos as $aoi)
                         <div>
                             @if ($aoi->user_id==$staff->id)
                             <div>
                                 {{ $aoi->anyotherinfo }}
                             </div>
+                            @endif
+                        </div>
+                        @endforeach
+                            
+                        @else
+                        <span style="background-color: red; color: honeydew" class="badge badge-pill badge-danger">No submission made</span> 
+                        @endif
 
+                        <hr>
+                        <h4>Uploaded Supporting Documents</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-responsive-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Document Type </th>
+                                            <th>File (Downloadable)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($uploadedfiles as $uploadedfile)
+                                        <div>
+                                            @if ($uploadedfile->user_id==$staff->id)
+                                            <tr>
+                                                <td>{{ $uploadedfile->documenttype }}</td>
+                                                <td>
+                                                    @if ($uploadedfile->filename!='')
+                                                    <a target="_blank" href="{{route('view.uploadedfile', $uploadedfile->filename )}}">
+                                                        <span class="fa fa-eye" style="color: green"></span>
+                                                    </a>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <a
+                                                        href="{{route('uploadedfile.download', $uploadedfile->filename )}}"
+                                                        download="{{ $uploadedfile->filename }}">
+                                                        <span class="fa fa-download" style="color: green"></span>
+                                                        <span class="fa fa-file-pdf-o" style="color: red"></span>
+                                                    </a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        </div>
+
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+
+                        <div>
                             <p>
                                 {{-- only HOD can score staff under him/her --}}
 
-                                @hasrole('HOD')
-                                @if ($staff->department_id==Auth::user()->department_id)
+                                @if (Auth::user()->hasAnyRole(['HOD','Dean','Rector']) && $the_appraiser)
 
                                 @if ($staffappraisalscore==NULL)
+
                                 <p>
-                                    <a href="{{ route('getappraisalscoreform',[$aoi->appraisal_id,$staff->id]) }}"
+                                    <a href="{{ route('getappraisalscoreform',[$appraisal_id,$staff->id]) }}"
                                         class="btn btn-primary btn-sm">Score this Staff</a>
                                 </p>
+
                                 @endif
 
-                                {{-- <form action="{{ route('appraisalscoreform',$staff->id) }}" method="post">
-                                @csrf
-
-                                <input type="hidden" name="user_id" value="{{ $staff->id }}">
-                                <input type="hidden" name="appraisal_id" value="{{ request()->segment(4) }}">
-
-                                <button type="submit" class="btn btn-primary btn-sm"><span class="fa fa-check"></span>
-                                    Score this Staff</button>
-                                </form> --}}
                                 @endif
-                                @endhasrole
 
 
                                 @if ($staffappraisalscore!=NULL)
                                 <br>
                                 @if ($staff->id==auth()->user()->id)
-                                    
                                 <a href="#" data-toggle="modal"
                                     data-target="#modal-{{ $staffappraisalscore->appraisal_id.'-'.$staffappraisalscore->user_id }}"
                                     class="btn btn-primary btn-sm"><span class="fa fa-eye"></span> Check Score</a>
@@ -437,6 +544,7 @@
                                 <div class="modal fade"
                                     id="modal-{{ $staffappraisalscore->appraisal_id.'-'.$staffappraisalscore->user_id }}"
                                     tabindex="-1" role="dialog">
+
                                     <div class="modal-dialog modal-lg">
 
                                         <div class="modal-content">
@@ -481,7 +589,7 @@
                                                                         <td>{{ $staffappraisalscore->servicelengthscore }}
                                                                         </td>
                                                                         <td>
-                                                                            @if ($staffappraisalscore->totalscore>50)
+                                                                            @if ($staffappraisalscore->totalscore>=50)
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
                                                                             @else
@@ -522,7 +630,9 @@
                                                                 <label>Accept or Reject</label>
                                                             </p>
 
-                                                            <form action="{{ route('appraisalscore.acceptorreject',[$staffappraisalscore->appraisal_id,$staffappraisalscore->user_id]) }}" method="post">
+                                                            <form
+                                                                action="{{ route('appraisalscore.acceptorreject',[$staffappraisalscore->appraisal_id,$staffappraisalscore->user_id]) }}"
+                                                                method="post">
                                                                 @csrf
                                                                 <textarea class="form-control"
                                                                     name="acceptorrejectreason" cols="30" rows="3"
@@ -563,14 +673,7 @@
 
 
                             </p>
-
-                            @endif
                         </div>
-
-                        @endforeach
-
-                        {{-- @endforeach --}}
-
 
 
                     </div>

@@ -17,6 +17,7 @@ Appraisals
                 <p>
                 @hasrole(['Admin','Registrar'])
                     <a href="{{ route('appraisals.create') }}" class="btn btn-primary btn-sm">Create Appraisal</a>
+                    <a href="{{ route('appraisals.published') }}" class="btn btn-success btn-sm">Published Appraisals</a>
                 @endhasrole
                 </p>
 
@@ -30,6 +31,7 @@ Appraisals
                             <thead>
                                 <tr>
                                     <th>Title</th>
+                                    <th>Appraisal Year</th>
                                     <th>Starting</th>
                                     <th>Ending</th>
                                     <th>Created By</th>
@@ -44,6 +46,7 @@ Appraisals
                                 <tr>
 
                                     <td>{{$appraisal->title}}</td>
+                                    <td>{{$appraisal->appraisalyear}}</td>
                                     <td>{{ date('d M, Y', strtotime($appraisal->starting)) }}</td>
                                     <td>{{ date('d M, Y', strtotime($appraisal->ending)) }}</td>
                                     <td>{{$appraisal->user->firstname.' '.$appraisal->user->lastname.' ['.$appraisal->user->staffnumb.']'}}
@@ -100,6 +103,7 @@ Appraisals
                             <tfoot>
                                 <tr>
                                     <th>Title</th>
+                                    <th>Appraisal Year</th>
                                     <th>Starting</th>
                                     <th>Ending</th>
                                     <th>Created By</th>

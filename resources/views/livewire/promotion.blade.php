@@ -1,5 +1,5 @@
 <div>
-    <h4>3. Promotion</h4>
+    <h4>Promotion</h4>
     <table class="table">
         <thead>
             <tr>
@@ -28,9 +28,6 @@
                         name="grade[]" 
                         placeholder="Grade">
                 </td>            
-                {{-- <td style="width: 10%">
-                    <input type="file" name="promofilename[]" required>
-                </td> --}}
                 <td>
                     <button wire:click.prevent="remove({{$key}})" class="btn btn-danger btn-sm">
                         <span class="fa fa-times"></span>

@@ -77,9 +77,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                     
-                                    
-
                                     <div class="form-group">
                                         <label for="">Email Address</label>
                                         <input id="email" type="email"
@@ -107,7 +104,7 @@
 
                                     <div class="form-group">
                                         <label>Department <strong style="color:red;">*</strong></label>
-                                        <select name="department_id" class="form-control" required>
+                                        <select name="department_id" class="form-control">
                                             <option selected="disabled">Select Department</option>
                                             @foreach ($departments as $department)
                                             <option value="{{$department->id}} {{ $department->id== $staff->department_id?'selected':'' }}">{{$department->name}}</option>
@@ -130,8 +127,7 @@
                             <input type="hidden" name="existingstaffnumb" value="{{$staff->staffnumb}}">
                             <input type="hidden" name="existingemail" value="{{$staff->email}}">
                             <input type="hidden" name="existingphone" value="{{$staff->phone}}">
-                            
-                            
+                                               
                             <button type="submit" class="btn btn-primary">Update</button>
                             <a href="{{ route('staff.index') }}" class="btn btn-default">Cancel</a>
                         </form>

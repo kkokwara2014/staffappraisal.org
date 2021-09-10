@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Additionalqualif;
+use App\Adhocperfduty;
 use App\Adminresponsibility;
 use App\Anyotherinfo;
 use App\Appraisal;
@@ -10,7 +11,10 @@ use App\Appraisalscore;
 use App\Appraisaluser;
 use App\Coursetaught;
 use App\Http\Requests\AppraisalStoreRequest;
+use App\Institution;
+use App\Juniorqualification;
 use App\Performedduty;
+use App\Postqualiexperience;
 use App\Production;
 use App\Profmembership;
 use App\Promotion;
@@ -39,106 +43,126 @@ class AppraisalController extends Controller
         $appraisals=Appraisal::where('ispublished','0')->latest()->get();
         return view('admin.appraisal.index',array('user'=>Auth::user()),compact('appraisals'));
     }
+
     public function published()
     {
+        $appraisalusers=Appraisaluser::latest()->get();
         $appraisals=Appraisal::where('ispublished','1')->latest()->get();
-        return view('admin.appraisal.published',array('user'=>Auth::user()),compact('appraisals'));
+        
+        // return $appraisals;
+
+        return view('admin.appraisal.published',array('user'=>Auth::user()),compact('appraisals','appraisalusers'));
     }
 
     public function appraisalform($slug){
 
         $appraisal=Appraisal::where('slug',$slug)->where('ispublished','1')->first();
         $appraisal_id= $appraisal->id;
-        
-        $appraisers=User::whereHas(
-            'roles',function($q){
-                $q->where('name','HOD')
-                ->orWhere('name','Dean')
-                ->orWhere('name','Director')
-                ->orWhere('name','Rector');
+
+        if(date('Y-m-d') > $appraisal->ending){
+            return redirect()->back();
+        }else{
+            $appraisers=User::whereHas(
+                'roles',function($q){
+                    $q->where('name','HOD')
+                    ->orWhere('name','Dean')
+                    ->orWhere('name','Director')
+                    ->orWhere('name','Rector');
+                }
+            )->get();
+    
+            $qualifications=Qualification::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $profmembs=Profmembership::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $promotions=Promotion::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $salaryscales=Salaryscale::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $trainings=Training::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $additionalquals=Additionalqualif::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $performedduties=Performedduty::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $publications=Publication::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $productions=Production::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $adminrespons=Adminresponsibility::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $taughtcourses=Coursetaught::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $tloadsummaries=Teachingloadsummary::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $anyotherinfos=Anyotherinfo::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $uploadedfiles=UploadedFile::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $appraisalscore=Appraisalscore::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+    
+            $institutions=Institution::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $juniorqualifications=Juniorqualification::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $postqualiexperiences=Postqualiexperience::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+            $adhocperfduties=Adhocperfduty::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
+
+            if (Auth::user()->category_id==2) {
+                return view('admin.appraisal.academicform',array('user'=>Auth::user())
+                            ,compact('appraisal_id'
+                                    ,'appraisers'
+                                    ,'appraisal'
+                                    ,'qualifications'
+                                    ,'profmembs'
+                                    ,'promotions'
+                                    ,'salaryscales'
+                                    ,'trainings'
+                                    ,'additionalquals'
+                                    ,'performedduties'
+                                    ,'publications'
+                                    ,'productions'
+                                    ,'adminrespons'
+                                    ,'taughtcourses'
+                                    ,'tloadsummaries'
+                                    ,'anyotherinfos'
+                                    ,'appraisalscore'
+                                    ,'uploadedfiles'));
+            } elseif (Auth::user()->category_id==3) {
+                return view('admin.appraisal.nonacademicform',array('user'=>Auth::user())
+                        ,compact('appraisal_id'
+                                ,'appraisers'
+                                ,'appraisal'
+                                ,'qualifications'
+                                ,'profmembs'
+                                ,'promotions'
+                                ,'salaryscales'
+                                ,'trainings'
+                                ,'additionalquals'
+                                ,'performedduties'
+                                ,'publications'
+                                ,'productions'
+                                ,'adminrespons'
+                                ,'taughtcourses'
+                                ,'tloadsummaries'
+                                ,'anyotherinfos'
+                                ,'appraisalscore'
+                                ,'uploadedfiles'));
+    
+            } elseif(Auth::user()->category_id==4) {
+                return view('admin.appraisal.juniorstaffform',
+                            array('user'=>Auth::user())
+                            ,compact('appraisal_id'
+                                    ,'appraisers'
+                                    ,'appraisal'
+                                    ,'qualifications'
+                                    ,'profmembs'
+                                    ,'promotions'
+                                    ,'salaryscales'
+                                    ,'trainings'
+                                    ,'additionalquals'
+                                    ,'performedduties'
+                                    ,'publications'
+                                    ,'productions'
+                                    ,'adminrespons'
+                                    ,'taughtcourses'
+                                    ,'tloadsummaries'
+                                    ,'anyotherinfos'
+                                    ,'appraisalscore'
+                                    ,'uploadedfiles'
+                                    ,'institutions'
+                                    ,'juniorqualifications'
+                                    ,'postqualiexperiences'
+                                    ,'adhocperfduties'
+
+                                ));
             }
-        )->get();
-
-        $qualifications=Qualification::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $profmembs=Profmembership::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $promotions=Promotion::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $salaryscales=Salaryscale::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $trainings=Training::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $additionalquals=Additionalqualif::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $performedduties=Performedduty::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $publications=Publication::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $productions=Production::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $adminrespons=Adminresponsibility::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $taughtcourses=Coursetaught::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $tloadsummaries=Teachingloadsummary::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $anyotherinfos=Anyotherinfo::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $uploadedfiles=UploadedFile::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-        $appraisalscore=Appraisalscore::where('appraisal_id',$appraisal->id)->where('user_id',auth()->user()->id)->count();
-
-        if (Auth::user()->category_id==2) {
-            return view('admin.appraisal.academicform',array('user'=>Auth::user())
-                        ,compact('appraisal_id'
-                                ,'appraisers'
-                                ,'appraisal'
-                                ,'qualifications'
-                                ,'profmembs'
-                                ,'promotions'
-                                ,'salaryscales'
-                                ,'trainings'
-                                ,'additionalquals'
-                                ,'performedduties'
-                                ,'publications'
-                                ,'productions'
-                                ,'adminrespons'
-                                ,'taughtcourses'
-                                ,'tloadsummaries'
-                                ,'anyotherinfos'
-                                ,'appraisalscore'
-                                ,'uploadedfiles'));
-        } elseif (Auth::user()->category_id==3) {
-            return view('admin.appraisal.nonacademicform',array('user'=>Auth::user())
-                    ,compact('appraisal_id'
-                            ,'appraisers'
-                            ,'appraisal'
-                            ,'qualifications'
-                            ,'profmembs'
-                            ,'promotions'
-                            ,'salaryscales'
-                            ,'trainings'
-                            ,'additionalquals'
-                            ,'performedduties'
-                            ,'publications'
-                            ,'productions'
-                            ,'adminrespons'
-                            ,'taughtcourses'
-                            ,'tloadsummaries'
-                            ,'anyotherinfos'
-                            ,'appraisalscore'
-                            ,'uploadedfiles'));
-
-        } elseif(Auth::user()->category_id==4) {
-            return view('admin.appraisal.juniorstaffform',
-                        array('user'=>Auth::user())
-                        ,compact('appraisal_id'
-                                ,'appraisers'
-                                ,'appraisal'
-                                ,'qualifications'
-                                ,'profmembs'
-                                ,'promotions'
-                                ,'salaryscales'
-                                ,'trainings'
-                                ,'additionalquals'
-                                ,'performedduties'
-                                ,'publications'
-                                ,'productions'
-                                ,'adminrespons'
-                                ,'taughtcourses'
-                                ,'tloadsummaries'
-                                ,'anyotherinfos'
-                                ,'appraisalscore'
-                                ,'uploadedfiles'));
-        }
-
+    
+        }      
         
     }
 
@@ -206,6 +230,7 @@ class AppraisalController extends Controller
         $appraisal=Appraisal::create([
             'title'=>$request->title,
             'slug'=>Str::slug($request->title),
+            'appraisalyear'=>date('Y',strtotime($request->appraisalyear)),
             'starting'=>$request->starting,
             'ending'=>$request->ending,
             'user_id'=>Auth::user()->id,
@@ -233,7 +258,9 @@ class AppraisalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $appraisal=Appraisal::where('id',$id)->first();
+
+        return view('admin.appraisal.edit',array('user'=>Auth::user()),compact('appraisal'));
     }
 
     /**
@@ -245,7 +272,22 @@ class AppraisalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title'=>'required|min:5|max:40',
+            'starting'=>'required',
+            'ending'=>'required',
+        ]);
+
+        $appraisal=Appraisal::find($id);
+        $appraisal->title=$request->title;
+        $appraisal->slug=Str::slug($request->title);
+        $appraisal->appraisalyear=date('Y',strtotime($request->appraisalyear));
+        $appraisal->starting=$request->starting;
+        $appraisal->ending=$request->ending;
+        $appraisal->user_id=Auth::user()->id;
+        $appraisal->save();
+
+        return redirect()->route('appraisals.index')->with('success',$appraisal->title.' updated successfully 😊');
     }
 
     /**
@@ -351,6 +393,13 @@ class AppraisalController extends Controller
             }
         }
 
+        $productions=Production::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($productions)>0){
+            foreach($productions as $production){
+                $production->delete();
+            }
+        }
+
         $adminrespons=Adminresponsibility::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
         if(count($adminrespons)>0){
             foreach($adminrespons as $adminrespon){
@@ -439,10 +488,15 @@ class AppraisalController extends Controller
        if((int)$position === 12) $this->deleteMulti($model = new Teachingloadsummary, $appraisal_id);
 
        if((int)$position === 13) $this->deleteMulti($model = new Anyotherinfo, $appraisal_id);
-
+       
        if((int)$position === 14) $this->deleteMulti($model = new Uploadedfile, $appraisal_id, 1);
+       
+       if((int)$position === 15) $this->deleteMulti($model = new Institution, $appraisal_id);
+       if((int)$position === 16) $this->deleteMulti($model = new Juniorqualification, $appraisal_id);
+       if((int)$position === 17) $this->deleteMulti($model = new Postqualiexperience, $appraisal_id);
+       if((int)$position === 18) $this->deleteMulti($model = new Adhocperfduty, $appraisal_id);
         
-        return redirect()->back()->withSuccess('Staff Appraisal deleted successfully!');
+       return redirect()->back()->withSuccess('Staff Appraisal deleted successfully!');
     }
 
     private function fetchAppraisalData($model, $appraisal_id)
@@ -479,7 +533,12 @@ class AppraisalController extends Controller
            if((int)$position === 12) return $this->fetchAppraisalData($model = new Teachingloadsummary, $appraisal_id);
 
            if((int)$position === 13) return $this->fetchAppraisalData($model = new Anyotherinfo, $appraisal_id);
-
+           
            if((int)$position === 14) return $this->fetchAppraisalData($model = new Uploadedfile, $appraisal_id, 1);
+           
+           if((int)$position === 15) return $this->fetchAppraisalData($model = new Institution, $appraisal_id);
+           if((int)$position === 16) return $this->fetchAppraisalData($model = new Juniorqualification, $appraisal_id);
+           if((int)$position === 17) return $this->fetchAppraisalData($model = new Postqualiexperience, $appraisal_id);
+           if((int)$position === 18) return $this->fetchAppraisalData($model = new Adhocperfduty, $appraisal_id);
     }
 }

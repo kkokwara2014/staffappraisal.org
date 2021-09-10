@@ -1,5 +1,5 @@
 <div>
-    <h4>8. Publication <small>(Books, Journal Articles, Conference Papers, Seminar Papers, Creative Writings)</small></h4>
+    <h4>Publication <small>(Books, Journal Articles, Conference Papers, Seminar Papers, Creative Writings)</small></h4>
     <table class="table">
         <thead>
             <tr>

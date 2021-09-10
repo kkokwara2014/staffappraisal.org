@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Score Staff
+Academic Staff Score Form
 @endsection
 
 @section('content')

@@ -1,5 +1,5 @@
 <div>
-    <h4>6. Additional Qualification</h4>
+    <h4>Additional Qualification</h4>
     <table class="table">
         <thead>
             <tr>

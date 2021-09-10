@@ -24,12 +24,11 @@ class StaffStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'lastname'=>'required|min:3|max:25',
-            'firstname'=>'required|min:3|max:25',
-            'staffnumb'=>'required',
+            'lastname'=>'required|string|min:3|max:25',
+            'firstname'=>'required|string|min:3|max:25',
+            'staffnumb'=>'required|string|unique:users',
             'email'=>'required|email|unique:users',
             'phone'=>'required|unique:users',
-            // 'password'=>'required',
         ];
     }
 }

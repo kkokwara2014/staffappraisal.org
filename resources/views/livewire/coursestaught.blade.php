@@ -1,5 +1,5 @@
 <div>
-    <h4>11. Courses Taught <small>Courses taught during past three years. (Where there are more than one Lecturer for a Course, indicate your own contribution and teaching load).</small></h4>
+    <h4>Courses Taught <small>Courses taught during past three years. (Where there are more than one Lecturer for a Course, indicate your own contribution and teaching load).</small></h4>
     <table class="table">
         <thead>
             <tr>

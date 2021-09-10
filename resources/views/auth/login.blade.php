@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Staff Appraisal | Login</title>
+    <title>OSTAPP | Login</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/assets/img/small_logo.png') }}">
+    
     <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/fonts/ionicons.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.0/css/ionicons.min.css" integrity="sha512-0/rEDduZGrqo4riUlwqyuHDQzp2D1ZCgH/gFIfjMIL5az8so6ZiXyhf1Rg8i6xsjv+z/Ubc4tt1thLigEcu6Ug==" crossorigin="anonymous" />
@@ -24,13 +26,14 @@
     <div id="naviga-tion">
         <nav class="navbar navbar-light navbar-expand-md fixed-top navigation-clean-button" style="font-family: Raleway, sans-serif;font-size: 14px;">
             <div class="container">
-              <a class="navbar-brand" href="{{ route('index') }}" style="font-family: Raleway, sans-serif;font-weight: bold;font-size: 28px;">Staff<span style="color: rgb(86,198,198);">appraisal</span></a>
+              <a class="navbar-brand" href="{{ route('index') }}" style="font-family: Raleway, sans-serif;font-weight: bold;font-size: 28px;">OST<span style="color: rgb(86,198,198);">APP</span></a>
               <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon" style="color: rgb(86,198,198);"></span></button>
                 <div
                     class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('index') }}"><span class="icon ion-home"></span> Home</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="#">About us</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('download.usermanual','OSTAPP_user_guide.pdf') }}" download="OSTAPP_user_guide.pdf">Download Manual</a></li>
                     </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="{{ route('login') }}">Sign in</a></span></div>
     </div>
     </nav>
@@ -107,7 +110,7 @@
                         </ul>
                     </div>
                     <div class="col-md-7 item text">
-                        <h3>About Staff<span style="color: rgb(86,198,198);">appraisal</span></h3>
+                        <h3>About OST<span style="color: rgb(86,198,198);">APP</span></h3>
                         <p style="text-align:justify">
                           Appraisal is the foundation on which Staff promotion is built. Appraisal reveals the 
                           efforts and contributions which each Staff in an organization has been making over a 

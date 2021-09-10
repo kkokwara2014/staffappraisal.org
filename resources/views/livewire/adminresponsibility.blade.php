@@ -1,5 +1,5 @@
 <div>
-    <h4>10. Administrative Responsibility <small>(Headship, Deanship, Chairman of Polytechnic Committee/Board, Member of Polytechnic Committee/Board)</small></h4>
+    <h4>Administrative Responsibility <small>(Headship, Deanship, Chairman of Polytechnic Committee/Board, Member of Polytechnic Committee/Board)</small></h4>
     <table class="table">
         <thead>
             <tr>

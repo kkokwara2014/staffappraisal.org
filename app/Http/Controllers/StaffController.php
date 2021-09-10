@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Additionalqualif;
+use App\Adhocperfduty;
 use App\Adminresponsibility;
 use App\Anyotherinfo;
 use App\Appraisal;
@@ -29,11 +30,15 @@ use App\School;
 use App\State;
 use App\Maritalstatus;
 use App\Category;
+use App\Institution;
+use App\Juniorqualification;
 use App\Rank;
 use Image;
 
 
 use App\Mail\NewStaffMail;
+use App\Postqualiexperience;
+use App\Uploadedfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -47,9 +52,17 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staffs=User::latest()->paginate(50);
+        $staffLists=[];
+        $staffLists=User::orderBy('created_at','desc')->chunk(200, function($staffs) use($staffLists){
+            foreach($staffs as $staff){
+                $staffLists[]=$staff;
+            }
+        });
 
-        return view('admin.staff.index',array('user'=>Auth::user()),compact('staffs'));
+        // return response()->body($staffLists);
+
+        return response()->view('admin.staff.index',array(['user'=>Auth::user(),'staffLists'=>$staffLists]));
+        // return view('admin.staff.index',array('user'=>Auth::user()),['staffLists'=>$staffLists]);
     }
 
     /**
@@ -71,7 +84,7 @@ class StaffController extends Controller
     public function store(StaffStoreRequest $request)
     {
         $generated_password= bin2hex(random_bytes(4));
-        
+    
         //adding new staff
         $staff=new User;
         $staff->lastname=$request->lastname;
@@ -96,7 +109,7 @@ class StaffController extends Controller
 
 
         //redirecting to all staff page
-        return redirect()->route('staffs.index')->with('success','New Staff created successfully!');
+        return redirect()->back()->with('success','New Staff with number '.$staff->staffnumb.' has been created successfully!');
     }
 
     public function storeAdhocStaff(StaffStoreRequest $request){
@@ -176,8 +189,6 @@ class StaffController extends Controller
      */
     public function edit($id)
     {
-        
-
         $staff=User::find($id);
 
         $titles=Title::where('id','>','1')->orderBy('title','asc')->get();
@@ -201,13 +212,11 @@ class StaffController extends Controller
     public function update(Request $request, $id)
     {
 
-        
         if ($request->hasFile('userimage')) {
             $userimage = $request->file('userimage');
             $filename = time() . '.' . $userimage->getClientOriginalExtension();
             Image::make($userimage)->resize(300, 300)->save(public_path('user_images/' . $filename));
         
-
             $staff=User::find($id);
             $staff->title_id=$request->title_id;
             $staff->lastname=$request->lastname;
@@ -217,21 +226,39 @@ class StaffController extends Controller
             $staff->phone=$request->phone;
             $staff->rank_id=$request->rank_id;
             $staff->school_id=$request->school_id;
-            $staff->department_id=$request->department_id;
             $staff->state_id=$request->state_id;
-            $staff->lga_id=$request->lga_id;
-            $staff->maritalstatus_id=$request->maritalstatus_id;
-            $staff->category_id=$request->category_id;
-            $staff->assumptiondate=$request->assumptiondate;
-            $staff->confirmationdate=$request->confirmationdate;
-            $staff->firstassumptionstatus=$request->firstassumptionstatus;
-            $staff->dob=$request->dob;
-            $staff->numofchildren=$request->numofchildren;
-            $staff->userimage = $filename;
 
-            $staff->save();
+            if ($staff->department_id==$request->existingdepartment_id || $staff->lga_id==$request->existinglga_id) {
+                $staff->department_id=$request->existingdepartment_id;
+                $staff->lga_id=$request->existinglga_id;
+                $staff->maritalstatus_id=$request->maritalstatus_id;
+                $staff->category_id=$request->category_id;
+                $staff->assumptiondate=$request->assumptiondate;
+                $staff->confirmationdate=$request->confirmationdate;
+                $staff->firstassumptionstatus=$request->firstassumptionstatus;
+                $staff->dob=$request->dob;
+                $staff->numofchildren=$request->numofchildren;
+                $staff->userimage = $filename;
+    
+                $staff->save();
+    
+                return redirect()->route('home')->with('success','Profile Updated successfully!'); 
+            } else {
+                $staff->department_id=$request->department_id;
+                $staff->lga_id=$request->lga_id;
+                $staff->maritalstatus_id=$request->maritalstatus_id;
+                $staff->category_id=$request->category_id;
+                $staff->assumptiondate=$request->assumptiondate;
+                $staff->confirmationdate=$request->confirmationdate;
+                $staff->firstassumptionstatus=$request->firstassumptionstatus;
+                $staff->dob=$request->dob;
+                $staff->numofchildren=$request->numofchildren;
+                $staff->userimage = $filename;
 
-            return redirect()->route('home')->with('success','Profile Updated successfully!');
+                $staff->save();
+
+                return redirect()->route('home')->with('success','Profile Updated successfully!');
+            }
         
         }else{
 
@@ -244,23 +271,80 @@ class StaffController extends Controller
             $staff->phone=$request->phone;
             $staff->rank_id=$request->rank_id;
             $staff->school_id=$request->school_id;
-            $staff->department_id=$request->department_id;
             $staff->state_id=$request->state_id;
-            $staff->lga_id=$request->lga_id;
-            $staff->maritalstatus_id=$request->maritalstatus_id;
-            $staff->category_id=$request->category_id;
-            $staff->assumptiondate=$request->assumptiondate;
-            $staff->confirmationdate=$request->confirmationdate;
-            $staff->firstassumptionstatus=$request->firstassumptionstatus;
-            $staff->dob=$request->dob;
-            $staff->numofchildren=$request->numofchildren;
-            $staff->userimage = $request->existing_image;
 
+            if ($staff->department_id==$request->existingdepartment_id || $staff->lga_id==$request->existinglga_id) {
+                $staff->department_id=$request->existingdepartment_id;
+                $staff->lga_id=$request->existinglga_id;
+                $staff->maritalstatus_id=$request->maritalstatus_id;
+                $staff->category_id=$request->category_id;
+                $staff->assumptiondate=$request->assumptiondate;
+                $staff->confirmationdate=$request->confirmationdate;
+                $staff->firstassumptionstatus=$request->firstassumptionstatus;
+                $staff->dob=$request->dob;
+                $staff->numofchildren=$request->numofchildren;
+                $staff->userimage = $request->existing_image;
+
+                $staff->save();
+
+                return redirect()->route('home')->with('success','Profile Updated successfully!');
+            } else {
+                $staff->department_id=$request->department_id;
+                $staff->lga_id=$request->lga_id;
+                $staff->maritalstatus_id=$request->maritalstatus_id;
+                $staff->category_id=$request->category_id;
+                $staff->assumptiondate=$request->assumptiondate;
+                $staff->confirmationdate=$request->confirmationdate;
+                $staff->firstassumptionstatus=$request->firstassumptionstatus;
+                $staff->dob=$request->dob;
+                $staff->numofchildren=$request->numofchildren;
+                $staff->userimage = $request->existing_image;
+
+                $staff->save();
+
+                return redirect()->route('home')->with('success','Profile Updated successfully!');
+            } 
+        }
+    }
+
+    public function modifystaff($id){
+        $staff=User::find($id);
+
+        return view('admin.staff.modifystaff',array('user'=>Auth::user()),compact('staff'));
+    }
+
+    public function updatemodifiedstaff(Request $request, $id){
+        $this->validate($request, [
+            'lastname'=>'required|min:3|string',
+            'firstname'=>'required|min:3|string',
+            'staffnumb'=>'required',
+            'email'=>'required|email',
+            'phone'=>'required',
+        ]);
+        
+        $staff=User::find($id);
+
+        if ($staff->staffnumb==$request->staffnumb && $staff->email==$request->email && $staff->phone==$request->phone) {
+            
+            $staff->lastname=$request->lastname;
+            $staff->firstname=$request->firstname;
+            $staff->middlename=$request->middlename;
             $staff->save();
 
-            return redirect()->route('home')->with('success','Profile Updated successfully!');
+            return redirect()->route('staffs.index')->with('success','Staff with number '.$staff->staffnumb.' updated successfully!');
+        } else {
 
+            $staff->lastname=$request->lastname;
+            $staff->firstname=$request->firstname;
+            $staff->middlename=$request->middlename;
+            $staff->staffnumb=$request->staffnumb;
+            $staff->email=$request->email;
+            $staff->phone=$request->phone;
+            $staff->save();
+
+            return redirect()->route('staffs.index')->with('success','Staff with number '.$staff->staffnumb.' updated successfully!');
         }
+        
     }
 
     /**
@@ -311,7 +395,7 @@ class StaffController extends Controller
         if(Auth::user()->hasAnyRole(['Admin','Rector','Registrar','Dean','HOD'])){
         $departments=Department::where('id','>','1')->orderBy('name','asc')->simplePaginate(10);
 
-        $staffs=User::orderBy('firstname','asc')->where('profileupdated','1')->get();
+        $staffs=User::orderBy('lastname','asc')->where('profileupdated','1')->get();
 
         return view('admin.staff.staffbydepartment',array('user'=>Auth::user()),compact('departments','staffs'));
     } else {
@@ -322,7 +406,7 @@ class StaffController extends Controller
     public function departmentalstaff($id){
         $department=Department::find($id);
         
-        $staffs=User::orderBy('firstname','asc')->where('profileupdated','1')->get();
+        $staffs=User::orderBy('lastname','asc')->where('profileupdated','1')->get();
 
         return view('admin.staff.departmentalstaff',array('user'=>Auth::user()),compact('department','staffs'));
 
@@ -330,10 +414,7 @@ class StaffController extends Controller
 
 
     public function showappraisal($appraisal_id,$staffid){
-        //last order details
-        // $lastID=Qualification::max('appraisal_id');
-        // $orderreceipts=Orderdetail::where('customer_id',$lastID)->get();
-
+        
         $appraisal=Appraisal::find($appraisal_id);
 
 
@@ -341,11 +422,13 @@ class StaffController extends Controller
 
         $staffappraisalscore=Appraisalscore::where('appraisal_id',$appraisal_id)->where('user_id',$staffid)->first();
 
-        // return $staff_id;
         
+        $the_appraiser=Appraisaluser::where('appraisal_id',$appraisal_id)->where('user_id',$staffid)->where('sentto_id',Auth::user()->id)->first();
+
         // $staffs=User::where('profileupdated','1')->get();
         $staff=User::find($staff_id);
 
+        if($staff->category_id==2){
         //get the last saved id
         $lastqualID=Qualification::max('appraisal_id');
         $lastprofID=Profmembership::max('appraisal_id');
@@ -361,42 +444,153 @@ class StaffController extends Controller
         $lastTLSID=Teachingloadsummary::max('appraisal_id');
         $lastAnyInfoID=Anyotherinfo::max('appraisal_id');
         $lastAppScoreID=Appraisalscore::max('appraisal_id');
+        $lastUploadedFileID=Uploadedfile::max('appraisal_id');
 
-        $qualifications=Qualification::where('appraisal_id',$lastqualID)->get();
-        $profmemberships=Profmembership::where('appraisal_id',$lastprofID)->get();
-        $promotions=Promotion::where('appraisal_id',$lastpromoID)->get();
-        $salaryscales=Salaryscale::where('appraisal_id',$lastsalscaleID)->get();
-        $trainings=Training::where('appraisal_id',$lastTrainingID)->get();
-        $additionalqualifs=Additionalqualif::where('appraisal_id',$lastAddiQualID)->get();
-        $performedduties=Performedduty::where('appraisal_id',$lastPerfdutyID)->get();
-        $publications=Publication::where('appraisal_id',$lastPublicaID)->get();
-        $productions=Production::where('appraisal_id',$lastProdID)->get();
-        $adminrespons=Adminresponsibility::where('appraisal_id',$lastAdminResID)->get();
-        $taughtcourses=Coursetaught::where('appraisal_id',$lastCTaughtID)->get();
-        $teachingloadsummaries=Teachingloadsummary::where('appraisal_id',$lastTLSID)->get();
-        $anyotherinfos=Anyotherinfo::where('appraisal_id',$lastAnyInfoID)->get();
-
-
-        // $staffappraisalscore=Appraisalscore::where('appraisal_id',$lastAppScoreID)->where('user_id',$staff_id)->get();
-        
-        // $qualifications=Qualification::where('appraisal_id',$appraisal_id)->get();
-        // $profmemberships=Profmembership::where('appraisal_id',$appraisal_id)->get();
-        // $promotions=Promotion::where('appraisal_id',$appraisal_id)->get();
-        // $salaryscales=Salaryscale::where('appraisal_id',$appraisal_id)->get();
-        // $trainings=Training::where('appraisal_id',$appraisal_id)->get();
-        // $additionalqualifs=Additionalqualif::where('appraisal_id',$appraisal_id)->get();
-        // $performedduties=Performedduty::where('appraisal_id',$appraisal_id)->get();
-        // $publications=Publication::where('appraisal_id',$appraisal_id)->get();
-        // $productions=Production::where('appraisal_id',$appraisal_id)->get();
-        // $adminrespons=Adminresponsibility::where('appraisal_id',$appraisal_id)->get();
-        // $taughtcourses=Coursetaught::where('appraisal_id',$appraisal_id)->get();
-        // $teachingloadsummaries=Teachingloadsummary::where('appraisal_id',$appraisal_id)->get();
-        // $anyotherinfos=Anyotherinfo::where('appraisal_id',$appraisal_id)->get();
-
-
-        // $staffappraisalscores=Appraisalscore::where('appraisal_id',$appraisal_id)->where('user_id',$staff_id)->get();
+        $qualifications=Qualification::where('appraisal_id',$lastqualID)->where('user_id',$staffid)->get();
+        $profmemberships=Profmembership::where('appraisal_id',$lastprofID)->where('user_id',$staffid)->get();
+        $promotions=Promotion::where('appraisal_id',$lastpromoID)->where('user_id',$staffid)->get();
+        $salaryscales=Salaryscale::where('appraisal_id',$lastsalscaleID)->where('user_id',$staffid)->get();
+        $trainings=Training::where('appraisal_id',$lastTrainingID)->where('user_id',$staffid)->get();
+        $additionalqualifs=Additionalqualif::where('appraisal_id',$lastAddiQualID)->where('user_id',$staffid)->get();
+        $performedduties=Performedduty::where('appraisal_id',$lastPerfdutyID)->where('user_id',$staffid)->get();
+        $publications=Publication::where('appraisal_id',$lastPublicaID)->where('user_id',$staffid)->get();
+        $productions=Production::where('appraisal_id',$lastProdID)->where('user_id',$staffid)->get();
+        $adminrespons=Adminresponsibility::where('appraisal_id',$lastAdminResID)->where('user_id',$staffid)->get();
+        $taughtcourses=Coursetaught::where('appraisal_id',$lastCTaughtID)->where('user_id',$staffid)->get();
+        $teachingloadsummaries=Teachingloadsummary::where('appraisal_id',$lastTLSID)->where('user_id',$staffid)->get();
+        $anyotherinfos=Anyotherinfo::where('appraisal_id',$lastAnyInfoID)->where('user_id',$staffid)->get();
+        $uploadedfiles=Uploadedfile::where('appraisal_id',$lastUploadedFileID)->where('user_id',$staffid)->get();
                 
-        return view('admin.staff.staffappraisaldetails',array('user'=>Auth::user()),compact('qualifications','salaryscales','staff','profmemberships','promotions','trainings','additionalqualifs','performedduties','publications','productions','adminrespons','taughtcourses','teachingloadsummaries','anyotherinfos','staff_id','staffappraisalscore'));
+        return view('admin.staff.staffappraisaldetails',array('user'=>Auth::user()),compact('qualifications','salaryscales','staff','profmemberships','promotions','trainings','additionalqualifs','performedduties','publications','productions','adminrespons','taughtcourses','teachingloadsummaries','anyotherinfos','uploadedfiles','staff_id','staffappraisalscore','the_appraiser','appraisal_id'));
+
+        }elseif($staff->category_id==3){
+            //for non-academic appraisal details           //get the last saved id
+        $lastqualID=Qualification::max('appraisal_id');
+        $lastprofID=Profmembership::max('appraisal_id');
+        $lastpromoID=Promotion::max('appraisal_id');
+        $lastsalscaleID=Salaryscale::max('appraisal_id');
+        $lastTrainingID=Training::max('appraisal_id');
+        $lastAddiQualID=Additionalqualif::max('appraisal_id');
+        $lastPerfdutyID=Performedduty::max('appraisal_id');
+        $lastPublicaID=Publication::max('appraisal_id');
+        $lastProdID=Production::max('appraisal_id');
+        $lastAdminResID=Adminresponsibility::max('appraisal_id');
+        $lastCTaughtID=Coursetaught::max('appraisal_id');
+        $lastTLSID=Teachingloadsummary::max('appraisal_id');
+        $lastAnyInfoID=Anyotherinfo::max('appraisal_id');
+        $lastAppScoreID=Appraisalscore::max('appraisal_id');
+        $lastUploadedFileID=Uploadedfile::max('appraisal_id');
+
+        $qualifications=Qualification::where('appraisal_id',$lastqualID)->where('user_id',$staffid)->get();
+        $profmemberships=Profmembership::where('appraisal_id',$lastprofID)->where('user_id',$staffid)->get();
+        $promotions=Promotion::where('appraisal_id',$lastpromoID)->where('user_id',$staffid)->get();
+        $salaryscales=Salaryscale::where('appraisal_id',$lastsalscaleID)->where('user_id',$staffid)->get();
+        $trainings=Training::where('appraisal_id',$lastTrainingID)->where('user_id',$staffid)->get();
+        $additionalqualifs=Additionalqualif::where('appraisal_id',$lastAddiQualID)->where('user_id',$staffid)->get();
+        $performedduties=Performedduty::where('appraisal_id',$lastPerfdutyID)->where('user_id',$staffid)->get();
+        $publications=Publication::where('appraisal_id',$lastPublicaID)->where('user_id',$staffid)->get();
+        $productions=Production::where('appraisal_id',$lastProdID)->where('user_id',$staffid)->get();
+        $adminrespons=Adminresponsibility::where('appraisal_id',$lastAdminResID)->where('user_id',$staffid)->get();
+        $anyotherinfos=Anyotherinfo::where('appraisal_id',$lastAnyInfoID)->where('user_id',$staffid)->get();
+        $uploadedfiles=Uploadedfile::where('appraisal_id',$lastUploadedFileID)->where('user_id',$staffid)->get();
+                
+        return view('admin.staff.nonacademicappraisaldetails',array('user'=>Auth::user()),compact(
+            'qualifications',
+            'salaryscales',
+            'staff',
+            'profmemberships',
+            'promotions',
+            'trainings',
+            'additionalqualifs',
+            'performedduties',
+            'publications',
+            'productions',
+            'adminrespons',
+            'anyotherinfos',
+            'uploadedfiles',
+            'staff_id',
+            'staffappraisalscore',
+            'the_appraiser',
+            'appraisal_id'
+        ));
+
+        }elseif($staff->category_id==4){
+            //for junior staff appraisal details
+            $lastqualID=Qualification::max('appraisal_id');
+        $lastprofID=Profmembership::max('appraisal_id');
+        $lastpromoID=Promotion::max('appraisal_id');
+        $lastsalscaleID=Salaryscale::max('appraisal_id');
+        $lastTrainingID=Training::max('appraisal_id');
+        $lastAddiQualID=Additionalqualif::max('appraisal_id');
+        $lastPerfdutyID=Performedduty::max('appraisal_id');
+        $lastPublicaID=Publication::max('appraisal_id');
+        $lastProdID=Production::max('appraisal_id');
+        $lastAdminResID=Adminresponsibility::max('appraisal_id');
+        $lastCTaughtID=Coursetaught::max('appraisal_id');
+        $lastTLSID=Teachingloadsummary::max('appraisal_id');
+        $lastAnyInfoID=Anyotherinfo::max('appraisal_id');
+        $lastAppScoreID=Appraisalscore::max('appraisal_id');
+        $lastUploadedFileID=Uploadedfile::max('appraisal_id');
+        
+        $lastInstitutionID=Institution::max('appraisal_id');
+        $lastJuniorqualifID=Juniorqualification::max('appraisal_id');
+        $lastPostqualiexpID=Postqualiexperience::max('appraisal_id');
+        $lastAdhocperfdutyID=Adhocperfduty::max('appraisal_id');
+
+        $qualifications=Qualification::where('appraisal_id',$lastqualID)->where('user_id',$staffid)->get();
+        $profmemberships=Profmembership::where('appraisal_id',$lastprofID)->where('user_id',$staffid)->get();
+        $promotions=Promotion::where('appraisal_id',$lastpromoID)->where('user_id',$staffid)->get();
+        $salaryscales=Salaryscale::where('appraisal_id',$lastsalscaleID)->where('user_id',$staffid)->get();
+        $trainings=Training::where('appraisal_id',$lastTrainingID)->where('user_id',$staffid)->get();
+        $additionalqualifs=Additionalqualif::where('appraisal_id',$lastAddiQualID)->where('user_id',$staffid)->get();
+        $performedduties=Performedduty::where('appraisal_id',$lastPerfdutyID)->where('user_id',$staffid)->get();
+        $publications=Publication::where('appraisal_id',$lastPublicaID)->where('user_id',$staffid)->get();
+        $productions=Production::where('appraisal_id',$lastProdID)->where('user_id',$staffid)->get();
+        $adminrespons=Adminresponsibility::where('appraisal_id',$lastAdminResID)->where('user_id',$staffid)->get();
+        $anyotherinfos=Anyotherinfo::where('appraisal_id',$lastAnyInfoID)->where('user_id',$staffid)->get();
+        $uploadedfiles=Uploadedfile::where('appraisal_id',$lastUploadedFileID)->where('user_id',$staffid)->get();
+        
+        $institutions=Institution::where('appraisal_id',$lastInstitutionID)->where('user_id',$staffid)->get();
+        $juniorqualifs=Juniorqualification::where('appraisal_id',$lastJuniorqualifID)->where('user_id',$staffid)->get();
+        $postqualiexps=Postqualiexperience::where('appraisal_id',$lastPostqualiexpID)->where('user_id',$staffid)->get();
+        $adhocperfduties=Adhocperfduty::where('appraisal_id',$lastAdhocperfdutyID)->where('user_id',$staffid)->get();
+                
+        return view('admin.staff.juniorstaffappraisaldetails',array('user'=>Auth::user()),compact(
+            'qualifications',
+            'salaryscales',
+            'staff',
+            'profmemberships',
+            'promotions',
+            'trainings',
+            'additionalqualifs',
+            'performedduties',
+            'publications',
+            'productions',
+            'adminrespons',
+            'anyotherinfos',
+            'uploadedfiles',
+            'staff_id',
+            'staffappraisalscore',
+            'the_appraiser',
+            'appraisal_id',
+            'institutions',
+            'juniorqualifs',
+            'postqualiexps',
+            'adhocperfduties'  
+        ));
+
+        }
+    }
+
+    public function uploadedfiledownload($filename){
+        $file = public_path('storage/staff_appraisal_documents/'.$filename);
+        $name = basename($file);
+        return response()->download($file, $name);
+    }
+
+    public function viewuploadedfile($filename){
+        $uploadedfile=Uploadedfile::where('filename',$filename)->first();
+        return view('admin.staff.viewuploadedfile',array('user'=>Auth::user()),compact('uploadedfile'));
     }
 
 

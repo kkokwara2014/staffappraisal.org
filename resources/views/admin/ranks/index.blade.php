@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
- All Ranks
+All Ranks
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
 <div class="row">
     <!-- Left col -->
     <section class="col-lg-12 connectedSortable">
-        
+
         <div class="row">
             <div class="col-md-7">
 
@@ -34,7 +34,8 @@
                                 @foreach ($ranks as $rank)
                                 <tr>
                                     <td>{{$rank->name}}</td>
-                                <td><a href="{{ route('ranks.edit',$rank->id) }}"><span class="fa fa-edit fa-2x text-primary"></span></a></td>
+                                    <td><a href="{{ route('ranks.edit',$rank->id) }}"><span
+                                                class="fa fa-edit fa-2x text-primary"></span></a></td>
                                     <td>
                                         <form id="delete-form-{{$rank->id}}" style="display: none"
                                             action="{{ route('ranks.destroy',$rank->id) }}" method="post">
@@ -78,25 +79,25 @@
                     <div class="box-body">
                         <form action="{{ route('ranks.store') }}" method="post">
                             {{ csrf_field() }}
-                            
+
                             <div class="form-group">
                                 <label for="">Rank *</label>
                                 <input type="text"
                                     class="form-control form-control-sm{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                     name="name" value="{{ old('name') }}" placeholder="Rank e.g. Chief Lecturer"
                                     autofocus>
-            
+
                                 @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
-                                    <span
-                                        style="color: red">{{ $errors->first('name') }}</span>
+                                    <span style="color: red">{{ $errors->first('name') }}</span>
                                 </span>
                                 @endif
                             </div>
-                            
-                                  
-                            <button type="submit" class="btn btn-primary btn-sm"><span class="fa fa-floppy-o"></span> Save</button>
-                                  
+
+
+                            <button type="submit" class="btn btn-primary btn-sm"><span class="fa fa-floppy-o"></span>
+                                Save</button>
+
                         </form>
                     </div>
                     <!-- /.box-body -->

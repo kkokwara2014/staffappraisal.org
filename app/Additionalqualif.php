@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Additionalqualif extends Model
 {
-    //
+    
+    public function appraisalreports(){
+        return $this->hasMany(Appraisalreport::class);
+    }
 }
