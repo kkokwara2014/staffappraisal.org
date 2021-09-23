@@ -813,6 +813,13 @@ Academic Staff Appraisal Form
                                                 @endif
                                             </span>
                                         </li>
+
+                                        {{-- for uploading more doucments --}}
+                                        @if(!$appraisalscore>0 && $uploadedfiles>0)  
+                                        <a href="" data-toggle="modal"
+                                        data-target="#modal-uploadmorefiles-{{ $appraisal_id }}" style="float: right" class="btn btn-sm btn-warning"><span class="fa fa-upload"></span>  Upload more documents</a>
+                                        @endif
+
                                         @endif
                                     </ul>
                                 </div>
@@ -1304,7 +1311,16 @@ Academic Staff Appraisal Form
                                             <option selected="disabled">Select Appriaser</option>
                                             @foreach ($appraisers as $appraiser)
                                             <option value="{{$appraiser->id}}">
-                                                {{$appraiser->title->title.' '.$appraiser->firstname.' '.$appraiser->lastname.'  - '.$appraiser->department->name}}
+                                                {{$appraiser->title->title.' '.$appraiser->firstname.' '.$appraiser->lastname}}
+                                                @if ($appraiser->profileupdated=='1')
+                                                    @if ($appraiser->hasAnyRole('HOD'))
+                                                        {{ ' - '.'HOD, ' . $appraiser->department->name }}
+                                                    @elseif($appraiser->hasAnyRole('Dean'))
+                                                        {{ ' - '.'Dean, ' . $appraiser->school->name }}
+                                                    @elseif($appraiser->hasAnyRole('Rector'))
+                                                        {{ ' - '.'Rector' }}
+                                                    @endif
+                                                @endif
                                             </option>
                                             @endforeach
                                         </select>
@@ -1316,6 +1332,43 @@ Academic Staff Appraisal Form
 
                             </div>
 
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+
+                </form>
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        {{-- for uploading more documents --}}
+        <!-- Modal for uploadmorefiles -->
+        <div class="modal fade" id="modal-uploadmorefiles-{{ $appraisal_id }}">
+            <div class="modal-dialog modal-lg">
+
+                <form action="{{ route('moresupportingdoc.store') }}" method="post" enctype="multipart/form-data"
+                    onsubmit="return confirm ('Do you want to submit the entries you made in this section?')">
+                    @csrf
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title"> Add More Supporting Documents for {{ $appraisal->title }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="appraisal_id" value="{{ $appraisal_id }}">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            
+                            <div>
+                                @livewire('supporting-document')
+                            </div>
 
                         </div>
                         <div class="modal-footer">

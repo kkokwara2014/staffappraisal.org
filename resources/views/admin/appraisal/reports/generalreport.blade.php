@@ -63,15 +63,29 @@
                         @foreach ($appraisalreports as $rpt)
                         <tr>
                             <td>{{$rpt->user->title->title.' '.$rpt->user->firstname.' '.$rpt->user->lastname}}</td>
-                            <td>{{$rpt->user->dob}}</td>
-                            <td>{{$rpt->qualification->qualname.', '.date('Y',strtotime($rpt->qualification->dateofgrad))}}
+                            <td>{{date('d M, Y',strtotime($rpt->user->dob))}}</td>
+                            <td>
+                                @if ($rpt->user->category_id==2 || $rpt->user->category_id==3)
+                                    @foreach ($qualifications as $qualif)
+                                        @if (($qualif->user_id == $rpt->user_id ))
+                                        {{$qualif->qualname.', '.date('Y',strtotime($qualif->dateofgrad)).'; '}}
+                                        @endif
+                                    @endforeach
+                                @else
+                                    @foreach ($juniorqualifications as $qualif)
+                                        @if (($qualif->user_id == $rpt->user_id ))
+                                            {{$qualif->qualification.', '.date('Y',strtotime($qualif->dateobtained)).'; '}}
+                                        @endif
+                                    @endforeach
+                                @endif
+                                
                             </td>
-                            <td>{{$rpt->user->assumptiondate}}</td>
+                            <td>{{date('d M, Y',strtotime($rpt->user->assumptiondate))}}</td>
                             <td>
                                 @if ($rpt->user->confirmationdate==NULL)
                                     <span>None</span>
                                 @else
-                                    {{$rpt->user->confirmationdate}}
+                                    {{date('d M, Y',strtotime($rpt->user->confirmationdate))}}
                                 @endif
                             </td>
                             <td>{{$rpt->user->firstassumptionstatus}}</td>                                    
@@ -85,11 +99,11 @@
                                 style="color:white;background:red;">{{ $rpt->appraisalscore->totalscore }}</span>
                                 @endif
                             </td>
-                            <td>{{ $rpt->appraisalscore->recommendation }}</td>                                    
-                            <td>Nil</td>                                    
-                            <td>Nil</td>                                    
-                            <td>Nil</td>                                    
-                            <td>Nil</td>                                    
+                            <td>{{ $rpt->appraisalscore->recommendation!=''? $rpt->appraisalscore->recommendation:'Nill' }}</td>
+                                    <td>{{ $rpt->appraisalscore->schboardrecomm!=''? $rpt->appraisalscore->schboardrecomm :'Nill' }}</td>
+                                    <td>{{ $rpt->appraisalscore->managementrecomm!=''? $rpt->appraisalscore->managementrecomm:'Nill' }}</td>                                  
+                            <td>{{ $rpt->appraisalscore->ssapcrecomm!=''? $rpt->appraisalscore->ssapcrecomm:'Nill' }}</td>                                    
+                            <td>{{ $rpt->appraisalscore->councilrecomm!=''? $rpt->appraisalscore->councilrecomm:'Nill' }}</td>                                    
 
                         </tr>
 

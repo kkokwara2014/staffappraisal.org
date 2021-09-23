@@ -1,4 +1,3 @@
-
 <div class="box">
     <!-- /.box-header -->
     <div class="box-body">
@@ -22,6 +21,12 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="">Date of Birth *</label>
+                        <input type="text" id="datepicker1"
+                            class="form-control"
+                            name="dob" value="{{ old('dob') }}" required placeholder="Date of Birth - MM/DD/YYYY">
+                    </div>
 
                     <div class="form-group">
                         <label for="">Rank *</label>
@@ -36,17 +41,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">School *</label>
+                        <label for="">School/Section *</label>
                         <select name="school_id" class="form-control" required>
-                            <option selected="disabled" value="">Select School</option>
+                            <option selected="disabled" value="">Select School/Division</option>
                             @foreach ($schools as $school)
                             <option value="{{$school->id}}">{{$school->name}}
                             </option>
                             @endforeach
+    
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Department *</label>
+                        <label for="">Department/Unit *</label>
                             <select name="department_id" class="form-control" required>
     
                             </select>
@@ -69,6 +75,11 @@
                             </select>
                     </div>
 
+                    
+                                                           
+                    
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Marital Status *</label>
                         <select name="maritalstatus_id" class="form-control" required>
@@ -80,10 +91,6 @@
     
                         </select>
                     </div>
-                                                           
-                    
-                </div>
-                <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Number of Children</label>
                         
@@ -108,7 +115,7 @@
                         <label for="">Assumption Date *</label>
                         <input type="text" id="datepicker"
                             class="form-control{{ $errors->has('assumptiondate') ? ' is-invalid' : '' }}"
-                            name="assumptiondate" value="{{ old('assumptiondate') }}" placeholder="Date of Assumption">
+                            name="assumptiondate" value="{{ old('assumptiondate') }}" placeholder="Date of Assumption - MM/DD/YYYY">
     
                         @if ($errors->has('assumptiondate'))
                         <span class="invalid-feedback" role="alert">
@@ -118,17 +125,12 @@
                         @endif
                     </div>
                     
-                    <div class="form-group">
-                        <label for="">Date of Birth *</label>
-                        <input type="text" id="datepicker1"
-                            class="form-control"
-                            name="dob" value="{{ old('dob') }}" required placeholder="Date of Birth">
-                    </div>
+                    
                     <div class="form-group">
                         <label for="">Confirmation Date [only for confirmed Staff]</label>
                         <input type="text" id="datepicker2"
                             class="form-control"
-                            name="confirmationdate" value="{{ old('confirmationdate') }}" placeholder="Confirmation Date">
+                            name="confirmationdate" value="{{ old('confirmationdate') }}" placeholder="Confirmation Date - MM/DD/YYYY">
                     </div>
                     <div class="form-group">
                         <label for="">First Assumption Status *</label>
@@ -152,12 +154,10 @@
                 </div>
             </div>
             
-    
             <button type="reset" class="btn btn-danger btn-sm">Cancel</button>
             <button type="submit" class="btn btn-primary btn-sm">Submit</button>
     
         </form>
-
 
     </div>
     <!-- /.box-body -->

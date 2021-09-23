@@ -43,7 +43,7 @@
                             <div class="box-body">
 
                                 <p>
-                                    <h2>{{ucfirst($staff->firstname).' '.($staff->middlename!=''?ucfirst($staff->middlename):'').' '.ucfirst($staff->lastname)}}
+                                    <h2>{{$staff->title->title.' '.ucfirst($staff->firstname).' '.($staff->middlename!=''?ucfirst($staff->middlename):'').' '.ucfirst($staff->lastname)}}
                                     </h2>
                                 </p>
                                 <hr>
@@ -156,11 +156,19 @@
                                 @forelse ($staffappraisals as $staffapp)
 
                                 <div class="panel panel-default">
-                                    
                                         <div class="panel-body"> 
                                             <a href="{{ route('staffappraisal.show',[$staffapp->appraisal_id,$staff_id]) }}">{{ $staffapp->appraisal->title }}</a>
-                                        </div>
 
+                                            {{-- @if ($scoredappraisal!=null)
+                                            <span class="badge badge-pill badge-success" style="background-color: green; color: seashell; float:right">
+                                                Scored
+                                            </span>
+                                            @else
+                                            <span class="badge badge-pill badge-danger" style="background-color: red; color: seashell; float:right">
+                                                Not Scored
+                                            </span>
+                                            @endif --}}
+                                        </div>
                                 </div>
                                 @empty
                                 <span style="background-color: red; color: seashell">

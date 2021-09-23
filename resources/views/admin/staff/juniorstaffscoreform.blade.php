@@ -29,7 +29,7 @@ Junior Staff Score Form
                             @include('admin.messages.error')
                         </p>
 
-                        <form action="{{ route('store.appraisal.score') }}" method="post">
+                        <form action="{{ route('store.juniorstaffappraisal.score') }}" method="post">
                             @csrf
 
                             <input type="hidden" name="appraisal_id" value="{{ $appraisal_id }}">
@@ -642,8 +642,8 @@ Junior Staff Score Form
                                             <a href="" style="background-color: #34a4eb; color: honeydew" class="badge badge-pill badge-primary"><span class="fa fa-paperclip"></span> Attach file</a> 
                                         </div>
                                         <div class="form-group-sm col-md-2">
-                                            <input type="text" name="warningletter" class="form-control"
-                                                {{ old('warningletter') }}>
+                                            <input id="warningletterscore" type="text" name="warningletterscore" class="form-control juniorappscore"
+                                                {{ old('warningletterscore') }} pattern="[0-9]+">
                                         </div>
                                     </div>
                                     <p></p>
@@ -652,8 +652,8 @@ Junior Staff Score Form
                                             Number of days granted off-duty on health grounds: 
                                         </div>
                                         <div class="form-group-sm col-md-2">
-                                            <input type="text" name="offdutyonhealth" class="form-control"
-                                                {{ old('offdutyonhealth') }}>
+                                            <input id="offdutyscore" type="text" name="offdutyonhealthscore" class="form-control juniorappscore"
+                                                {{ old('offdutyonhealthscore') }} pattern="[0-9]+">
                                         </div>
                                     </div>
                                     <p></p>
@@ -664,8 +664,8 @@ Junior Staff Score Form
                                             <a href="" style="background-color: #34a4eb; color: honeydew" class="badge badge-pill badge-primary"><span class="fa fa-paperclip"></span> Attach file</a> 
                                         </div>
                                         <div class="form-group-sm col-md-2">
-                                            <input type="text" name="numberofcommendation" class="form-control"
-                                                {{ old('numberofcommendation') }}>
+                                            <input id="numofcommendation" type="text" name="numberofcommendationscore" class="form-control juniorappscore"
+                                                {{ old('numberofcommendationscore') }} pattern="[0-9]+">
                                         </div>
                                     </div>
                                     <p></p>
@@ -673,21 +673,21 @@ Junior Staff Score Form
                                         Training potentials: this officer has potential for:
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" class="juniorappscore" name="trainingpotential"
+                                                <input type="radio" name="trainingpotentialscore"
                                                     value="Short-term courses only">
                                                 Short-term courses only
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" class="juniorappscore" name="trainingpotential"
+                                                <input type="radio" name="trainingpotentialscore"
                                                     value="Full-time professional training">
                                                 Full-time professional training
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" class="juniorappscore" name="trainingpotential"
+                                                <input type="radio" name="trainingpotentialscore"
                                                     value="Higher professional courses/seminars"> Higher professional courses/seminars
                                             </label>
                                         </div>

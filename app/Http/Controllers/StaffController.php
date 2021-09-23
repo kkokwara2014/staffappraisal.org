@@ -52,17 +52,19 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staffLists=[];
-        $staffLists=User::orderBy('created_at','desc')->chunk(200, function($staffs) use($staffLists){
-            foreach($staffs as $staff){
-                $staffLists[]=$staff;
-            }
-        });
+        // $staffLists=[];
+        // $staffLists=User::orderBy('created_at','desc')->chunk(200, function($staffs) use($staffLists){
+        //     foreach($staffs as $staff){
+        //         $staffLists[]=$staff;
+        //     }
+        // });
 
         // return response()->body($staffLists);
 
-        return response()->view('admin.staff.index',array(['user'=>Auth::user(),'staffLists'=>$staffLists]));
-        // return view('admin.staff.index',array('user'=>Auth::user()),['staffLists'=>$staffLists]);
+        $staffLists=User::latest()->get();
+
+        // return response()->view('admin.staff.index',array(['user'=>Auth::user(),'staffLists'=>$staffLists]));
+        return view('admin.staff.index',array('user'=>Auth::user()),compact('staffLists'));
     }
 
     /**
@@ -153,12 +155,12 @@ class StaffController extends Controller
     {
         $staff=User::find($id);
 
-        // $staff_id=$request->segments(3);
-
         $staff_id=$id;
         $creatorExists=User::where('creator_id','=',$id)->count();
 
-        // return $staff_id;       
+        $submittedappraisal=Appraisaluser::where('user_id',$staff->id)->first();
+        // $scoredappraisal=Appraisalscore::where('appraisal_id',$submittedappraisal->appraisal_id)->where('user_id',$staff_id)->where('isscored','1')->first();
+            
         $staffappraisals=Appraisaluser::where('user_id',$staff->id)->get();
         // $staffappraisals=Appraisaluser::where('user_id',$staff->id)->first();
         return view('admin.staff.show',array('user'=>Auth::user()),compact('staff','staffappraisals','staff_id','creatorExists'));
@@ -169,11 +171,10 @@ class StaffController extends Controller
         $creatorExists=User::where('creator_id','=',$id)->count();
         if (Auth::user()->hasAnyRole(['Admin']) || $creatorExists>0) {
             $staff=User::find($id);
-
-        $staffcreatedbyothers=User::where('creator_id',$id)->latest()->get();       
-        $totalstaffcount=User::where('creator_id',$id)->count();       
-       
-        return view('admin.staff.peoplecreated',array('user'=>Auth::user()),compact('staff','staffcreatedbyothers','totalstaffcount','creatorExists'));
+            $staffcreatedbyothers=User::where('creator_id',$id)->latest()->get();       
+            $totalstaffcount=User::where('creator_id',$id)->count();       
+        
+            return view('admin.staff.peoplecreated',array('user'=>Auth::user()),compact('staff','staffcreatedbyothers','totalstaffcount','creatorExists'));
         } else {
             
             return view('admin.unauthorized.accessdenied');
@@ -361,72 +362,64 @@ class StaffController extends Controller
         return back()->with('staff_deleted','Staff deleted successfully!');
     }
 
-    
-
     public function activate($id)
     {
         if(Auth::user()->hasAnyRole('Admin')){
-        $staff = User::find($id);
-        $staff->isactive = '1';
-        $staff->save();
-        
-        return back();
-
-    } else {
-        return redirect()->route('access.denied');
-    }
+            $staff = User::find($id);
+            $staff->isactive = '1';
+            $staff->save();
+            
+            return back();
+        } else {
+            return redirect()->route('access.denied');
+        }
     }
 
     public function deactivate($id)
     {
         if(Auth::user()->hasAnyRole('Admin')){
-        $staff = User::find($id);
-        $staff->isactive = '0';
-        $staff->save();
+            $staff = User::find($id);
+            $staff->isactive = '0';
+            $staff->save();
 
-        return back();
-    } else {
-        return redirect()->route('access.denied');
-    }
+            return back();
+        } else {
+            return redirect()->route('access.denied');
+        }
     }
 
     public function staffbydepartment(){
 
-        if(Auth::user()->hasAnyRole(['Admin','Rector','Registrar','Dean','HOD'])){
-        $departments=Department::where('id','>','1')->orderBy('name','asc')->simplePaginate(10);
+        if(Auth::user()->hasAnyRole(['Admin'])||Auth::user()->hasAnyRole(['Rector'])||Auth::user()->hasAnyRole(['Registrar'])||Auth::user()->hasAnyRole(['Dean'])||Auth::user()->hasAnyRole(['HOD'])||Auth::user()->hasAnyRole(['Management'])||Auth::user()->hasAnyRole(['Appraisal Committee'])||Auth::user()->hasAnyRole(['Director'])||Auth::user()->hasAnyRole(['Governing Council'])){
+            $departments=Department::where('id','>','1')->orderBy('name','asc')->simplePaginate(10);
+            $staffs=User::orderBy('lastname','asc')->where('profileupdated','1')->get();
 
-        $staffs=User::orderBy('lastname','asc')->where('profileupdated','1')->get();
-
-        return view('admin.staff.staffbydepartment',array('user'=>Auth::user()),compact('departments','staffs'));
-    } else {
-        return redirect()->route('access.denied');
-    }
+            return view('admin.staff.staffbydepartment',array('user'=>Auth::user()),compact('departments','staffs'));
+        } else {
+            return redirect()->route('access.denied');
+        }
     }
 
     public function departmentalstaff($id){
+
         $department=Department::find($id);
-        
         $staffs=User::orderBy('lastname','asc')->where('profileupdated','1')->get();
-
         return view('admin.staff.departmentalstaff',array('user'=>Auth::user()),compact('department','staffs'));
-
     }
 
 
     public function showappraisal($appraisal_id,$staffid){
         
         $appraisal=Appraisal::find($appraisal_id);
-
-
         $staff_id=$staffid;
-
-        $staffappraisalscore=Appraisalscore::where('appraisal_id',$appraisal_id)->where('user_id',$staffid)->first();
-
-        
-        $the_appraiser=Appraisaluser::where('appraisal_id',$appraisal_id)->where('user_id',$staffid)->where('sentto_id',Auth::user()->id)->first();
-
-        // $staffs=User::where('profileupdated','1')->get();
         $staff=User::find($staff_id);
+
+        $staffappraisalscore=Appraisalscore::where('appraisal_id',$appraisal_id)->where('user_id',$staff->id)->first();
+        $scoredappraisal=Appraisalscore::where('appraisal_id',$appraisal_id)->where('user_id',$staff->id)->where('isscored','1')->first();
+        
+        $the_appraiser=Appraisaluser::where('appraisal_id',$appraisal_id)->where('user_id',$staff->id)->where('sentto_id',Auth::user()->id)->first();
+
+        $scoredappraisaluser=Appraisaluser::where('appraisal_id',$appraisal_id)->where('user_id',$staff->id)->first();
 
         if($staff->category_id==2){
         //get the last saved id
@@ -461,7 +454,30 @@ class StaffController extends Controller
         $anyotherinfos=Anyotherinfo::where('appraisal_id',$lastAnyInfoID)->where('user_id',$staffid)->get();
         $uploadedfiles=Uploadedfile::where('appraisal_id',$lastUploadedFileID)->where('user_id',$staffid)->get();
                 
-        return view('admin.staff.staffappraisaldetails',array('user'=>Auth::user()),compact('qualifications','salaryscales','staff','profmemberships','promotions','trainings','additionalqualifs','performedduties','publications','productions','adminrespons','taughtcourses','teachingloadsummaries','anyotherinfos','uploadedfiles','staff_id','staffappraisalscore','the_appraiser','appraisal_id'));
+        return view('admin.staff.staffappraisaldetails',array('user'=>Auth::user()),
+            compact(
+                'qualifications',
+                'salaryscales',
+                'staff',
+                'profmemberships',
+                'promotions',
+                'trainings',
+                'additionalqualifs',
+                'performedduties',
+                'publications',
+                'productions',
+                'adminrespons',
+                'taughtcourses',
+                'teachingloadsummaries',
+                'anyotherinfos',
+                'uploadedfiles',
+                'staff_id',
+                'staffappraisalscore',
+                'the_appraiser',
+                'appraisal_id',
+                'scoredappraisal',
+                'scoredappraisaluser'
+            ));
 
         }elseif($staff->category_id==3){
             //for non-academic appraisal details           //get the last saved id
@@ -511,7 +527,9 @@ class StaffController extends Controller
             'staff_id',
             'staffappraisalscore',
             'the_appraiser',
-            'appraisal_id'
+            'appraisal_id',
+            'scoredappraisal',
+            'scoredappraisaluser'
         ));
 
         }elseif($staff->category_id==4){
@@ -576,11 +594,14 @@ class StaffController extends Controller
             'institutions',
             'juniorqualifs',
             'postqualiexps',
-            'adhocperfduties'  
+            'adhocperfduties',
+            'scoredappraisal',
+            'scoredappraisaluser'  
         ));
 
         }
     }
+
 
     public function uploadedfiledownload($filename){
         $file = public_path('storage/staff_appraisal_documents/'.$filename);

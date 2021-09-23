@@ -14,10 +14,12 @@ Staff Appraisal Report for {{ $appyear }}
 
         <div class="row">
             <div class="col-md-12">
-                
+
                 <p>
-                    <a href="{{ route('getappraisal.year') }}" class="btn btn-sm btn-success">Generate Yearly Appraisal Report</a>
-                    <a href="{{ route('printyearlyappraisal.report',$appyear) }}" class="btn btn-sm btn-primary btnprnt" style="float: right"><span class="fa fa-print"></span> Print Report</a>
+                    <a href="{{ route('getappraisal.year') }}" class="btn btn-sm btn-success">Generate Yearly Appraisal
+                        Report</a>
+                    <a href="{{ route('printyearlyappraisal.report',$appyear) }}" class="btn btn-sm btn-primary btnprnt"
+                        style="float: right"><span class="fa fa-print"></span> Print Report</a>
                 </p>
 
                 <div class="box">
@@ -40,47 +42,62 @@ Staff Appraisal Report for {{ $appyear }}
                                     <th>Mgt. Recom.</th>
                                     <th>SSA & PC Recom.</th>
                                     <th>Expd. Mgt. Recom.</th>
-                                   
+
                                 </tr>
                             </thead>
-        
+
                             <tbody>
                                 @foreach ($appraisalreports as $rpt)
                                 <tr>
-                                    <td>{{$rpt->user->title->title.' '.$rpt->user->firstname.' '.$rpt->user->lastname}}</td>
-                                    <td>{{$rpt->user->dob}}</td>
-                                    <td>
-                                        {{$rpt->qualification->qualname.', '.date('Y',strtotime($rpt->qualification->dateofgrad))}}
+                                    <td>{{$rpt->user->title->title.' '.$rpt->user->firstname.' '.$rpt->user->lastname}}
                                     </td>
-                                    <td>{{$rpt->user->assumptiondate}}</td>
+                                    <td>{{date('d M, Y',strtotime($rpt->user->dob))}}</td>
+                                    <td>
+                                        @if ($rpt->user->category_id==2 || $rpt->user->category_id==3)
+                                        @foreach ($qualifications as $qualif)
+                                        @if (($qualif->user_id == $rpt->user_id ))
+                                        {{$qualif->qualname.', '.date('Y',strtotime($qualif->dateofgrad)).'; '}}
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        @foreach ($juniorqualifications as $qualif)
+                                        @if (($qualif->user_id == $rpt->user_id ))
+                                        {{$qualif->qualification.', '.date('Y',strtotime($qualif->dateobtained)).'; '}}
+                                        @endif
+                                        @endforeach
+                                        @endif
+                                    </td>
+                                    <td>{{date('d M, Y',strtotime($rpt->user->assumptiondate))}}</td>
                                     <td>
                                         @if ($rpt->user->confirmationdate==NULL)
-                                            <span>None</span>
+                                        <span>None</span>
                                         @else
-                                            {{$rpt->user->confirmationdate}}
+                                        {{date('d M, Y',strtotime($rpt->user->confirmationdate))}}
                                         @endif
                                     </td>
-                                    <td>{{$rpt->user->firstassumptionstatus}}</td>                                    
-                                    <td>{{$rpt->salaryscale->presentpost}}</td>                                    
+                                    <td>{{$rpt->user->firstassumptionstatus}}</td>
+                                    <td>{{$rpt->salaryscale->presentpost}}</td>
                                     <td>
-                                        @if ($rpt->appraisalscore->totalscore>=50)
-                                        <span class="badge badge-pill badge-success"
-                                        style="color:white;background:green;">{{ $rpt->appraisalscore->totalscore }}</span>
-                                        @else
-                                        <span class="badge badge-pill badge-success"
-                                        style="color:white;background:red;">{{ $rpt->appraisalscore->totalscore }}</span>
+                                        @if ($rpt->appraisalscore->totalscore!='')
+                                            @if ($rpt->appraisalscore->totalscore>=50)
+                                            <span class="badge badge-pill badge-success"
+                                                style="color:white;background:green;">{{ $rpt->appraisalscore->totalscore }}</span>
+                                            @else
+                                            <span class="badge badge-pill badge-success"
+                                                style="color:white;background:red;">{{ $rpt->appraisalscore->totalscore }}</span>
+                                            @endif
                                         @endif
+                                        
                                     </td>
-                                    <td>{{ $rpt->appraisalscore->recommendation }}</td>                                    
-                                    <td>Nil</td>                                    
-                                    <td>Nil</td>                                    
-                                    <td>Nil</td>                                    
-                                    <td>Nil</td>                                    
-
+                                    <td>{{ $rpt->appraisalscore->recommendation!=''? $rpt->appraisalscore->recommendation:'Nill' }}</td>
+                                    <td>{{ $rpt->appraisalscore->schboardrecomm!=''? $rpt->appraisalscore->schboardrecomm :'Nill' }}</td>
+                                    <td>{{ $rpt->appraisalscore->managementrecomm!=''? $rpt->appraisalscore->managementrecomm:'Nill' }}</td>
+                                    <td>{{ $rpt->appraisalscore->ssapcrecomm!=''? $rpt->appraisalscore->ssapcrecomm:'Nill' }}</td>                                    
+                                    <td>{{ $rpt->appraisalscore->councilrecomm!=''? $rpt->appraisalscore->councilrecomm:'Nill' }}</td>                                    
                                 </tr>
-        
+
                                 @endforeach
-        
+
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -97,7 +114,7 @@ Staff Appraisal Report for {{ $appyear }}
                                     <th>Mgt. Recom.</th>
                                     <th>SSA & PC Recom.</th>
                                     <th>Expd. Mgt. Recom.</th>
-        
+
                                 </tr>
                             </tfoot>
                         </table>
@@ -125,4 +142,3 @@ Staff Appraisal Report for {{ $appyear }}
 <!-- /.content-wrapper -->
 
 @endsection
-

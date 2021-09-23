@@ -58,7 +58,29 @@ class SupportingDocumentController extends Controller
 
     }
 
-    public function delete($appraisal_id,$user_id){
+    public function storemoredocument(Request $request){
+        request()->validate([
+            'supportingdoc' => 'required',
+            'supportingdoc.*' => 'mimes:pdf'
+        ]);
 
+        $moreUploadedFiles = $request->file('supportingdoc');
+        //uploading appraisal documents
+        if ($request->hasFile('supportingdoc')) {
+            foreach ($moreUploadedFiles as $key=> $docum) {
+                $filename=auth()->user()->lastname.'_'.auth()->user()->staffnumb.'_'.rand(2345678,7890989).'.'.$docum->getClientOriginalExtension();
+                $docum->storeAs('public/staff_appraisal_documents/', $filename);
+                
+                $uploadeddoc=new Uploadedfile();
+                $uploadeddoc->user_id=auth()->user()->id;
+                $uploadeddoc->appraisal_id=$request->appraisal_id;
+                $uploadeddoc->documenttype=$request->documenttype[$key];
+                $uploadeddoc->filename=$filename;
+                $uploadeddoc->save();
+            }
+        }
+        
+        
+        return redirect()->back()->with('success','More Supporting Document(s) uploaded successfully!');
     }
 }

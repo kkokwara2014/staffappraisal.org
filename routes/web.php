@@ -4,6 +4,7 @@ use App\Http\Controllers\AppraisalscoreController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Impersonate;
+use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ScoreAppraisalController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -89,8 +90,10 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     Route::get('staff-by-department', 'StaffController@staffbydepartment')->name('staffsbydept');
     Route::get('department/{id}', 'StaffController@departmentalstaff')->name('departmentalstaff');
     Route::resource('appraisals', 'AppraisalController');
+    
+    /**getting staff appraisal details based on staff category */
     Route::get('/staff-appraisal/details/{appraisal_id}/{staffid}','StaffController@showappraisal')->name('staffappraisal.show');
-
+    
     Route::get('/staff-created-by/{id}','StaffController@showPeopleCreatedByOthers')->name('peoplecreatedbyothers');
     // Route::post('/staff-appraisal/details/{appraisal_id}','StaffController@showappraisal')->name('staffappraisal.show');
     Route::get('/download/uploaded-appraisal-document/{filename}', 'StaffController@uploadedfiledownload')->name('uploadedfile.download');
@@ -129,6 +132,7 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
         Route::post('/tloadsummary','TeachingLoadSummaryController@store')->name('tloadsummary.store');
         Route::post('/anyotherinfo','AnyOtherInfoController@store')->name('anyotherinfo.store');
         Route::post('/supportingdoc','SupportingDocumentController@store')->name('supportingdoc.store');
+        Route::post('/moresupportingdoc','SupportingDocumentController@storemoredocument')->name('moresupportingdoc.store');
 
     //addendum for junior staff
         Route::post('/institution','InstitutionController@store')->name('institution.store');
@@ -146,14 +150,13 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
         Route::get('generate/yearly/appraisal/report','ReportController@getappraisalyear')->name('getappraisal.year');
         Route::post('yearly/appraisal/report','ReportController@getyearlyappraisalreport')->name('getyearlyappraisal.report');
         Route::get('print/yearly/appraisal/report/{appyear}','ReportController@generalreport')->name('printyearlyappraisal.report');
-
+        
     });
     
     Route::resource('user', 'UserController');
     
-    
-    
-    
+    //uploading signature
+    Route::post('upload/signature','SignatureController@staffsignature')->name('upload.signature');
 
     //route for storing details from various appraisal forms
     Route::post('/save/acad-appraisal','AcademicStaffAppraisalController@store')->name('store.acad.appraisal');
@@ -170,13 +173,23 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     
     Route::get('/acad-appraisal/submitted','AppraisalController@acadsuccess')->name('acad.aparaisal.success');
 
-
-
     Route::post('appraisal/score-form/{staff_id?}',[AppraisalscoreController::class,'scoreform'])->name('appraisalscoreform');
+    
     Route::get('staff/appraisal/score-form/{appraisalid}/{staffid}',[AppraisalscoreController::class,'getscoreform'])->name('getappraisalscoreform');
+
+    /**getting the appraisal score forms based on the staff category */
+    Route::get('staff/appraisal/academic-score-form/{appraisalid}/{staffid}',[AppraisalscoreController::class,'getacademicscoreform'])->name('getacademicscoreform');
+    Route::get('staff/appraisal/nonacademic-score-form/{appraisalid}/{staffid}',[AppraisalscoreController::class,'getnonacademicscoreform'])->name('getnonacademicscoreform');
+    Route::get('staff/appraisal/juniorstaff-score-form/{appraisalid}/{staffid}',[AppraisalscoreController::class,'juniorstaffscoreform'])->name('juniorstaffscoreform');
+    
+    
     Route::post('staff/appraisal/acceptorreject/{appraisalid}/{staffid}',[ScoreAppraisalController::class,'acceptorrejectcomment'])->name('appraisalscore.acceptorreject');
     
+    
+    
     Route::post('save/appraisal/score',[ScoreAppraisalController::class,'store'])->name('store.appraisal.score');
+    Route::post('save/nonacademic/appraisal/score',[ScoreAppraisalController::class,'storenonacademicscore'])->name('store.nonacademicappraisal.score');
+    Route::post('save/juniorstaff/appraisal/score',[ScoreAppraisalController::class,'storejuniorstaffscore'])->name('store.juniorstaffappraisal.score');
 
 
     Route::get('/login/details','LoginAuditController@index')->name('login.details');
@@ -186,10 +199,16 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
 
     Route::get('/appraisal/upload-documents','AcademicDocumentUploadController@getuploadpage')->name('upload.documents');
     Route::post('/documents-uploaded','AcademicDocumentUploadController@uploaddoc')->name('upload.appraisal.docs');
+
+    //appraisal recommendations
+    Route::post('staff/appraisal/schboardrecommendation/{appraisalid}/{staffid}',[RecommendationController::class,'byschoolboard'])->name('schboardrecomm');
+    Route::post('staff/appraisal/managementrecommendation/{appraisalid}/{staffid}',[RecommendationController::class,'bymanagement'])->name('managementrecomm');
+    Route::post('staff/appraisal/ssapcrecommendation/{appraisalid}/{staffid}',[RecommendationController::class,'byssapc'])->name('ssapcrecomm');
+    Route::post('staff/appraisal/councilrecommendation/{appraisalid}/{staffid}',[RecommendationController::class,'bycouncil'])->name('councilrecomm');
+
+    // access denied
+    Route::get('access-denied','AccessDeniedController@index')->name('access.denied');
 });
 
 Route::get('/impersonate/user/{id}',[Impersonate::class,'index'])->name('staff.impersonate');
 
-// Route::livewire('/dashboard', 'home')->name('home');
-
-// Route::livewire('/login','login')->name('login');

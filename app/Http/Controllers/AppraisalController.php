@@ -49,8 +49,6 @@ class AppraisalController extends Controller
         $appraisalusers=Appraisaluser::latest()->get();
         $appraisals=Appraisal::where('ispublished','1')->latest()->get();
         
-        // return $appraisals;
-
         return view('admin.appraisal.published',array('user'=>Auth::user()),compact('appraisals','appraisalusers'));
     }
 
@@ -211,7 +209,7 @@ class AppraisalController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->hasAnyRole(['Admin','Registrar'])) {
+        if (Auth::user()->hasAnyRole(['Admin'])||Auth::user()->hasAnyRole(['Registrar'])) {
             return view('admin.appraisal.create',array('user'=>Auth::user()));
         } else {
             return redirect()->route('access.denied');
@@ -304,7 +302,6 @@ class AppraisalController extends Controller
         return back()->with('deleted',$appraisal->title.' deleted successfully! 😦');
     }
 
-    
 
     public function publish($id){
         $appraisal=Appraisal::find($id);
@@ -343,6 +340,20 @@ class AppraisalController extends Controller
         if(count($qualifs)>0){
             foreach($qualifs as $qualif){
                     $qualif->delete();
+            }
+        }
+
+        $juniorqualifs=Juniorqualification::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($juniorqualifs)>0){
+            foreach($juniorqualifs as $juniorqualif){
+                    $juniorqualif->delete();
+            }
+        }
+
+        $institutions=Institution::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->get();
+        if(count($institutions)>0){
+            foreach($institutions as $institute){
+                    $institute->delete();
             }
         }
 

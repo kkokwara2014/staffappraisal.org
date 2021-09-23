@@ -13,11 +13,9 @@ class AppraisalscoreController extends Controller
     public function getscoreform($appraisalid,$staffid){
 
         $stafftobeappraised=User::where('id',$staffid)->first();
-
-
         $appraisalscore=Appraisalscore::where('appraisal_id',$appraisalid)->where('user_id',$staffid)->first();
         
-        if($appraisalscore!=NULL && Auth::user()->hasAnyRole(['Admin','HOD','Dean'])){
+        if($appraisalscore!=NULL && (Auth::user()->hasAnyRole(['HOD']) || Auth::user()->hasAnyRole(['Dean']) || Auth::user()->hasAnyRole(['Admin']))){
             $appraisal_id=$appraisalid;
             $staff_id=$staffid;
 
@@ -25,7 +23,7 @@ class AppraisalscoreController extends Controller
 
             return redirect()->route('staffappraisal.show',[$appraisalscore->appraisal_id,$appraisalscore->user_id])->with('success','This Staff has already been scored! Kindly proceed to scoring other Staff under you. Thank you.');
 
-        }elseif ($appraisalscore==NULL && Auth::user()->hasAnyRole(['Admin','HOD','Dean'])) {
+        }elseif ($appraisalscore==NULL && (Auth::user()->hasAnyRole(['HOD']) || Auth::user()->hasAnyRole(['Dean']) || Auth::user()->hasAnyRole(['Admin']))) {
             
             if ($stafftobeappraised->category_id==2) {
                 $appraisal_id=$appraisalid;
@@ -58,45 +56,99 @@ class AppraisalscoreController extends Controller
         }
     }
 
-    public function scoreform(Request $request,$staff_id){
+    public function getacademicscoreform($appraisalid,$staffid){
+        $stafftobeappraised=User::where('id',$staffid)->first();
+        $appraisalscore=Appraisalscore::where('appraisal_id',$appraisalid)->where('user_id',$staffid)->first();
+        
+        if($appraisalscore!=NULL && (Auth::user()->hasAnyRole(['HOD']) || Auth::user()->hasAnyRole(['Dean']) || Auth::user()->hasAnyRole(['Admin']))){
+            $appraisal_id=$appraisalid;
+            $staff_id=$staffid;
 
-        $stafftobeappraised=User::where('id',$staff_id)->first();
+            $staff=User::find($staff_id);
 
-        return $stafftobeappraised->category_id;
+            return redirect()->route('staffappraisal.show',[$appraisalscore->appraisal_id,$appraisalscore->user_id])->with('success','This Staff has already been scored! Kindly proceed to scoring other Staff under you. Thank you.');
 
-        if (Auth::user()->hasAnyRole(['Admin','HOD','Dean'])) {
-            //check for the staff category and show score form
+        }
+
+        if ($appraisalscore==NULL && (Auth::user()->hasAnyRole(['HOD']) || Auth::user()->hasAnyRole(['Dean']) || Auth::user()->hasAnyRole(['Admin']))) {
+            
             if ($stafftobeappraised->category_id==2) {
-                $staff_id=$request->user_id;
-                $appraisal_id=$request->appraisal_id;
+                $appraisal_id=$appraisalid;
+                $staff_id=$staffid;
+
                 $staff=User::find($staff_id);
 
-                return view('admin.staff.scoreform',array('user'=>Auth::user()),compact('staff','staff_id','appraisal_id'));
-            
-            } elseif ($stafftobeappraised->category_id==3) {
-                
-                $staff_id=$request->user_id;
-                $appraisal_id=$request->appraisal_id;
-                $staff=User::find($staff_id);
-
-                return view('admin.staff.nonacademicscoreform',array('user'=>Auth::user()),compact('staff','staff_id','appraisal_id'));
-            
-            } elseif($stafftobeappraised->category_id==4) {
-                
-                $staff_id=$request->user_id;
-                $appraisal_id=$request->appraisal_id;
-                $staff=User::find($staff_id);
-
-                return view('admin.staff.scoreform',array('user'=>Auth::user()),compact('staff','staff_id','appraisal_id'));
-            }
-
+                return view('admin.staff.scoreform',array('user'=>Auth::user()),compact('appraisal_id','staff_id','staff'));
+            } 
 
         } else {
             return redirect()->route('access.denied');
         }
-        
+
+
     }
 
-    
-    
+    public function getnonacademicscoreform($appraisalid,$staffid){
+
+        $stafftobeappraised=User::where('id',$staffid)->first();
+        $appraisalscore=Appraisalscore::where('appraisal_id',$appraisalid)->where('user_id',$staffid)->first();
+        
+        if($appraisalscore!=NULL && (Auth::user()->hasAnyRole(['HOD']) || Auth::user()->hasAnyRole(['Dean']) || Auth::user()->hasAnyRole(['Admin']))){
+            $appraisal_id=$appraisalid;
+            $staff_id=$staffid;
+
+            $staff=User::find($staff_id);
+
+            return redirect()->route('staffappraisal.show',[$appraisalscore->appraisal_id,$appraisalscore->user_id])->with('success','This Staff has already been scored! Kindly proceed to scoring other Staff under you. Thank you.');
+        }
+
+        if ($appraisalscore==NULL && (Auth::user()->hasAnyRole(['HOD']) || Auth::user()->hasAnyRole(['Dean']) || Auth::user()->hasAnyRole(['Admin']))) {
+            
+            if ($stafftobeappraised->category_id==3) {
+                $appraisal_id=$appraisalid;
+                $staff_id=$staffid;
+
+                $staff=User::find($staff_id);
+
+                return view('admin.staff.nonacademicscoreform',array('user'=>Auth::user()),compact('appraisal_id','staff_id','staff'));
+            
+            } 
+
+        } else {
+            return redirect()->route('access.denied');
+        }
+    }
+
+    public function juniorstaffscoreform($appraisalid,$staffid){
+        $stafftobeappraised=User::where('id',$staffid)->first();
+        $appraisalscore=Appraisalscore::where('appraisal_id',$appraisalid)->where('user_id',$staffid)->first();
+        
+        if($appraisalscore!=NULL && (Auth::user()->hasAnyRole(['HOD']) || Auth::user()->hasAnyRole(['Dean']) || Auth::user()->hasAnyRole(['Admin']))){
+            $appraisal_id=$appraisalid;
+            $staff_id=$staffid;
+
+            $staff=User::find($staff_id);
+
+            return redirect()->route('staffappraisal.show',[$appraisalscore->appraisal_id,$appraisalscore->user_id])->with('success','This Staff has already been scored! Kindly proceed to scoring other Staff under you. Thank you.');
+        }
+
+        if ($appraisalscore==NULL && (Auth::user()->hasAnyRole(['HOD']) || Auth::user()->hasAnyRole(['Dean']) || Auth::user()->hasAnyRole(['Admin']))) {
+            
+            if($stafftobeappraised->category_id==4) {
+                $appraisal_id=$appraisalid;
+                $staff_id=$staffid;
+
+                $staff=User::find($staff_id);
+
+                return view('admin.staff.juniorstaffscoreform',array('user'=>Auth::user()),compact('appraisal_id','staff_id','staff'));
+            }
+
+        } else {
+            return redirect()->route('access.denied');
+        }
+
+
+    }
+
+        
 }

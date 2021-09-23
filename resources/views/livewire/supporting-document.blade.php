@@ -19,6 +19,9 @@
                     <select name="documenttype[]" class="form-control form-control-sm">
                         <option value="">Select Document Type</option>
                         <option value="Certificate">Certificate</option>
+                        <option value="Evidence of Journal Publication">Evidence of Journal Publication</option>
+                        <option value="Evidence of Conference Paper">Evidence of Conference Paper</option>
+                        <option value="Evidence of Design/Fabrication">Evidence of Design/Fabrication</option>
                         <option value="Transcript">Transcript</option>
                         <option value="Statement of Result">Statement of Result</option>
                         <option value="OLevel">OLevel</option>

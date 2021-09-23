@@ -528,9 +528,9 @@ $('select[name="classlevel_id"]').on('change', function() {
       
 </script>
 
+{{--  academic staff appraisal score  --}}
 <script type="text/javascript">
     $(function(){
-
         var total_score=function(){
             var sum=0;
             $('.appraisalscore').each(function(){
@@ -577,13 +577,65 @@ $('select[name="classlevel_id"]').on('change', function() {
     });
 </script>
 
+{{--  non-academic staff appraisal score  --}}
+<script type="text/javascript">
+    $(function(){
+        var nonacademictotal_score=function(){
+            var nasum=0;
+            $('.naappraisalscore').each(function(){
+                var nanum=$(this).val();
+                if(nanum!=0){
+                    nasum+=parseInt(nanum);
+                }
+            });
+
+            if(nasum<50){
+                $('#natotalscore').val(nasum);
+                $('#natotalscore').css({'background-color':'red','color':'white','font-size':'18px'});
+                
+            }else if(nasum>50){
+                $('#natotalscore').val(sum);
+                $('#natotalscore').css({'background-color':'green','color':'white','font-size':'18px'});
+            }
+
+        }
+
+        $('.naappraisalscore').keyup(function(){
+            nonacademictotal_score();
+        });
+
+        //checking exceeded publication score
+        $('#pubscore').on('input',function(){
+            var publicascore=$(this).val();
+            if(publicascore>20){
+                $('#puberrmsg').removeClass('hidden');
+            }else{
+                $('#puberrmsg').addClass('hidden');
+            }
+        });
+        //checking exceeded production score
+        $('#prodscore').on('input',function(){
+            var producscore=$(this).val();
+            if(producscore>25){
+                $('#proderrmsg').removeClass('hidden');
+            }else{
+                $('#proderrmsg').addClass('hidden');
+            }
+        });
+
+    });
+</script>
+
 {{--  junior staff appraisal score  --}}
 <script type="text/javascript">
     $(function(){
 
         var juniorstafftotal_score=function(){
+            //parseInt($('#warningletterscore').val()) + parseInt($('#offdutyscore').val()) + parseInt($('#numofcommendation').val())
             var sum=0;
+                        
             $('.juniorappscore:checked').each(function(){
+                
                 var num=$(this).val();
                 if(num!=0){
                     sum+=parseInt(num);
@@ -605,8 +657,6 @@ $('select[name="classlevel_id"]').on('change', function() {
             juniorstafftotal_score();
         });
         
-
-
     });
 </script>
 

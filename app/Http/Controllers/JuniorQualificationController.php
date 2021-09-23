@@ -37,14 +37,14 @@ class JuniorQualificationController extends Controller
             $appreport=Appraisalreport::where('appraisal_id',$qualif->appraisal_id)->where('user_id',$qualif->user_id)->first();
             if ($appreport!=null) {
                 //update appraisal report with qualification
-                $appreport->qualification_id=$qualif->id;
+                $appreport->juniorqualification_id=$qualif->id;
                 $appreport->save();
             } else {
                 //create new appraisal report
                 $appraisal_report=new Appraisalreport;
                 $appraisal_report->appraisal_id=$request->appraisal_id;
                 $appraisal_report->user_id=$request->user_id;
-                $appraisal_report->qualification_id=$qualif->id;
+                $appraisal_report->juniorqualification_id=$qualif->id;
                 $appraisal_report->save();
             }
             

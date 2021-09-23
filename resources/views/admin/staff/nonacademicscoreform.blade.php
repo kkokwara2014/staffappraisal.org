@@ -29,7 +29,7 @@ Non Academic Staff Score Form
                             @include('admin.messages.error')
                         </p>
 
-                        <form action="{{ route('store.appraisal.score') }}" method="post">
+                        <form action="{{ route('store.nonacademicappraisal.score') }}" method="post">
                             @csrf
 
                             <input type="hidden" name="appraisal_id" value="{{ $appraisal_id }}">
@@ -63,11 +63,11 @@ Non Academic Staff Score Form
                                                 </td>
                                                 <td>
                                                     <div class="form-group-sm">
-                                                        <input type="text" id="pubscore" name="publicationscore"
+                                                        <input type="text" id="napubscore" name="publicationscore"
                                                             value="{{ old('publicationscore') }}"
-                                                            class="form-control input-sm text-right appraisalscore{{ $errors->has('publicationscore') ? ' is-invalid' : '' }}"
+                                                            class="form-control{{ $errors->has('publicationscore') ? ' is-invalid' : '' }} input-sm text-right  naappraisalscore"
                                                             placeholder="Publication Score" pattern="[0-9]+"
-                                                            maxlength="2">
+                                                            maxlength="2" min="1" max="10">
                                                         <div>
                                                             @error('publicationscore')
                                                             <span style="color: red">{{ $message }}</span>
@@ -80,7 +80,7 @@ Non Academic Staff Score Form
                                                 <td style="width: 15%">
                                                     <input type="text" class="form-control text-center"
                                                         name="totalscore" value="{{ old('totalscore') }}"
-                                                        id="totalscore" readonly>
+                                                        id="natotalscore" readonly>
                                                 </td>
                                             </tr>
                                             
@@ -118,10 +118,10 @@ Non Academic Staff Score Form
                                                 </td>
                                                 <td>
                                                     <div class="form-group-sm">
-                                                        <input type="text" name="adminresponscore"
-                                                            class="form-control input-sm text-right appraisalscore{{ $errors->has('adminresponscore') ? ' is-invalid' : '' }}"
+                                                        <input type="text" name="adminresponscore" value="{{ old('adminresponscore') }}"
+                                                            class="form-control{{ $errors->has('adminresponscore') ? ' is-invalid' : '' }} input-sm text-right naappraisalscore"
                                                             placeholder="Admin. Resp. Score" pattern="[0-9]+"
-                                                            maxlength="2">
+                                                            maxlength="2" min="1" max="10">
                                                         <div>
                                                             @error('adminresponscore')
                                                             <span style="color: red">{{ $message }}</span>
@@ -168,9 +168,9 @@ Non Academic Staff Score Form
                                                 <td>
                                                     <div class="form-group-sm">
                                                         <input type="text" name="qualificationscore"
-                                                            class="form-control{{ $errors->has('qualificationscore') ? ' is-invalid' : '' }} input-sm text-right appraisalscore"
+                                                            class="form-control{{ $errors->has('qualificationscore') ? ' is-invalid' : '' }} input-sm text-right naappraisalscore"
                                                             placeholder="Acad. Qualification Score"
-                                                            pattern="[0-9]+" maxlength="2">
+                                                            pattern="[0-9]+" maxlength="2" min="1" max="10" value="{{ old('qualificationscore') }}">
                                                         <div>
                                                             @error('qualificationscore')
                                                             <span style="color: red">{{ $message }}</span>
@@ -194,10 +194,10 @@ Non Academic Staff Score Form
                                                 </td>
                                                 <td>
                                                     <div class="form-group-sm">
-                                                        <input type="text" name="servicelengthscore"
-                                                            class="form-control{{ $errors->has('servicelengthscore') ? ' is-invalid' : '' }} input-sm text-right appraisalscore"
+                                                        <input type="text" name="servicelengthscore" value="{{ old('servicelengthscore') }}"
+                                                            class="form-control{{ $errors->has('servicelengthscore') ? ' is-invalid' : '' }} input-sm text-right naappraisalscore"
                                                             placeholder="Length of Service Score" pattern="[0-9]+"
-                                                            maxlength="2">
+                                                            maxlength="2" min="1" max="10">
                                                         <div>
                                                             @error('servicelengthscore')
                                                             <span style="color: red">{{ $message }}</span>
@@ -236,8 +236,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="productivity" placeholder="Productivity Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="productivityscore" placeholder="Productivity Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('productivityscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -253,8 +253,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="initiative" placeholder="Initiative Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="initiativescore" placeholder="Initiative Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('initiativescore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -270,8 +270,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="acceptanceofresp" placeholder="Responsibility Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="acceptanceofrespscore" placeholder="Responsibility Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('acceptanceofrespscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -287,8 +287,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="judgement" placeholder="Judgement Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="judgementscore" placeholder="Judgement Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('judgementscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -304,8 +304,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="staffmgt" placeholder="Staff Mgt. Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="staffmgtscore" placeholder="Staff Mgt. Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('staffmgtscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -321,8 +321,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="communication" placeholder="Communication Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="communicationscore" placeholder="Communication Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('communicationscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -338,8 +338,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="relationship" placeholder="Relationship Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="relationshipscore" placeholder="Relationship Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('relationshipscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -355,8 +355,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="reliability" placeholder="Reliability Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="reliabilityscore" placeholder="Reliability Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('reliabilityscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -372,8 +372,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="determination" placeholder="Determination Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="determinationscore" placeholder="Determination Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('determinationscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -389,8 +389,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="thoroughness" placeholder="Thoroughness Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="thoroughnessscore" placeholder="Thoroughness Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('thoroughnessscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -406,8 +406,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="publicrelation" placeholder="Public Relation Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="publicrelationscore" placeholder="Public Relation Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5"  value="{{ old('publicrelationscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -423,8 +423,8 @@ Non Academic Staff Score Form
                                                 <td>5</td>
                                                 <td style="width: 30%">
                                                     <div class="form-group-sm">
-                                                    <input type="text" class="form-control" name="punctuality" placeholder="Punctuality Score" pattern="[0-9]+"
-                                                    maxlength="1">
+                                                    <input type="text" class="form-control naappraisalscore" name="punctualityscore" placeholder="Punctuality Score" pattern="[0-9]+"
+                                                    maxlength="1" min="1" max="5" value="{{ old('punctualityscore') }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -436,7 +436,7 @@ Non Academic Staff Score Form
                                         <label>Free Comments on Staff being Appraised <i style="color: red">*</i></label>
                                         <textarea
                                             class="form-control{{ $errors->has('freecomment') ? ' is-invalid' : '' }}"
-                                            name="freecomment" rows="3" placeholder="Free Comments"></textarea>
+                                            name="freecomment" rows="3" placeholder="Free Comments">{{ old('freecomment') }}</textarea>
                                         <div>
                                             @error('freecomment')
                                             <span style="color: red">{{ $message }}</span>

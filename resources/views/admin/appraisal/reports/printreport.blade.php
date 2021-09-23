@@ -68,6 +68,8 @@
                             <th>Last Promotion</th>
                             <th>Perf. Rating</th>
                             <th>HOD Recomm.</th>
+                            <th>Sch. Recomm.</th>
+                            <th>Mgt. Recomm.</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,15 +78,28 @@
 
                             <tr>
                                
-                                <td>{{$report->user->dob}}</td>
-                                <td>{{$report->qualification->qualname.', '.date('Y',strtotime($report->qualification->dateofgrad))}}
+                                <td>{{date('d M, Y',strtotime($report->user->dob))}}</td>
+                                <td>
+                                    @if ($report->user->category_id==2 || $report->user->category_id==3)
+                                        @foreach ($qualifications as $qualif)
+                                            @if (($qualif->user_id == $report->user_id ))
+                                            {{$qualif->qualname.', '.date('Y',strtotime($qualif->dateofgrad)).'; '}}
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @foreach ($juniorqualifications as $qualif)
+                                            @if (($qualif->user_id == $report->user_id ))
+                                                {{$qualif->qualification.', '.date('Y',strtotime($qualif->dateobtained)).'; '}}
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </td>
-                                <td>{{$report->user->assumptiondate}}</td>
+                                <td>{{date('d M, Y',strtotime($report->user->assumptiondate))}}</td>
                                 <td>
                                     @if ($report->user->confirmationdate==NULL)
                                        <span>None</span> 
                                     @else
-                                    {{$report->user->confirmationdate}}    
+                                    {{date('d M, Y',strtotime($report->user->confirmationdate))}}    
                                     @endif
                                 </td>
                                 <td>{{$report->user->firstassumptionstatus}}</td>
@@ -97,8 +112,9 @@
                                     @endif
                                 </td>
                                 <td>{{$report->appraisalscore->totalscore}}</td>
-                                <td>{{$report->appraisalscore->recommendation}}</td>
-
+                                <td>{{ $report->appraisalscore->recommendation!=''? $report->appraisalscore->recommendation:'Nill' }}</td>
+                                <td>{{ $report->appraisalscore->schboardrecomm!=''? $report->appraisalscore->schboardrecomm :'Nill' }}</td>
+                                <td>{{ $report->appraisalscore->managementrecomm!=''? $report->appraisalscore->managementrecomm:'Nill' }}</td>
                             </tr>
 
                         </div>

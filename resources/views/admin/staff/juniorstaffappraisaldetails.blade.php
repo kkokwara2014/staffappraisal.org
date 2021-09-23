@@ -365,7 +365,8 @@
                                     <thead>
                                         <tr>
                                             <th>Document Type </th>
-                                            <th>File (Downloadable)</th>
+                                            <th>View File </th>
+                                            <th>Download File</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -376,6 +377,14 @@
                                                 <td>{{ $uploadedfile->documenttype }}</td>
                                                 <td>
                                                     @if ($uploadedfile->filename!='')
+                                                    <a target="_blank" href="{{route('view.uploadedfile', $uploadedfile->filename )}}">
+                                                        <span class="fa fa-eye" style="color: green"></span>
+                                                    </a>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($uploadedfile->filename!='')
+                                                    
                                                     <a target="_blank"
                                                         href="{{route('uploadedfile.download', $uploadedfile->filename )}}"
                                                         download="{{ $uploadedfile->filename }}">
@@ -399,32 +408,521 @@
                         <div>
                             <p>
                                 {{-- only HOD can score staff under him/her --}}
-
-                                @if (Auth::user()->hasAnyRole(['HOD','Dean','Rector']) && $the_appraiser)
-
-                                @if ($staffappraisalscore==NULL)
-
+                                @if ((Auth::user()->hasAnyRole(['HOD'])||Auth::user()->hasAnyRole(['Dean'])||Auth::user()->hasAnyRole(['Rector'])) && $the_appraiser)
+                                
+                                @if ($scoredappraisaluser->isscoredbyhod==0)
+                                {{-- scoredappraisaluser --}}
+                                {{-- {{ route('getacademicscoreform',[$staffappraisalscore->appraisal_id,$staffappraisalscore->user_id]) }} --}}
                                 <p>
-                                    <a href="{{ route('getappraisalscoreform',[$appraisal_id,$staff->id]) }}"
+                                    <a href="{{ route('getappraisalscoreform',[$scoredappraisaluser->appraisal_id,$scoredappraisaluser->user_id]) }}"
                                         class="btn btn-primary btn-sm">Score this Staff</a>
                                 </p>
-
+                                @endif
                                 @endif
 
+                                {{-- only school board appraisal committee --}}
+                                @if (Auth::user()->hasAnyRole(['Dean'])||Auth::user()->hasAnyRole(['Rector']))
+                                @if ($scoredappraisaluser->isscoredbyhod==1 && $scoredappraisaluser->isscoredbyschboard==0)
+                                <p>
+                                    <a href="#" data-toggle="modal"
+                                    data-target="#schboard-recomm-modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
+                                        class="btn btn-success btn-sm">School Board Recommendation</a>
+                                </p>
+
+                                {{-- modal for making school board recommedantion --}}
+                                <div class="modal fade"
+                                    id="schboard-recomm-modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
+                                    tabindex="-1" role="dialog">
+
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    <strong>Appraisal Score for
+                                                        {{ $staff->firstname.' '.$staff->lastname.' ['.$staff->staffnumb.']' }}</strong>
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div>Regularity score: {{ $staffappraisalscore->regularityscore!=''?$staffappraisalscore->regularityscore:'Not scored' }}</div>
+                                                                <div>Punctuaity score: {{ $staffappraisalscore->punctualityscore!=''?$staffappraisalscore->punctualityscore:'Not scored' }}</div>
+                                                                <div>Foresight score: {{ $staffappraisalscore->foresightscore!=''?$staffappraisalscore->foresightscore:'Not scored' }}</div>
+                                                                <div>Judgement score: {{ $staffappraisalscore->judgementscore!=''?$staffappraisalscore->judgementscore:'Not scored' }}</div>
+                                                                <div>Initiative score: {{ $staffappraisalscore->initiativescore!=''?$staffappraisalscore->initiativescore:'Not scored' }}</div>
+                                                                <div>Relationship score: {{ $staffappraisalscore->relationshipscore!=''?$staffappraisalscore->relationshipscore:'Not scored' }}</div>
+                                                                <div>Public relation score: {{ $staffappraisalscore->publicrelationscore!=''?$staffappraisalscore->publicrelationscore :'Not scored' }}</div>
+                                                                <div>Acceptance of responsibility score: {{ $staffappraisalscore->acceptanceofrespscore!=''?$staffappraisalscore->acceptanceofrespscore:'Not scored' }}</div>
+                                                                <div>Reliability score: {{ $staffappraisalscore->reliabilityscore!=''?$staffappraisalscore->reliabilityscore:'Not scored' }}</div>
+                                                                
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div>Application to duty score: {{ $staffappraisalscore->applicationtodutyscore!=''?$staffappraisalscore->applicationtodutyscore:'Not scored' }}</div>
+                                                                <div>Output of work score: {{ $staffappraisalscore->outputofworkscore!=''?$staffappraisalscore->outputofworkscore:'Not scored' }}</div>
+                                                                <div>Quality of work score: {{ $staffappraisalscore->qualityofworkscore!=''?$staffappraisalscore->qualityofworkscore:'Not scored' }}</div>
+                                                                <div>Number of Warning Letter(s) : {{ $staffappraisalscore->warningletterscore!=''?$staffappraisalscore->warningletterscore:'Not scored' }}</div>
+                                                                <div>Off-duty on health score: {{ $staffappraisalscore->offdutyonhealthscore!=''?$staffappraisalscore->offdutyonhealthscore:'Not scored' }}</div>
+                                                                <div>Number of commendation score: {{ $staffappraisalscore->numberofcommendationscore!=''?$staffappraisalscore->numberofcommendationscore:'Not scored' }}</div>
+                                                                <div>Training potential: {{ $staffappraisalscore->trainingpotentialscore!=''?$staffappraisalscore->trainingpotentialscore:'Not scored' }}</div>
+                                                                <div>
+                                                                    @if ($staffappraisalscore->totalscore>50)
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @else
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                                                                                        
+                                                        </div>
+                                                        <hr>
+                                                        <div>
+
+                                                            <div>
+                                                                <label>Free comment by the Appraiser [{{ $staffappraisalscore->appraisedby }}]</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->freecomment }}
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <label>Recommendation by the Appraiser [{{ $staffappraisalscore->appraisedby }}]</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->recommendation }}
+                                                                </p>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <label>Staff Comment</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->acceptorrejectcomment }}
+                                                        </p>
+                                                        <hr>                                                        
+                                                        <p>
+                                                            <form
+                                                                action="{{ route('schboardrecomm',[$scoredappraisaluser->appraisal_id,$scoredappraisaluser->user_id]) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <label>Shool Board Recommendation</label>
+                                                                <textarea class="form-control"
+                                                                    name="schboardrecomm" cols="30" rows="3"
+                                                                    required placeholder="Your recommendation(s) here"
+                                                                    autofocus></textarea>
+                                                                <br> 
+                                                                
+                                                                <button type="submit" class="btn btn-primary btn-sm">Submit Recommendation</button>
+
+                                                            </form>
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default btn-sm"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div>
+
+                                </div>
                                 @endif
+                                @endif
+                                {{-- end of school board appraisal committee recommendation --}}
+
+                                {{-- only Management appraisal committee --}}
+                                @if (Auth::user()->hasAnyRole(['Management'])||Auth::user()->hasAnyRole(['Rector']))
+                                
+                                @if ($scoredappraisaluser->isscoredbyschboard==1 && $scoredappraisaluser->isscoredbymanagement==0)
+                                <p>
+                                    <a href="#" data-toggle="modal"
+                                    data-target="#management-recomm-modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
+                                        class="btn btn-success btn-sm">Management Recommendation</a>
+                                </p>
+
+                                {{-- modal for making Management recommedantion --}}
+                                <div class="modal fade"
+                                    id="management-recomm-modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
+                                    tabindex="-1" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    <strong>Appraisal Score for
+                                                        {{ $staff->firstname.' '.$staff->lastname.' ['.$staff->staffnumb.']' }}</strong>
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div>Regularity score: {{ $staffappraisalscore->regularityscore!=''?$staffappraisalscore->regularityscore:'Not scored' }}</div>
+                                                                <div>Punctuaity score: {{ $staffappraisalscore->punctualityscore!=''?$staffappraisalscore->punctualityscore:'Not scored' }}</div>
+                                                                <div>Foresight score: {{ $staffappraisalscore->foresightscore!=''?$staffappraisalscore->foresightscore:'Not scored' }}</div>
+                                                                <div>Judgement score: {{ $staffappraisalscore->judgementscore!=''?$staffappraisalscore->judgementscore:'Not scored' }}</div>
+                                                                <div>Initiative score: {{ $staffappraisalscore->initiativescore!=''?$staffappraisalscore->initiativescore:'Not scored' }}</div>
+                                                                <div>Relationship score: {{ $staffappraisalscore->relationshipscore!=''?$staffappraisalscore->relationshipscore:'Not scored' }}</div>
+                                                                <div>Public relation score: {{ $staffappraisalscore->publicrelationscore!=''?$staffappraisalscore->publicrelationscore :'Not scored' }}</div>
+                                                                <div>Acceptance of responsibility score: {{ $staffappraisalscore->acceptanceofrespscore!=''?$staffappraisalscore->acceptanceofrespscore:'Not scored' }}</div>
+                                                                <div>Reliability score: {{ $staffappraisalscore->reliabilityscore!=''?$staffappraisalscore->reliabilityscore:'Not scored' }}</div>
+                                                                
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div>Application to duty score: {{ $staffappraisalscore->applicationtodutyscore!=''?$staffappraisalscore->applicationtodutyscore:'Not scored' }}</div>
+                                                                <div>Output of work score: {{ $staffappraisalscore->outputofworkscore!=''?$staffappraisalscore->outputofworkscore:'Not scored' }}</div>
+                                                                <div>Quality of work score: {{ $staffappraisalscore->qualityofworkscore!=''?$staffappraisalscore->qualityofworkscore:'Not scored' }}</div>
+                                                                <div>Number of Warning Letter(s) : {{ $staffappraisalscore->warningletterscore!=''?$staffappraisalscore->warningletterscore:'Not scored' }}</div>
+                                                                <div>Off-duty on health score: {{ $staffappraisalscore->offdutyonhealthscore!=''?$staffappraisalscore->offdutyonhealthscore:'Not scored' }}</div>
+                                                                <div>Number of commendation score: {{ $staffappraisalscore->numberofcommendationscore!=''?$staffappraisalscore->numberofcommendationscore:'Not scored' }}</div>
+                                                                <div>Training potential: {{ $staffappraisalscore->trainingpotentialscore!=''?$staffappraisalscore->trainingpotentialscore:'Not scored' }}</div>
+                                                                <div>
+                                                                    @if ($staffappraisalscore->totalscore>50)
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @else
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                                                                                        
+                                                        </div>
+                                                        <hr>
+                                                        <div>
+
+                                                            <div>
+                                                                <label>Free comment by the Appraiser [{{ $staffappraisalscore->appraisedby }}]</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->freecomment }}
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <label>Recommendation by the Appraiser [{{ $staffappraisalscore->appraisedby }}]</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->recommendation }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <label>Staff Comment</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->acceptorrejectcomment }}
+                                                        </p>
+                                                        <label>School Board Appraisal Committee Recommendation [{{ $staffappraisalscore->schboardrecommender }}]</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->schboardrecomm }}
+                                                        </p>
+                                                        <hr>                                                        
+                                                        <p>
+                                                            <form
+                                                                action="{{ route('managementrecomm',[$scoredappraisaluser->appraisal_id,$scoredappraisaluser->user_id]) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <label>Management Recommendation</label>
+                                                                <textarea class="form-control"
+                                                                    name="managementrecomm" cols="30" rows="3"
+                                                                    required placeholder="Your recommendation(s) here"
+                                                                    autofocus></textarea>
+                                                                <br> 
+                                                                
+                                                                <button type="submit" class="btn btn-primary btn-sm">Submit Recommendation</button>
+
+                                                            </form>
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default btn-sm"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div>
+
+                                </div>
+                                @endif
+                                @endif
+                                {{-- end of management appraisal committee recommendation --}}
+
+                                {{-- only ssapc --}}
+                                @if (Auth::user()->hasAnyRole(['SSAP Committee'])||Auth::user()->hasAnyRole(['Rector']))
+                                
+                                @if ($scoredappraisaluser->isscoredbymanagement==1 && $scoredappraisaluser->isscoredbyssapc==0)
+                                <p>
+                                    <a href="#" data-toggle="modal"
+                                    data-target="#ssapc-recomm-modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
+                                        class="btn btn-success btn-sm">SSAP Committee Recommendation</a>
+                                </p>
+
+                                {{-- modal for making ssapc recommedantion --}}
+                                <div class="modal fade"
+                                    id="ssapc-recomm-modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
+                                    tabindex="-1" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    <strong>Appraisal Score for
+                                                        {{ $staff->firstname.' '.$staff->lastname.' ['.$staff->staffnumb.']' }}</strong>
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div>Regularity score: {{ $staffappraisalscore->regularityscore!=''?$staffappraisalscore->regularityscore:'Not scored' }}</div>
+                                                                <div>Punctuaity score: {{ $staffappraisalscore->punctualityscore!=''?$staffappraisalscore->punctualityscore:'Not scored' }}</div>
+                                                                <div>Foresight score: {{ $staffappraisalscore->foresightscore!=''?$staffappraisalscore->foresightscore:'Not scored' }}</div>
+                                                                <div>Judgement score: {{ $staffappraisalscore->judgementscore!=''?$staffappraisalscore->judgementscore:'Not scored' }}</div>
+                                                                <div>Initiative score: {{ $staffappraisalscore->initiativescore!=''?$staffappraisalscore->initiativescore:'Not scored' }}</div>
+                                                                <div>Relationship score: {{ $staffappraisalscore->relationshipscore!=''?$staffappraisalscore->relationshipscore:'Not scored' }}</div>
+                                                                <div>Public relation score: {{ $staffappraisalscore->publicrelationscore!=''?$staffappraisalscore->publicrelationscore :'Not scored' }}</div>
+                                                                <div>Acceptance of responsibility score: {{ $staffappraisalscore->acceptanceofrespscore!=''?$staffappraisalscore->acceptanceofrespscore:'Not scored' }}</div>
+                                                                <div>Reliability score: {{ $staffappraisalscore->reliabilityscore!=''?$staffappraisalscore->reliabilityscore:'Not scored' }}</div>
+                                                                
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div>Application to duty score: {{ $staffappraisalscore->applicationtodutyscore!=''?$staffappraisalscore->applicationtodutyscore:'Not scored' }}</div>
+                                                                <div>Output of work score: {{ $staffappraisalscore->outputofworkscore!=''?$staffappraisalscore->outputofworkscore:'Not scored' }}</div>
+                                                                <div>Quality of work score: {{ $staffappraisalscore->qualityofworkscore!=''?$staffappraisalscore->qualityofworkscore:'Not scored' }}</div>
+                                                                <div>Number of Warning Letter(s) : {{ $staffappraisalscore->warningletterscore!=''?$staffappraisalscore->warningletterscore:'Not scored' }}</div>
+                                                                <div>Off-duty on health score: {{ $staffappraisalscore->offdutyonhealthscore!=''?$staffappraisalscore->offdutyonhealthscore:'Not scored' }}</div>
+                                                                <div>Number of commendation score: {{ $staffappraisalscore->numberofcommendationscore!=''?$staffappraisalscore->numberofcommendationscore:'Not scored' }}</div>
+                                                                <div>Training potential: {{ $staffappraisalscore->trainingpotentialscore!=''?$staffappraisalscore->trainingpotentialscore:'Not scored' }}</div>
+                                                                <div>
+                                                                    @if ($staffappraisalscore->totalscore>50)
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @else
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                                                                                        
+                                                        </div>
+                                                        <hr>
+                                                        <div>
+
+                                                            <div>
+                                                                <label>Free comment by the Appraiser [{{ $staffappraisalscore->appraisedby }}]</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->freecomment }}
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <label>Recommendation by the Appraiser [{{ $staffappraisalscore->appraisedby }}]</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->recommendation }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <label>Staff Comment</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->acceptorrejectcomment }}
+                                                        </p>
+                                                        <label>School Board Appraisal Committee Recommendation [{{ $staffappraisalscore->schboardrecommender }}]</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->schboardrecomm }}
+                                                        </p>
+                                                        <label>Management Appraisal Committee Recommendation [{{ $staffappraisalscore->managementrecommender }}]</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->managementrecomm }}
+                                                        </p>
+                                                        <hr>                                                        
+                                                        <p>
+                                                            <form
+                                                                action="{{ route('ssapcrecomm',[$scoredappraisaluser->appraisal_id,$scoredappraisaluser->user_id]) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <label>SSAP Committee Recommendation</label>
+                                                                <textarea class="form-control"
+                                                                    name="ssapcrecomm" cols="30" rows="3"
+                                                                    required placeholder="Your recommendation(s) here"
+                                                                    autofocus></textarea>
+                                                                <br> 
+                                                                
+                                                                <button type="submit" class="btn btn-primary btn-sm">Submit Recommendation</button>
+                                                            </form>
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default btn-sm"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div>
+
+                                </div>
+                                @endif
+                                @endif
+                                {{-- end of ssapc recommendation --}}
+
+
+                                {{-- only governing council appraisal committee --}}
+                                @if (Auth::user()->hasAnyRole(['Governing Council'])||Auth::user()->hasAnyRole(['Rector']))
+                                
+                                @if ($scoredappraisaluser->isscoredbyssapc==1 && $scoredappraisaluser->isscoredbycouncil==0)
+                                <p>
+                                    <a href="#" data-toggle="modal"
+                                    data-target="#council-recomm-modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
+                                        class="btn btn-success btn-sm">Council Recommendation</a>
+                                </p>
+
+                                {{-- modal for making governing council recommedantion --}}
+                                <div class="modal fade"
+                                    id="council-recomm-modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
+                                    tabindex="-1" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    <strong>Appraisal Score for
+                                                        {{ $staff->firstname.' '.$staff->lastname.' ['.$staff->staffnumb.']' }}</strong>
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div>Regularity score: {{ $staffappraisalscore->regularityscore!=''?$staffappraisalscore->regularityscore:'Not scored' }}</div>
+                                                                <div>Punctuaity score: {{ $staffappraisalscore->punctualityscore!=''?$staffappraisalscore->punctualityscore:'Not scored' }}</div>
+                                                                <div>Foresight score: {{ $staffappraisalscore->foresightscore!=''?$staffappraisalscore->foresightscore:'Not scored' }}</div>
+                                                                <div>Judgement score: {{ $staffappraisalscore->judgementscore!=''?$staffappraisalscore->judgementscore:'Not scored' }}</div>
+                                                                <div>Initiative score: {{ $staffappraisalscore->initiativescore!=''?$staffappraisalscore->initiativescore:'Not scored' }}</div>
+                                                                <div>Relationship score: {{ $staffappraisalscore->relationshipscore!=''?$staffappraisalscore->relationshipscore:'Not scored' }}</div>
+                                                                <div>Public relation score: {{ $staffappraisalscore->publicrelationscore!=''?$staffappraisalscore->publicrelationscore :'Not scored' }}</div>
+                                                                <div>Acceptance of responsibility score: {{ $staffappraisalscore->acceptanceofrespscore!=''?$staffappraisalscore->acceptanceofrespscore:'Not scored' }}</div>
+                                                                <div>Reliability score: {{ $staffappraisalscore->reliabilityscore!=''?$staffappraisalscore->reliabilityscore:'Not scored' }}</div>
+                                                                
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div>Application to duty score: {{ $staffappraisalscore->applicationtodutyscore!=''?$staffappraisalscore->applicationtodutyscore:'Not scored' }}</div>
+                                                                <div>Output of work score: {{ $staffappraisalscore->outputofworkscore!=''?$staffappraisalscore->outputofworkscore:'Not scored' }}</div>
+                                                                <div>Quality of work score: {{ $staffappraisalscore->qualityofworkscore!=''?$staffappraisalscore->qualityofworkscore:'Not scored' }}</div>
+                                                                <div>Number of Warning Letter(s) : {{ $staffappraisalscore->warningletterscore!=''?$staffappraisalscore->warningletterscore:'Not scored' }}</div>
+                                                                <div>Off-duty on health score: {{ $staffappraisalscore->offdutyonhealthscore!=''?$staffappraisalscore->offdutyonhealthscore:'Not scored' }}</div>
+                                                                <div>Number of commendation score: {{ $staffappraisalscore->numberofcommendationscore!=''?$staffappraisalscore->numberofcommendationscore:'Not scored' }}</div>
+                                                                <div>Training potential: {{ $staffappraisalscore->trainingpotentialscore!=''?$staffappraisalscore->trainingpotentialscore:'Not scored' }}</div>
+                                                                <div>
+                                                                    @if ($staffappraisalscore->totalscore>50)
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @else
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                                                                                        
+                                                        </div>
+                                                        <hr>
+                                                        <div>
+
+                                                            <div>
+                                                                <label>Free comment by the Appraiser [{{ $staffappraisalscore->appraisedby }}]</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->freecomment }}
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <label>Recommendation by the Appraiser [{{ $staffappraisalscore->appraisedby }}]</label>
+                                                                <p style="text-align:justify">
+                                                                    {{ $staffappraisalscore->recommendation }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <label>Staff Comment</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->acceptorrejectcomment }}
+                                                        </p>
+                                                        <label>School Board Appraisal Committee Recommendation [{{ $staffappraisalscore->schboardrecommender }}]</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->schboardrecomm }}
+                                                        </p>
+                                                        <label>Management Appraisal Committee Recommendation [{{ $staffappraisalscore->managementrecommender }}]</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->managementrecomm }}
+                                                        </p>
+                                                        <label>SSAP Committee Recommendation [{{ $staffappraisalscore->ssapcrecommender }}]</label>
+                                                        <p style="text-align: justify">
+                                                            {{ $staffappraisalscore->ssapcrecomm }}
+                                                        </p>
+                                                        <hr>                                                        
+                                                        <p>
+                                                            <form
+                                                                action="{{ route('councilrecomm',[$scoredappraisaluser->appraisal_id,$scoredappraisaluser->user_id]) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <label>Governing Council Recommendation</label>
+                                                                <textarea class="form-control"
+                                                                    name="councilrecomm" cols="30" rows="3"
+                                                                    required placeholder="Your recommendation(s) here"
+                                                                    autofocus></textarea>
+                                                                <br> 
+                                                                
+                                                                <button type="submit" class="btn btn-primary btn-sm">Submit Recommendation</button>
+
+                                                            </form>
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default btn-sm"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div>
+
+                                </div>
+                                @endif
+                                @endif
+                                {{-- end of governing council appraisal committee recommendation --}}
+
 
 
                                 @if ($staffappraisalscore!=NULL)
                                 <br>
                                 @if ($staff->id==auth()->user()->id)
                                 <a href="#" data-toggle="modal"
-                                    data-target="#modal-{{ $staffappraisalscore->appraisal_id.'-'.$staffappraisalscore->user_id }}"
+                                    data-target="#modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
                                     class="btn btn-primary btn-sm"><span class="fa fa-eye"></span> Check Score</a>
                                 @endif
 
                                 {{-- appraisal score modal  --}}
                                 <div class="modal fade"
-                                    id="modal-{{ $staffappraisalscore->appraisal_id.'-'.$staffappraisalscore->user_id }}"
+                                    id="modal-{{ $scoredappraisaluser->appraisal_id.'-'.$scoredappraisaluser->user_id }}"
                                     tabindex="-1" role="dialog">
 
                                     <div class="modal-dialog modal-lg">
@@ -441,51 +939,40 @@
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div>
-
-                                                            <table class="table table-light">
-                                                                <thead class="thead-light">
-                                                                    <tr>
-                                                                        <th>Publication</th>
-                                                                        <th>Production</th>
-                                                                        <th>Admin. Responsibility</th>
-                                                                        <th>Acad. Qualification</th>
-                                                                        <th>Other Abilities</th>
-                                                                        <th>Length of Service</th>
-                                                                        <th>Total</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-
-                                                                    <tr>
-                                                                        <td>{{ $staffappraisalscore->publicationscore }}
-                                                                        </td>
-                                                                        <td>{{ $staffappraisalscore->productionscore }}
-                                                                        </td>
-                                                                        <td>{{ $staffappraisalscore->adminresponscore }}
-                                                                        </td>
-                                                                        <td>{{ $staffappraisalscore->qualificationscore }}
-                                                                        </td>
-                                                                        <td>{{ $staffappraisalscore->abilityscore }}
-                                                                        </td>
-                                                                        <td>{{ $staffappraisalscore->servicelengthscore }}
-                                                                        </td>
-                                                                        <td>
-                                                                            @if ($staffappraisalscore->totalscore>50)
-                                                                            <span class="badge badge-pill badge-success"
-                                                                                style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
-                                                                            @else
-                                                                            <span class="badge badge-pill badge-success"
-                                                                                style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
-                                                                            @endif
-
-
-                                                                        </td>
-                                                                    </tr>
-
-                                                                </tbody>
-
-                                                            </table>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div>Regularity score: {{ $staffappraisalscore->regularityscore!=''?$staffappraisalscore->regularityscore:'Not scored' }}</div>
+                                                                <div>Punctuaity score: {{ $staffappraisalscore->punctualityscore!=''?$staffappraisalscore->punctualityscore:'Not scored' }}</div>
+                                                                <div>Foresight score: {{ $staffappraisalscore->foresightscore!=''?$staffappraisalscore->foresightscore:'Not scored' }}</div>
+                                                                <div>Judgement score: {{ $staffappraisalscore->judgementscore!=''?$staffappraisalscore->judgementscore:'Not scored' }}</div>
+                                                                <div>Initiative score: {{ $staffappraisalscore->initiativescore!=''?$staffappraisalscore->initiativescore:'Not scored' }}</div>
+                                                                <div>Relationship score: {{ $staffappraisalscore->relationshipscore!=''?$staffappraisalscore->relationshipscore:'Not scored' }}</div>
+                                                                <div>Public relation score: {{ $staffappraisalscore->publicrelationscore!=''?$staffappraisalscore->publicrelationscore :'Not scored' }}</div>
+                                                                <div>Acceptance of responsibility score: {{ $staffappraisalscore->acceptanceofrespscore!=''?$staffappraisalscore->acceptanceofrespscore:'Not scored' }}</div>
+                                                                <div>Reliability score: {{ $staffappraisalscore->reliabilityscore!=''?$staffappraisalscore->reliabilityscore:'Not scored' }}</div>
+                                                                
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div>Application to duty score: {{ $staffappraisalscore->applicationtodutyscore!=''?$staffappraisalscore->applicationtodutyscore:'Not scored' }}</div>
+                                                                <div>Output of work score: {{ $staffappraisalscore->outputofworkscore!=''?$staffappraisalscore->outputofworkscore:'Not scored' }}</div>
+                                                                <div>Quality of work score: {{ $staffappraisalscore->qualityofworkscore!=''?$staffappraisalscore->qualityofworkscore:'Not scored' }}</div>
+                                                                <div>Number of Warning Letter(s) : {{ $staffappraisalscore->warningletterscore!=''?$staffappraisalscore->warningletterscore:'Not scored' }}</div>
+                                                                <div>Off-duty on health score: {{ $staffappraisalscore->offdutyonhealthscore!=''?$staffappraisalscore->offdutyonhealthscore:'Not scored' }}</div>
+                                                                <div>Number of commendation score: {{ $staffappraisalscore->numberofcommendationscore!=''?$staffappraisalscore->numberofcommendationscore:'Not scored' }}</div>
+                                                                <div>Training potential: {{ $staffappraisalscore->trainingpotentialscore!=''?$staffappraisalscore->trainingpotentialscore:'Not scored' }}</div>
+                                                                <div>
+                                                                    @if ($staffappraisalscore->totalscore>50)
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @else
+                                                                    Total Score: 
+                                                                    <span class="badge badge-pill badge-success"
+                                                                        style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                                                                                        
                                                         </div>
                                                         <hr>
                                                         <div>
@@ -556,8 +1043,6 @@
 
                             </p>
                         </div>
-
-
                     </div>
                     <!-- /.box-body -->
                 </div>

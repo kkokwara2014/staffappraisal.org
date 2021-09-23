@@ -15,13 +15,38 @@
                         </h3>
                     </div>
                 </div>
-
-
-
             </div>
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
+        
+        
+        @if ($user->profileupdated==1)
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div>
+                    @if ($user->signature!='')
+                    <img style="display: block; margin-left: auto; margin-right: auto;"
+                    src="{{url('signatures',$user->signature)}}" width="150" height="150">
+                    @else
+                        <h3 style="text-align: center; color: red">No Signature yet!</h3>
+                    @endif
+                    
+                </div>
+                <br>
+                <div>
+                    <a href="" data-toggle="modal" data-target="#modal-default-signature"
+                                    class="btn btn-info btn-sm btn-block"><span class="fa fa-modx"></span> Upload Your Signature</a>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box --> 
+        @endif
+
+
+
     </div>
     <div class="col-md-8">
         <div class="box">
@@ -161,7 +186,7 @@
 
             </div> --}}
 
-            {{-- Data input modal area --}}
+            {{-- Password change input modal area --}}
             <div class="modal fade" id="modal-default">
                 <div class="modal-dialog">
 
@@ -196,6 +221,46 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+
+                    </form>
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            {{-- Signature uploading modal area --}}
+            <div class="modal fade" id="modal-default-signature">
+                <div class="modal-dialog">
+
+                    <form action="{{ route('upload.signature') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><span class="fa fa-modx"></span> Upload Signature</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label for="">Choose Scanned or snapped Signature to upload <strong style="color:red;">* [.jpeg, .jpg, or .png only. Max. 2MB]</strong></label>
+                                    <input type="file" name="usersignature" required>
+                                
+                                    @if ($errors->has('usersignature'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <span
+                                            style="color: red">{{ $errors->first('usersignature') }}</span>
+                                    </span>
+                                    @endif
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Upload</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
