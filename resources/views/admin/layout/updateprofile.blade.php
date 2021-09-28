@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Title *</label>
+                        <label for="">Title <span style="color: red">*</span></label>
                         <select name="title_id" class="form-control" autofocus required>
                             <option selected="disabled">Select Title</option>
                             @foreach ($titles as $title)
@@ -22,14 +22,14 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Date of Birth *</label>
+                        <label for="">Date of Birth <span style="color: red">*</span></label>
                         <input type="text" id="datepicker1"
                             class="form-control"
                             name="dob" value="{{ old('dob') }}" required placeholder="Date of Birth - MM/DD/YYYY">
                     </div>
 
                     <div class="form-group">
-                        <label for="">Rank *</label>
+                        <label for="">Rank <span style="color: red">*</span></label>
                         <select name="rank_id" class="form-control" required>
                             <option selected="disabled" value="">Select Rank</option>
                             @foreach ($ranks as $rank)
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">School/Section *</label>
+                        <label for="">School/Section <span style="color: red">*</span></label>
                         <select name="school_id" class="form-control" required>
                             <option selected="disabled" value="">Select School/Division</option>
                             @foreach ($schools as $school)
@@ -52,13 +52,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Department/Unit *</label>
+                        <label for="">Department/Unit <span style="color: red">*</span></label>
                             <select name="department_id" class="form-control" required>
     
                             </select>
                     </div>
                     <div class="form-group">
-                        <label for="">State *</label>
+                        <label for="">State <span style="color: red">*</span></label>
                         <select name="state_id" class="form-control" required>
                             <option selected="disabled" value="">Select State</option>
                             @foreach ($states as $state)
@@ -69,19 +69,16 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">LGA *</label>
+                        <label for="">LGA <span style="color: red">*</span></label>
                             <select name="lga_id" class="form-control" required>
     
                             </select>
                     </div>
-
-                    
-                                                           
-                    
                 </div>
+                
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Marital Status *</label>
+                        <label for="">Marital Status <span style="color: red">*</span></label>
                         <select name="maritalstatus_id" class="form-control" required>
                             <option selected="disabled" value="">Select Marital Status</option>
                             @foreach ($maritalstatuses as $maritalstat)
@@ -101,7 +98,7 @@
                     </div>                   
                     
                     <div class="form-group">
-                        <label for="">Staff Category *</label>
+                        <label for="">Staff Category <span style="color: red">*</span></label>
                         <select name="category_id" class="form-control" required>
                             <option selected="disabled" value="">Select Staff Category</option>
                             @foreach ($staffcategories as $category)
@@ -112,7 +109,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Assumption Date *</label>
+                        <label for="">Assumption Date <span style="color: red">*</span></label>
                         <input type="text" id="datepicker"
                             class="form-control{{ $errors->has('assumptiondate') ? ' is-invalid' : '' }}"
                             name="assumptiondate" value="{{ old('assumptiondate') }}" placeholder="Date of Assumption - MM/DD/YYYY">
@@ -133,7 +130,7 @@
                             name="confirmationdate" value="{{ old('confirmationdate') }}" placeholder="Confirmation Date - MM/DD/YYYY">
                     </div>
                     <div class="form-group">
-                        <label for="">First Assumption Status *</label>
+                        <label for="">First Assumption Status <span style="color: red">*</span></label>
                         
                         <input type="text"
                             class="form-control{{ $errors->has('firstassumptionstatus') ? ' is-invalid' : '' }}"
@@ -148,7 +145,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="">Profile Image *</label>
+                        <label for="">Profile Image <span style="color: red">*</span></label>
                         <input class="form-control" type="file" name="userimage" required>
                     </div>
                 </div>

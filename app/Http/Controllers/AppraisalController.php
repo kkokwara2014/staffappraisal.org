@@ -7,6 +7,7 @@ use App\Adhocperfduty;
 use App\Adminresponsibility;
 use App\Anyotherinfo;
 use App\Appraisal;
+use App\Appraisalreport;
 use App\Appraisalscore;
 use App\Appraisaluser;
 use App\Coursetaught;
@@ -451,6 +452,12 @@ class AppraisalController extends Controller
                 //deleting manifesto files from folder
                 File::delete([public_path('storage/staff_appraisal_documents/' . $uploadedfile->filename)]);
             }
+        }
+
+        //deleting appraisal report
+        $appraisalreport=Appraisalreport::where('appraisal_id',$appraisal_id)->where('user_id',$user_id)->first();
+        if ($appraisalreport!=NULL) {
+            $appraisalreport->delete();
         }
 
         return redirect()->back()->with('deleted','Staff Appraisal deleted successfully!');

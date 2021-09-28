@@ -262,7 +262,7 @@ class ScoreAppraisalController extends Controller
                     //notify staff that his/her appraisal has been scored
                     $appraisedstaff=User::find($apprascore->user_id);
                     // Mail::to($appraisedstaff->email)->send(new AppraisalScoreMail($apprascore,$appraisedstaff));
-                });
+            });
                 
                 // return redirect()->route('staffappraisal.show',[$apprascore->appraisal_id,$apprascore->user_id])->with('success','Appraisal Score for '. $appraisedstaff->firstname.' '.$appraisedstaff->lastname .' submitted successfully!');
                 return redirect()->route('submitted.appraisals')->with('success','A Staff has been scored successfully!');

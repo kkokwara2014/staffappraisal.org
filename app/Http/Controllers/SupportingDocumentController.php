@@ -10,12 +10,11 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+// use Illuminate\Support\Facades\Storage;
+
 class SupportingDocumentController extends Controller
 {
-    
-
     public function store(Request $request){
-
         request()->validate([
             'sentto_id'=>'required',
             'supportingdoc' => 'required',
@@ -27,8 +26,10 @@ class SupportingDocumentController extends Controller
         if ($request->hasFile('supportingdoc')) {
             foreach ($allUploadedFiles as $key=> $docum) {
                 $filename=auth()->user()->lastname.'_'.auth()->user()->staffnumb.'_'.rand(1234567,6789099).'.'.$docum->getClientOriginalExtension();
+                // $filename=rand(1234567,6789099).'.'.$docum->getClientOriginalExtension();              
                 $docum->storeAs('public/staff_appraisal_documents/', $filename);
-                
+                //  Storage::put('public/staff_appraisal_documents/',$filename);
+             
                 $uploadeddoc=new Uploadedfile();
                 $uploadeddoc->user_id=auth()->user()->id;
                 $uploadeddoc->appraisal_id=$request->appraisal_id;
@@ -68,7 +69,10 @@ class SupportingDocumentController extends Controller
         //uploading appraisal documents
         if ($request->hasFile('supportingdoc')) {
             foreach ($moreUploadedFiles as $key=> $docum) {
+                
                 $filename=auth()->user()->lastname.'_'.auth()->user()->staffnumb.'_'.rand(2345678,7890989).'.'.$docum->getClientOriginalExtension();
+                // $filename=rand(2345678,7890989).'.'.$docum->getClientOriginalExtension();
+                
                 $docum->storeAs('public/staff_appraisal_documents/', $filename);
                 
                 $uploadeddoc=new Uploadedfile();

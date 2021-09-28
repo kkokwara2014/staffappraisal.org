@@ -38,6 +38,7 @@
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                     href="{{ route('index') }}"><span class="icon ion-home"></span> Home</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="#">About us</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('download.usermanual','OSTAPP_user_guide.pdf') }}" download="OSTAPP_user_guide.pdf">Download Manual</a></li>
                         </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                 href="{{ route('login') }}">Sign in</a></span>
                     </div>
