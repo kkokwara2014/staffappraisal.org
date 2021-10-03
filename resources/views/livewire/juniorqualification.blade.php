@@ -13,7 +13,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="moreJuniorQualification">
+        <tbody class="moreJuniorQualification" id="moreJuniorQualification">
             @foreach($inputs as $key => $value)
             <tr>
                 <td style="width: 30%">

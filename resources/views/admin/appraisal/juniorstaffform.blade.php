@@ -114,9 +114,9 @@ Junior Staff Appraisal Form
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
                                                         <a href="#" data-toggle="modal"
-                                                            class="text-warning editappraisal" data-position="1"
+                                                            class="text-warning editappraisal" data-position="16"
                                                             data-target="#modal-qualification-{{ $appraisal_id }}"
-                                                            data-route="{{route('appraisal.data', [$appraisal_id, 1])}}"
+                                                            data-route="{{route('appraisal.data', [$appraisal_id, 16])}}"
                                                             id="editQualification">
                                                             <span class="fa fa-edit fa-2x"></span>
                                                         </a>
@@ -397,7 +397,7 @@ Junior Staff Appraisal Form
                                                             id="editAdditQuali">
                                                             <span class="fa fa-edit fa-2x"></span>
                                                         </a>
-                                                    </div>
+                                                    </div> 
                                                     <div class="col-md-3 col-xs-3">
                                                         <a class="text-danger"
                                                             onclick="return confirm ('Do you want to delete the entries you made in this section?')"

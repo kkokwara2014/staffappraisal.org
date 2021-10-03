@@ -1,7 +1,6 @@
 $('.editappraisal').click(function() {
     let route = $(this).data('route');
     let position = $(this).data('position');
-    // alert(route);
     $.ajax({
         url: route,
         type: 'GET',
@@ -127,7 +126,7 @@ let autoFillQualilficationFormData = function(data) {
 
     $('.moreQualification').empty();
     $('.moreQualification').prepend(html);
-    console.log(html);
+
 }
 
 let autfillProfMembFormData = function(data) {
@@ -374,7 +373,7 @@ let autofillAdminResp = function(data) {
     for (i = 0; i < data.length; i++) {
         html += '<tr><td style="width: 60%"><select name="admintype[]" class="form-control form-control-sm"><option value="">Select Category</option>';
         if (data[i].admintype == 'Chairman of Polytechnic Committee') {
-            html += '<option value="Chairman of Polytechnic Committee">Chairman of Polytechnic Committee</option>';
+            html += '<option selected value="Chairman of Polytechnic Committee">Chairman of Polytechnic Committee</option>';
         } else {
             html += '<option value="Chairman of Polytechnic Committee">Chairman of Polytechnic Committee</option>';
         }
@@ -489,6 +488,13 @@ let autofillCourseTuaght = function(data) {
     $('#editCourseTaught').prepend(html);
 }
 
+let autofillOtherInfo = function(data) {
+    let otherInfo = $('#anyotherinfo');
+    let html = '<input type="hidden" value="' + data[0].id + '" name="otherinfoid">';
+    otherInfo.text(data[0].anyotherinfo);
+    $('#otherinfo').prepend(html);
+}
+
 
 let autofillTeachingLoad = function(data) {
     let html = '';
@@ -534,21 +540,172 @@ let autofillTeachingLoad = function(data) {
 
 }
 
+let autofillJuniorQualification = function(data) {
+    let html = '';
+    let i = 0;
+    for (i = 0; i < data.length; i++) {
+        html += '<tr><td style="width: 20%"><select name="qualification[]" class="form-control form-control-sm qualname"required>';
+        html += '<option value="">Select Qualification</option>';
+        if (data[i].qualification == 'PhD') {
+            html += '<option value="PhD" selected>Ph.D</option>';
+        } else {
+            html += '<option value="PhD">Ph.D</option>';
+        }
+        if (data[i].qualification == 'MSc') {
+            html += '<option value="MSc" selected>MSc</option>';
+        } else {
+            html += '<option value="MSc">MSc</option>';
+        }
+        if (data[i].qualification == 'MEd') {
+            html += '<option value="MEd" selected>MEd</option>';
+        } else {
+            html += '<option value="MEd">MEd</option>';
+        }
 
-let autofillOtherInfo = function(data) {
-    let otherInfo = $('#anyotherinfo');
-    let html = '<input type="hidden" value="' + data[0].id + '" name="otherinfoid">';
-    otherInfo.text(data[0].anyotherinfo);
-    $('#otherinfo').prepend(html);
+        if (data[i].qualification == 'MBA') {
+            html += '<option value="MBA" selected>MBA</option>';
+        } else {
+            html += '<option value="MBA">MBA</option>';
+        }
+        if (data[i].qualification == 'MA') {
+            html += '<option value="MA" selected>MA</option>';
+        } else {
+            html += '<option value="MA">MA</option>';
+        }
+        if (data[i].qualification == 'PGD') {
+            html += '<option value="PGD" selected>PGD</option>';
+        } else {
+            html += '<option value="PGD">PGD</option>';
+        }
+        if (data[i].qualification == 'PGDE') {
+            html += '<option value="PGDE" selected>PGDE</option>';
+        } else {
+            html += '<option value="PGDE">PGDE</option>';
+        }
+        if (data[i].qualification == 'BA') {
+            html += '<option value="BA" selected>BA</option>';
+        } else {
+            html += '<option value="BA">BA</option>';
+        }
+        if (data[i].qualification == 'BSc') {
+            html += '<option value="BSc" selected>BSc</option>';
+        } else {
+            html += '<option value="BSc" >BSc</option>';
+        }
+        if (data[i].qualification == 'HND') {
+            html += '<option value="HND" selected>HND</option>';
+        } else {
+            html += '<option value="HND">HND</option>';
+        }
+        if (data[i].qualification == 'BEd') {
+            html += '<option value="BEd" selected>BEd</option>';
+        } else {
+            html += '<option value="BEd">BEd</option>';
+        }
+        if (data[i].qualification == 'ND') {
+            html += '<option value="ND" selected>ND</option>';
+        } else {
+            html += '<option value="ND">ND</option>';
+        }
+        if (data[i].qualification == 'NCE') {
+            html += '<option value="NCE" selected>NCE</option>';
+        } else {
+            html += '<option value="NCE">NCE</option>';
+        }
+        if (data[i].qualification == 'O-level') {
+            html += '<option value="O-level" selected>O-level</option>';
+        } else {
+            html += '<option value="O-level">O-level</option>';
+        }
+        if (data[i].qualification == 'FSLC') {
+            html += '<option value="FSLC" selected>FSLC</option>';
+        } else {
+            html += '<option value="FSLC">FSLC</option>';
+        }
+        html += '</select></td>';
+        html += '<td style="width: 20%"><input type="date" value="' + data[i].dateobtained + '" class="form-control form-control-sm" name="dateobtained[]" required placeholder="Grad. Year"> <input type="hidden" value="' + data[i].id + '" class="" name="qualifid[]"></td>';
+        html += '<td style="width: 60%">';
+        html += '<input type="text" class="form-control form-control-sm" name="specialization[]" value="' + data[i].specialization + '" required placeholder="Specialization e.g. Wood Work" ></td>';
+        html += '<td><button wire:click.prevent="remove(' + i + ')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+    }
+
+    let key = i++;
+    html += '<tr><td style="width: 20%"><select name="qualification[]" class="form-control form-control-sm qualname">';
+    html += '<option value="">Select Qualification</option>';
+    html += '<option value="PhD" >Ph.D</option>';
+    html += '<option value="MSc" >MSc</option>';
+    html += '<option value="MEd" >MEd</option>';
+    html += '<option value="MBA" >MBA</option>';
+    html += '<option value="MA" >MA</option>';
+    html += '<option value="PGD" >PGD</option>';
+    html += '<option value="PGDE" >PGDE</option>';
+    html += '<option value="BA" >BA</option>';
+    html += '<option value="BSc" >BSc</option>';
+    html += '<option value="HND" >HND</option>';
+    html += '<option value="BEd" >BEd</option>';
+    html += '<option value="ND" >ND</option>';
+    html += '<option value="NCE" >NCE</option>';
+    html += '<option value="O-level" >O-level</option>';
+    html += '<option value="FSLC" >FSLC</option>';
+    html += '</select></td>';
+    html += '<td style="width: 20%"><input type="date" class="form-control form-control-sm" name="dateobtained[]" ></td>';
+    html += '<td style="width: 60%">';
+    html += '<input type="text" class="form-control form-control-sm" name="specialization[]" placeholder="Specialization e.g. Wood Work"></td>';
+    html += '<td><button wire:click.prevent="remove(' + key + ')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+
+    $('#moreJuniorQualification').empty();
+    $('#moreJuniorQualification').prepend(html);
 }
+
+
+let autofillInstitution = function(data) {
+    let html = '';
+    let i = 0;
+    for (i = 0; i < data.length; i++) {
+        html += '<tr><td style="width: 40%"><input type="text" value="' + data[i].institutionname + '" class="form-control form-control-sm" name="institutionname[]" placeholder="Institution Name e.g. AIFPU"></td>';
+        html += '<td style="width: 20%"><input type="date" value="' + data[i].startdate + '" class="form-control form-control-sm" name="startdate[]"></td>';
+        html += '<td style="width: 20%"><input type="date" value="' + data[i].enddate + '" class="form-control form-control-sm" name="enddate[]"><input type="hidden" value="' + data[i].id + '" name="instuteid[]"></td>';
+        html += '<td><button wire:click.prevent="remove(' + i + ')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+    }
+    let key = i++;
+    html += '<tr><td style="width: 40%"><input type="text" class="form-control form-control-sm" name="institutionname[]" placeholder="Institution Name e.g. AIFPU"></td>';
+    html += '<td style="width: 20%"><input type="date" class="form-control form-control-sm" name="startdate[]"></td>';
+    html += '<td style="width: 20%"><input type="date" class="form-control form-control-sm" name="enddate[]"></td>';
+    html += '<td><button wire:click.prevent="remove(' + key + ')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+
+    $('#editmoreInstitution').empty();
+    $('#editmoreInstitution').prepend(html);
+}
+
+let autofillPostQualiExperience = function(data) {
+    let html = '';
+    let i = 0;
+    for (i = 0; i < data.length; i++) {
+        html += '<tr><td style="width: 40%"><input type="text" value="' + data[i].postheld + '" class="form-control form-control-sm" name="postheld[]" placeholder="Post Held e.g. Manager"></td>';
+        html += '<td style="width: 40%"><input type="text" value="' + data[i].employer + '" class="form-control form-control-sm" name="employer[]" placeholder="Employer e.g. AIFPU"></td>';
+        html += '<td style="width: 20%"><input type="date" value="' + data[i].startdate + '" class="form-control form-control-sm" name="startdate[]"><input type="hidden" value="' + data[i].id + '" name="postexid[]"></td>';
+        html += '<td style="width: 20%"><input type="date" value="' + data[i].enddate + '" class="form-control form-control-sm" name="enddate[]"></td>';
+        html += '<td><button wire:click.prevent="remove(' + i + ')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+    }
+    let key = i++;
+    html += '<tr><td style="width: 40%"><input type="text" class="form-control form-control-sm" name="postheld[]" placeholder="Post Held e.g. Manager"></td>';
+    html += '<td style="width: 40%"><input type="text" class="form-control form-control-sm" name="employer[]" placeholder="Employer e.g. AIFPU"></td>';
+    html += '<td style="width: 20%"><input type="date" class="form-control form-control-sm" name="startdate[]"></td>';
+    html += '<td style="width: 20%"><input type="date" class="form-control form-control-sm" name="enddate[]"></td>';
+    html += '<td><button wire:click.prevent="remove(' + key + ')" class="btn btn-danger btn-sm"><span class="fa fa-times"></span></button></td></tr>';
+
+    $('#morePostExperience').empty();
+    $('#morePostExperience').prepend(html);
+}
+
 
 //for junior staff
 let autofillAdhocPerfDuty = function(data) {
     let html = '<input type="hidden" value="' + data[0].id + '" name="adhocdutyid">';
-    $('#dutyContainer').prepend(html);
 
     let adhocduty = $('#adhocperfduty');
-    adhocduty.text(data[0].adhocperfduty);
+    adhocduty.text(data[0].adhocperformedduty);
+    $('#adhocperfduty').prepend(html);
 }
 
 
@@ -567,8 +724,8 @@ let fillFormByPosition = function(data, position) {
     if (position === 12) autofillTeachingLoad(data, position);
     if (position === 13) autofillOtherInfo(data, position);
 
-    if (position === 14) autofillInstitution(data, position);
-    if (position === 15) autofillJuniorQualification(data, position);
-    if (position === 16) autofillPostQualiExperience(data, position);
-    if (position === 17) autofillAdhocPerfDuty(data, position);
+    if (position === 15) autofillInstitution(data, position); //done
+    if (position === 16) autofillJuniorQualification(data, position);
+    if (position === 18) autofillAdhocPerfDuty(data, position); // done
+    if (position === 17) autofillPostQualiExperience(data, position); //done
 }

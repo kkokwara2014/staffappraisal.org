@@ -15,7 +15,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="moreInstitutionName">
+        <tbody class="editmoreInstitution" id="editmoreInstitution" data-new="Chukwudi">
             @foreach($inputs as $key => $value)
             <tr>
                 

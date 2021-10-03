@@ -13,9 +13,9 @@ class InstitutionController extends Controller
         foreach ($request->institutionname as $key => $institutname) {
             if(!empty(trim($request->institutionname[$key]))){
                 $qualif=new Institution;
-                if($request->has('qualid')){
-                    if($key < count($request->qualid)){
-                        $id = $request->qualid[$key];
+                if($request->has('instuteid')){
+                    if($key < count($request->instuteid)){
+                        $id = $request->instuteid[$key];
                         $qualif = Institution::findOrfail($id);
                     }
                 }

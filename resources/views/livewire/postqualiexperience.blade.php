@@ -16,7 +16,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="morePostExperience">
+        <tbody class="morePostExperience" id="morePostExperience">
             @foreach($inputs as $key => $value)
             <tr>
                 

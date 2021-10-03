@@ -18,9 +18,9 @@ class JuniorQualificationController extends Controller
             foreach ($request->qualification as $key => $qualifica) {
                 if(!empty(trim($request->qualification[$key]))){
                     $qualif=new Juniorqualification;
-                    if($request->has('qtypeid')){
-                        if($key < count($request->qtypeid)){
-                            $id = $request->qtypeid[$key];
+                    if($request->has('qualifid')){
+                        if($key < count($request->qualifid)){
+                            $id = $request->qualifid[$key];
                             $qualif = Juniorqualification::findOrfail($id);
                         }
                     }
