@@ -4,7 +4,6 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-
                 <div>
                     <img style="display: block; margin-left: auto; margin-right: auto; border-radius: 50%"
                         src="{{url('user_images',$user->userimage)}}" width="180">
