@@ -12,11 +12,18 @@ Create Appraisal
     <!-- Left col -->
     <section class="col-lg-12 connectedSortable">
         <p>
-            @hasrole(['Admin','Registrar'])
+            @if (auth()->user()->hasAnyRole(['Admin'])||auth()->user()->hasAnyRole(['Registrar']))
             <a href="{{ route('appraisals.index') }}" class="btn btn-success btn-sm">
                 <span class="fa fa-eye"></span> All Appraisals
             </a>
-            @endhasrole
+
+            @endif
+
+            {{-- @hasrole(['Admin','Registrar'])
+            <a href="{{ route('appraisals.index') }}" class="btn btn-success btn-sm">
+                <span class="fa fa-eye"></span> All Appraisals
+            </a>
+            @endhasrole --}}
         </p>
 
         <div class="row">
@@ -28,10 +35,16 @@ Create Appraisal
 
                         @foreach ($appraisals as $appraisal)
 
-                        @hasrole(['Admin','Registrar'])
+                        @if (Auth::user()->hasAnyRole(['Admin'])||Auth::user()->hasAnyRole(['Registrar']))
                         <small><a href="{{ route('appraisal.unpublish',$appraisal->id) }}">Unpublish
                                 {{ $appraisal->title }}</a></small>
-                        @endhasrole
+                            
+                        @endif
+
+                        {{-- @hasrole(['Admin','Registrar'])
+                        <small><a href="{{ route('appraisal.unpublish',$appraisal->id) }}">Unpublish
+                                {{ $appraisal->title }}</a></small>
+                        @endhasrole --}}
 
 
                         <h5>

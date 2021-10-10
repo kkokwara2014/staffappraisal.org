@@ -15,10 +15,10 @@
             <a href="{{ url()->previous() }}" class="btn btn-primary btn-sm">
                 Back</a>
 
-            @hasrole(['Admin','HOD','Rector','Registrar'])
+                @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['HOD']) ||auth()->user()->hasAnyRole(['Registrar']) || auth()->user()->hasAnyRole(['Rector']))
             <a href="{{ route('staffsbydept') }}" class="btn btn-success btn-sm"><span class="fa fa-eye"></span> 
                 Staff by Departments</a>
-            @endhasrole
+            @endif
         </p>
         <div class="row">
             <div class="col-md-12">
@@ -43,7 +43,7 @@
                             <div class="box-body">
 
                                 <p>
-                                    <h2>{{$staff->title->title.' '.ucfirst($staff->firstname).' '.($staff->middlename!=''?ucfirst($staff->middlename):'').' '.ucfirst($staff->lastname)}}
+                                    <h2>{{($staff->title_id==1?'':$staff->title->title).' '.ucfirst($staff->firstname).' '.($staff->middlename!=''?ucfirst($staff->middlename):'').' '.ucfirst($staff->lastname)}}
                                     </h2>
                                 </p>
                                 <hr>
@@ -183,6 +183,7 @@
                     </div>
                 </div>
             </div>
+        </div>
 
     </section>
     <!-- /.Left col -->

@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Staff By Department
+My Department
 @endsection
 
 @section('content')
@@ -13,30 +13,20 @@ Staff By Department
     <section class="col-lg-12 connectedSortable">
         
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
 
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
-
-                        {{ $departments->links() }}
-                        <div class="panel-group" id="accordion">
-                            @foreach ($departments as $dept)
-                            
-                            <div class="panel panel-default">
-                                <a href="{{ route('departmentalstaff',$dept->id) }}">
-                                    <div class="panel-body"> 
-                                                {{--  @if ((auth()->user()->hasAnyRole(['HOD']) && auth()->user()->department_id==$dept->id))  --}}
-                                                {{ $dept->name }} <small>[{{ $dept->school->name }}]</small>
-                                                {{--  @endif  --}}
+                        <div class="panel-group" id="accordion">                   
+                                    <div class="panel panel-default">
+                                        <a href="{{ route('mydepartmental.staff',$userdepartment->department_id) }}" title="Click to see Departmental Staff">
+                                            <div class="panel-body"> 
+                                                {{ $userdepartment->department->name }}
                                             </div>
                                         </a>
                                     </div>
-                            
-                            
-                            @endforeach
                         </div>
-                        {{ $departments->links() }}
 
                     </div>
                     <!-- /.box-body -->

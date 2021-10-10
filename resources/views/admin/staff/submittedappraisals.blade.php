@@ -40,7 +40,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($submittedappraisals as $subapp)
-                                @if ($subapp->user_id==Auth::user()->id || Auth::user()->hasAnyRole(['Admin','Rector','Registrar']) || $subapp->sentto_id==Auth::user()->id)
+                                @if ($subapp->user_id==auth()->user()->id || auth()->user()->hasAnyRole(['Admin']) ||auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Registrar']) || $subapp->sentto_id==auth()->user()->id)
                                 <tr>
                                     
                                     <td>{{$subapp->appraisal->title}}</td>
@@ -71,7 +71,7 @@
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
                                             
-                                                @if($subapp->user_id==Auth::user()->id || Auth::user()->hasAnyRole(['Admin']))
+                                                @if($subapp->user_id==auth()->user()->id || auth()->user()->hasAnyRole(['Admin']))
                                                 <form id="remove-{{$subapp->id}}" style="display: none"
                                                     action="{{ route('delete.submitted.appraisal',[$subapp->appraisal_id,$subapp->user_id]) }}" method="post">
                                                     {{ csrf_field() }}

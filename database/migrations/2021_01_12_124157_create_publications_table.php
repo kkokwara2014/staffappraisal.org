@@ -20,8 +20,7 @@ class CreatePublicationsTable extends Migration
             $table->bigInteger('user_id')->index()->unsigned()->nullable();
             $table->text('pubtype')->nullable();   
             $table->text('title')->nullable();   
-            $table->string('yearofpub')->nullable(); 
-            // $table->string('pubfilename')->nullable();     
+            $table->string('yearofpub')->nullable();     
             $table->foreign('appraisal_id')->references('id')->on('appraisals')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

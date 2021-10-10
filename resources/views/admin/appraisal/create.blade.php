@@ -14,19 +14,29 @@ Create Appraisal
 
         <div class="row">
             <div class="col-md-8">
-                @hasrole(['Admin','Registrar'])
+                {{-- @hasrole(['Admin','Registrar'])
                 <p>
                     <a href="{{ route('appraisals.index') }}" class="btn btn-success btn-sm">
                         <span class="fa fa-eye"></span> All Appraisals
                     </a>
                 </p>
-                @endhasrole
+                @endhasrole --}}
+
+                @if (auth()->user()->hasAnyRole(['Admin'])||auth()->user()->hasAnyRole(['Registrar']))
+                <p>
+                    <a href="{{ route('appraisals.index') }}" class="btn btn-success btn-sm">
+                        <span class="fa fa-eye"></span> All Appraisals
+                    </a>
+                </p>
+                @endif
 
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
 
-                        @hasrole(['Admin','Registrar'])
+                        {{-- @hasrole(['Admin','Registrar']) --}}
+
+                        @if (auth()->user()->hasAnyRole(['Admin'])||auth()->user()->hasAnyRole(['Registrar']))
 
                         <form action="{{ route('appraisals.store') }}" method="post">
                             @csrf
@@ -85,7 +95,8 @@ Create Appraisal
                         @else
                         <h3><span class="fa fa-exclamation-triangle" style="color:red"></span> You are not Authorized to
                             perform this task!</h3>
-                        @endhasrole
+                        {{-- @endhasrole --}}
+                        @endif
 
 
 

@@ -56,7 +56,7 @@
                             <div class="col-md-7">
                                 <form action="{{ route('user.profile.update') }}" method="post"
                                     enctype="multipart/form-data">
-                                    {{ csrf_field() }}
+                                    @csrf
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">

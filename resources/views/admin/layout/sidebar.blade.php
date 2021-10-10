@@ -31,16 +31,28 @@
 
 
             {{-- only Admin --}}
-            @hasrole(['Admin','Governing Council','Rector','Registrar','Management'])
+            {{-- @hasrole(['Admin','Governing Council','Rector','Registrar','Management']) --}}
+            @if (auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Governing Council']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Registrar']) || auth()->user()->hasAnyRole(['Management']))
             <li><a href="{{ route('roles.index') }}"><i class="fa fa-briefcase"></i>Roles</a></li>
             <li><a href="{{ route('ranks.index') }}"><i class="fa fa-level-up"></i>Ranks</a></li>
             <li><a href="{{ route('schools.index') }}"><i class="fa fa-bank"></i> Schools</a></li>
             <li><a href="{{ route('departments.index') }}"><i class="fa fa-tag"></i> Department</a></li>
             <li><a href="{{ route('staffsbydept') }}"><i class="fa fa-users"></i> Staff By Department</a></li>
-            @endhasrole
-
             @endif
+            
 
+            {{--  for dean  --}}
+            @if (auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Dean']) || auth()->user()->hasAnyRole(['Director']) || auth()->user()->hasAnyRole(['Registrar']))
+                <li><a href="{{ route('myschool') }}"><i class="fa fa-bank"></i> My School/Division</a></li>  
+            @endif
+            
+            {{--  for HOD only  --}}
+            @if (auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['HOD']))
+                <li><a href="{{ route('mydepartment') }}"><i class="fa fa-tag"></i> My Department/Unit</a></li>
+            @endif
+            
+            @endif
+            
 
 
             @if ($user->profileupdated==1 && $user->hasAnyRole(['Staff']))
@@ -55,18 +67,20 @@
                 <ul class="treeview-menu">
 
                     {{-- <li><a href="{{ route('myappraisal.index') }}"><i class="fa fa-file-pdf-o"></i> My Appraisals</a></li> --}}
-                    @hasrole(['Admin','Registrar'])
+                    @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Registrar']))
                     <li><a href="{{ route('appraisals.index') }}"><i class="fa fa-file-pdf-o"></i> Unpublished</a></li>
-                    <li><a href="{{ route('appraisal.reports') }}"><i class="fa fa-file-pdf-o"></i> Reports</a></li>
-                    @endhasrole
+                    @endif
                     
                     <li><a href="{{ route('appraisals.published') }}"><i class="fa fa-file-pdf-o"></i> Published</a></li>
                     <li><a href="{{ route('submitted.appraisals') }}"><i class="fa fa-file-pdf-o"></i> Submitted</a></li>
                 </ul>
             </li>
 
+            @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Registrar']))
+                <li><a href="{{ route('appraisal.reports') }}"><i class="fa fa-bar-chart"></i> Reports</a></li>
+            @endif
 
-            @hasrole('Admin')
+            @if(auth()->user()->hasAnyRole(['Admin']))
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>
@@ -76,26 +90,17 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-
-                    {{-- <li><a href="#"><i class="fa fa-users"></i> Management</a></li>
-                    <li><a href="#"><i class="fa fa-users"></i> Deans</a></li>
-                    <li><a href="#"><i class="fa fa-users"></i> HODs</a></li> --}}
                     <li><a href="{{ route('staffs.index') }}"><i class="fa fa-users"></i> Staff</a></li>
                     <li><a href="{{ route('adhocstaffs.index') }}"><i class="fa fa-users"></i> Adhoc Staff</a></li>
                     <li><a href="#"><i class="fa fa-user-plus"></i> Admins</a></li>
-
                 </ul>
             </li>
-            @endhasrole
+            @endif
             @endif
             
 
-            {{-- @can('profile-updated', Auth::user()) --}}
-            {{-- <li><a href="{{ route('my.profile') }}"><i class="fa fa-picture-o"></i> My Profile Photo</a></li> --}}
-            {{-- @endcan --}}
-
             {{-- only Admin --}}
-           @hasrole('Admin')
+           @if(auth()->user()->hasAnyRole(['Admin']))
            <li class="treeview">
             <a href="#">
                 <i class="fa fa-cogs"></i>
@@ -108,22 +113,9 @@
                 <li><a href="{{ route('manageusers.index') }}"><i class="fa fa-user"></i> User Management</a></li>
                 <li><a href="{{ route('login.details') }}"><i class="fa fa-user"></i> Login Audit</a></li>
             </ul>
-        </li>
+        </li>        
         
-        {{--  <li class="treeview">
-            <a href="#">
-                <i class="fa fa-cogs"></i>
-                <span>Settings</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-cog"></i> User Management</a></li>
-            </ul>
-        </li>  --}}
-        
-        @endhasrole
+        @endif
 
         {{-- only Admin and Adhoc Staff --}}
          @if ($user->profileupdated==1 && ($user->hasAnyRole(['Admin'])|| $user->hasAnyRole(['Adhoc Staff'])))

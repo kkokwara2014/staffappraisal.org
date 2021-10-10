@@ -18,6 +18,7 @@ class CreateAppraisalsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('title');
             $table->string('slug');
+            $table->string('appraisalyear')->nullable();
             $table->string('starting');
             $table->string('ending');
             $table->tinyInteger('ispublished')->default('0');

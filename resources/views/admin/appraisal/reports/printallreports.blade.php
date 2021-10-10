@@ -76,16 +76,17 @@ Staff Appraisal Report for {{ $appyear }}
                                         @endif
                                     </td>
                                     <td>{{$rpt->user->firstassumptionstatus}}</td>
-                                    <td>{{$rpt->salaryscale->presentpost}}</td>
+                                    <td>{{$rpt->salaryscale->presentpost!=''?$rpt->salaryscale->presentpost:'N/A'}}</td>
                                     <td>
                                         @if ($rpt->appraisalscore->totalscore!='')
-                                            @if ($rpt->appraisalscore->totalscore>=50)
+                                            {{--  @if ($rpt->appraisalscore->totalscore>=50)
                                             <span class="badge badge-pill badge-success"
                                                 style="color:white;background:green;">{{ $rpt->appraisalscore->totalscore }}</span>
                                             @else
                                             <span class="badge badge-pill badge-success"
                                                 style="color:white;background:red;">{{ $rpt->appraisalscore->totalscore }}</span>
-                                            @endif
+                                            @endif  --}}
+                                            <span style="font-size:20px; font-weight:bold;">{{$rpt->appraisalscore->totalscore}}</span>
                                         @endif
                                         
                                     </td>

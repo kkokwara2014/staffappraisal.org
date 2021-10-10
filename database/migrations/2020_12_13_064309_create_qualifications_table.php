@@ -21,7 +21,6 @@ class CreateQualificationsTable extends Migration
             $table->string('awardinginst')->nullable();
             $table->string('dateofgrad')->nullable();
             $table->string('qualname')->nullable();
-            // $table->string('qualifilename')->nullable();          
             $table->foreign('appraisal_id')->references('id')->on('appraisals')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

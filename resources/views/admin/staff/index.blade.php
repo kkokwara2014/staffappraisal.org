@@ -45,9 +45,7 @@
                                 @foreach ($staffLists as $staff)
 
                                 @if ($staff->creator_id==auth()->user()->id || auth()->user()->hasAnyRole(['Admin','Rector','Registrar']))
-
-                                    
-                                            <tr>
+                                <tr>
                                     <td>
                                         <img src="{{url('user_images',$staff->userimage)}}" alt="" class="img-responsive"
                                         width="40" height="40" style="border-radius: 50%">
@@ -83,7 +81,8 @@
                                             </button>
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
-                                                @hasrole('Admin')
+                                                @if (auth()->user()->hasAnyRole(['Admin']))
+                                                    
                                                 @if ($staff->isactive==1)
                                                 <form id="deact-{{$staff->id}}" style="display: none"
                                                     action="{{ route('staffs.deactivate',$staff->id) }}" method="post">
@@ -123,9 +122,9 @@
                                                 </li>
 
                                                 @endif
-                                                @endhasrole
+                                                @endif
 
-                                                @if ($staff->creator_id==Auth::user()->id || Auth::user()->hasAnyRole(['Admin']))
+                                                @if ($staff->creator_id==auth()->user()->id || auth()->user()->hasAnyRole(['Admin']))
                                                 <li role="presentation"> <a role="menuitem" tabindex="-1"
                                                         href="{{ route('staff.modify',$staff->id) }}"><span
                                                             class="fa fa-pencil-square"></span> Edit</a> </li>
@@ -154,8 +153,7 @@
                                     </td>
                                   
                                 </tr>
-                                       
-                                    
+                                      
                                 @endif
                                                                
                                 @endforeach

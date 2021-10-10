@@ -15,17 +15,20 @@ Appraisals
         <div class="row">
             <div class="col-md-12">
                 <p>
-                @hasrole(['Admin','Registrar'])
+                {{-- @hasrole(['Admin','Registrar']) --}}
+                @if (auth()->user()->hasAnyRole(['Admin'])||auth()->user()->hasAnyRole(['Registrar']))
                     <a href="{{ route('appraisals.create') }}" class="btn btn-primary btn-sm">Create Appraisal</a>
                     <a href="{{ route('appraisals.published') }}" class="btn btn-success btn-sm">Published Appraisals</a>
-                @endhasrole
+                {{-- @endhasrole --}}
+                @endif
                 </p>
 
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
 
-                    @hasrole(['Admin','Registrar'])
+                    {{-- @hasrole(['Admin','Registrar']) --}}
+                    @if (auth()->user()->hasAnyRole(['Admin'])||auth()->user()->hasAnyRole(['Registrar']))
 
                         <table id="example1" class="table table-bordered table-striped table-responsive">
                             <thead>
@@ -114,10 +117,10 @@ Appraisals
                             </tfoot>
                         </table>
 
-
                     @else
                     <h3><span class="fa fa-exclamation-triangle" style="color:red"></span> You are not Authorized to see the content of this page!</h3>
-                    @endhasrole
+                    {{-- @endhasrole --}}
+                    @endif
 
                     </div>
                     <!-- /.box-body -->

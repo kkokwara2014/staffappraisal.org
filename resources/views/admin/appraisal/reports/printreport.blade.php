@@ -111,7 +111,7 @@
                                     {{$report->promotion->promodate}}
                                     @endif
                                 </td>
-                                <td>{{$report->appraisalscore->totalscore}}</td>
+                                <td><span style="font-size:20px; font-weight:bold;">{{$report->appraisalscore->totalscore}}</span></td>
                                 <td>{{ $report->appraisalscore->recommendation!=''? $report->appraisalscore->recommendation:'Nill' }}</td>
                                 <td>{{ $report->appraisalscore->schboardrecomm!=''? $report->appraisalscore->schboardrecomm :'Nill' }}</td>
                                 <td>{{ $report->appraisalscore->managementrecomm!=''? $report->appraisalscore->managementrecomm:'Nill' }}</td>

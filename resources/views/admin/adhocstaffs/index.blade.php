@@ -59,7 +59,7 @@
                                         {{$staff->department->name}} <small>[{{ $staff->school->name }}]</small>
                                         @else
 
-                                        <span class="badge badge-pill badge-danger" style="background-color: red; color: seashell">Staff needs to update profile!</span>
+                                        <span class="badge badge-pill badge-danger" style="background-color: red; color: seashell">Profile update required!</span>
                                             
                                         @endif
                                     </td>

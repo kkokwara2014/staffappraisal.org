@@ -18,12 +18,13 @@ Create Staff
 
         <div class="row">
             <div class="col-md-10">
+                @include('admin.messages.success')
 
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
                         <form action="{{ route('staffs.store') }}" method="post">
-                            {{ csrf_field() }}
+                            @csrf
                                                               
                                     <div class="row">
                                         <div class="col-md-6">

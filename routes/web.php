@@ -52,7 +52,8 @@ Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], function() {
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/profile', 'HomeController@profile')->name('profile');
-    Route::middleware(['adminaccess'])->group(function () {
+    // Route::middleware(['adminaccess'])->group(function () {
+    Route::middleware(['staffaccess'])->group(function () {
         Route::resource('roles', 'RoleController');
         Route::resource('schools', 'SchoolController');
         Route::resource('departments', 'DepartmentController');
@@ -89,6 +90,13 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     Route::post('staff/{id}/deactivate', 'StaffController@deactivate')->name('staffs.deactivate');
     Route::get('staff-by-department', 'StaffController@staffbydepartment')->name('staffsbydept');
     Route::get('department/{id}', 'StaffController@departmentalstaff')->name('departmentalstaff');
+    Route::get('my-department', 'MyDepartmentController@mydepartment')->name('mydepartment');
+    Route::get('my-departmental-staff/{id}', 'MyDepartmentController@mydepartmentalstaff')->name('mydepartmental.staff');
+    
+    Route::get('my-school', 'MySchoolController@myschool')->name('myschool');
+    Route::get('my-school/departments/{id}', 'MySchoolController@myschooldepartment')->name('myschool.departments');
+    Route::get('my-school/staff/{id}', 'MySchoolController@myschoolstaff')->name('myschool.staffs');
+    
     Route::resource('appraisals', 'AppraisalController');
     
     /**getting staff appraisal details based on staff category */
@@ -131,8 +139,8 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
         Route::post('/coursetaught','CourseTaughtController@store')->name('coursetaught.store');
         Route::post('/tloadsummary','TeachingLoadSummaryController@store')->name('tloadsummary.store');
         Route::post('/anyotherinfo','AnyOtherInfoController@store')->name('anyotherinfo.store');
-        Route::post('/supportingdoc','SupportingDocumentController@store')->name('supportingdoc.store');
-        Route::post('/moresupportingdoc','SupportingDocumentController@storemoredocument')->name('moresupportingdoc.store');
+        Route::post('/supporting-documents','SupportingDocumentController@store')->name('supportingdoc.store');
+        Route::post('/more-supporting-documents','SupportingDocumentController@storemoredocument')->name('moresupportingdoc.store');
 
     //addendum for junior staff
         Route::post('/institution','InstitutionController@store')->name('institution.store');

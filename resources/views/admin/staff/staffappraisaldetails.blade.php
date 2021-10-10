@@ -511,7 +511,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
 
@@ -519,7 +518,7 @@
                         <div>
                             <p>
                                 {{-- only HOD can score staff under him/her --}}
-                                @if ((Auth::user()->hasAnyRole(['HOD'])||Auth::user()->hasAnyRole(['Dean'])||Auth::user()->hasAnyRole(['Rector'])) && $the_appraiser)
+                                @if ((auth()->user()->hasAnyRole(['HOD'])||auth()->user()->hasAnyRole(['Dean'])||auth()->user()->hasAnyRole(['Rector'])) && $the_appraiser)
                                 
                                 @if ($scoredappraisaluser->isscoredbyhod==0)
                                 {{-- scoredappraisaluser --}}
@@ -532,7 +531,7 @@
                                 @endif
 
                                 {{-- only school board appraisal committee --}}
-                                @if (Auth::user()->hasAnyRole(['Dean'])||Auth::user()->hasAnyRole(['Rector']))
+                                @if (auth()->user()->hasAnyRole(['Dean'])||auth()->user()->hasAnyRole(['Rector']))
                                 @if ($scoredappraisaluser->isscoredbyhod==1 && $scoredappraisaluser->isscoredbyschboard==0)
                                 <p>
                                     <a href="#" data-toggle="modal"
@@ -582,13 +581,15 @@
                                                                         <td>{{ $staffappraisalscore->abilityscore }}</td>
                                                                         <td>{{ $staffappraisalscore->servicelengthscore }}</td>
                                                                         <td>
-                                                                            @if ($staffappraisalscore->totalscore>=50)
+                                                                            {{--  @if ($staffappraisalscore->totalscore>=50)
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
                                                                             @else
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
-                                                                            @endif
+                                                                            @endif  --}}
+
+                                                                            <span style="font-size:18px;font-weight:bold">{{ $staffappraisalscore->totalscore }}</span>
 
 
                                                                         </td>
@@ -655,7 +656,7 @@
                                 {{-- end of school board appraisal committee recommendation --}}
 
                                 {{-- only Management appraisal committee --}}
-                                @if (Auth::user()->hasAnyRole(['Management'])||Auth::user()->hasAnyRole(['Rector']))
+                                @if (auth()->user()->hasAnyRole(['Management'])||auth()->user()->hasAnyRole(['Rector']))
                                 
                                 @if ($scoredappraisaluser->isscoredbyschboard==1 && $scoredappraisaluser->isscoredbymanagement==0)
                                 <p>
@@ -705,13 +706,14 @@
                                                                         <td>{{ $staffappraisalscore->abilityscore }}</td>
                                                                         <td>{{ $staffappraisalscore->servicelengthscore }}</td>
                                                                         <td>
-                                                                            @if ($staffappraisalscore->totalscore>=50)
+                                                                            {{--  @if ($staffappraisalscore->totalscore>=50)
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
                                                                             @else
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
-                                                                            @endif
+                                                                            @endif  --}}
+                                                                            <span style="font-size:18px;font-weight:bold">{{ $staffappraisalscore->totalscore }}</span>
 
                                                                         </td>
                                                                     </tr>
@@ -779,7 +781,7 @@
                                 {{-- end of management appraisal committee recommendation --}}
 
                                 {{-- only ssapc --}}
-                                @if (Auth::user()->hasAnyRole(['SSAP Committee'])||Auth::user()->hasAnyRole(['Rector']))
+                                @if (auth()->user()->hasAnyRole(['SSAP Committee'])||auth()->user()->hasAnyRole(['Rector']))
                                 
                                 @if ($scoredappraisaluser->isscoredbymanagement==1 && $scoredappraisaluser->isscoredbyssapc==0)
                                 <p>
@@ -829,13 +831,14 @@
                                                                         <td>{{ $staffappraisalscore->abilityscore }}</td>
                                                                         <td>{{ $staffappraisalscore->servicelengthscore }}</td>
                                                                         <td>
-                                                                            @if ($staffappraisalscore->totalscore>=50)
+                                                                            {{--  @if ($staffappraisalscore->totalscore>=50)
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
                                                                             @else
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
-                                                                            @endif
+                                                                            @endif  --}}
+                                                                            <span style="font-size:18px;font-weight:bold">{{ $staffappraisalscore->totalscore }}</span>
 
                                                                         </td>
                                                                     </tr>
@@ -907,7 +910,7 @@
 
 
                                 {{-- only governing council appraisal committee --}}
-                                @if (Auth::user()->hasAnyRole(['Governing Council'])||Auth::user()->hasAnyRole(['Rector']))
+                                @if (auth()->user()->hasAnyRole(['Governing Council'])||auth()->user()->hasAnyRole(['Rector']))
                                 
                                 @if ($scoredappraisaluser->isscoredbyssapc==1 && $scoredappraisaluser->isscoredbycouncil==0)
                                 <p>
@@ -956,13 +959,14 @@
                                                                         <td>{{ $staffappraisalscore->abilityscore }}</td>
                                                                         <td>{{ $staffappraisalscore->servicelengthscore }}</td>
                                                                         <td>
-                                                                            @if ($staffappraisalscore->totalscore>=50)
+                                                                            {{--  @if ($staffappraisalscore->totalscore>=50)
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
                                                                             @else
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
-                                                                            @endif
+                                                                            @endif  --}}
+                                                                            <span style="font-size:18px;font-weight:bold">{{ $staffappraisalscore->totalscore }}</span>
 
                                                                         </td>
                                                                     </tr>
@@ -1087,13 +1091,14 @@
                                                                         <td>{{ $staffappraisalscore->abilityscore }}</td>
                                                                         <td>{{ $staffappraisalscore->servicelengthscore }}</td>
                                                                         <td>
-                                                                            @if ($staffappraisalscore->totalscore>=50)
+                                                                            {{--  @if ($staffappraisalscore->totalscore>=50)
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:green;">{{ $staffappraisalscore->totalscore }}</span>
                                                                             @else
                                                                             <span class="badge badge-pill badge-success"
                                                                                 style="color:white;background:red;">{{ $staffappraisalscore->totalscore }}</span>
-                                                                            @endif
+                                                                            @endif  --}}
+                                                                            <span style="font-size:18px;font-weight:bold">{{ $staffappraisalscore->totalscore }}</span>
 
                                                                         </td>
                                                                     </tr>

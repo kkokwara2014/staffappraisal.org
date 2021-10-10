@@ -39,6 +39,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('state_id')->index()->unsigned()->nullable()->default('38');
             $table->bigInteger('lga_id')->index()->unsigned()->nullable()->default('813');
             $table->bigInteger('category_id')->index()->unsigned()->nullable()->default('1');
+            $table->bigInteger('creator_id')->index()->unsigned()->nullable()->default('1');
             $table->tinyInteger('isactive')->default('1');
             $table->tinyInteger('profileupdated')->default('0');
             $table->tinyInteger('isretired')->default('0');

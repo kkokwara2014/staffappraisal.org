@@ -23,8 +23,8 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <form action="{{ route('staffs.update',$staff->id) }}" method="post">
-                            {{ csrf_field() }}
-                            {{method_field('PUT')}}
+                            @csrf
+                            @method('put')
 
                             <div class="row">
                                 <div class="col-md-6">

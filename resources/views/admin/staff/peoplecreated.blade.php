@@ -46,7 +46,7 @@ Staff created by {{ $staff->firstname.' '.$staff->lastname.' ['.$staff->staffnum
                             <tbody>
                                 @foreach ($staffcreatedbyothers as $staff)
 
-                                @if ($staff->creator_id==Auth::user()->id || Auth::user()->hasAnyRole(['Admin']))
+                                @if ($staff->creator_id==auth()->user()->id || auth()->user()->hasAnyRole(['Admin']))
 
                                     
                                             <tr>
@@ -107,7 +107,7 @@ Staff created by {{ $staff->firstname.' '.$staff->lastname.' ['.$staff->staffnum
                                                 @else
                                                 <form id="act-{{$staff->id}}" style="display: none"
                                                     action="{{ route('staffs.activate',$staff->id) }}" method="post">
-                                                    {{ csrf_field() }}
+                                                    @csrf
                                                 </form>
 
                                                 <li role="presentation">
@@ -126,7 +126,7 @@ Staff created by {{ $staff->firstname.' '.$staff->lastname.' ['.$staff->staffnum
                                                 @endif
                                                 @endhasrole
 
-                                                @if ($staff->creator_id==Auth::user()->id || Auth::user()->hasAnyRole(['Admin']))
+                                                @if ($staff->creator_id==auth()->user()->id || auth()->user()->hasAnyRole(['Admin']))
                                                 <li role="presentation"> <a role="menuitem" tabindex="-1"
                                                         href="{{ route('staffs.edit',$staff->id) }}"><span
                                                             class="fa fa-pencil-square"></span> Edit</a> </li>

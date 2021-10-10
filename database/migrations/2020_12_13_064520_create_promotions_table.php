@@ -20,7 +20,6 @@ class CreatePromotionsTable extends Migration
             $table->bigInteger('user_id')->index()->unsigned()->nullable();
             $table->string('promodate');
             $table->string('grade');
-            // $table->string('promofilename')->nullable();          
             $table->foreign('appraisal_id')->references('id')->on('appraisals')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

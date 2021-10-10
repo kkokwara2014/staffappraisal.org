@@ -18,10 +18,10 @@ class CreatePostqualiexperiencesTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('appraisal_id')->index()->unsigned()->nullable();
             $table->bigInteger('user_id')->index()->unsigned()->nullable();
-            $table->string('postheld')->index()->nullable();
-            $table->string('employer')->index()->nullable();
-            $table->string('startdate')->index()->nullable();         
-            $table->string('enddate')->index()->nullable();         
+            $table->string('postheld')->nullable();
+            $table->text('employer')->nullable();
+            $table->string('startdate')->nullable();         
+            $table->string('enddate')->nullable();         
             $table->foreign('appraisal_id')->references('id')->on('appraisals')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

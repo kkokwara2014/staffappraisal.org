@@ -20,8 +20,7 @@ class CreateProductionsTable extends Migration
             $table->bigInteger('user_id')->index()->unsigned()->nullable();
             $table->text('prodtype')->nullable();   
             $table->text('title')->nullable();   
-            $table->string('yearofprod')->nullable(); 
-            // $table->string('prodfilename')->nullable();     
+            $table->string('yearofprod')->nullable();    
             $table->foreign('appraisal_id')->references('id')->on('appraisals')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

@@ -25,8 +25,8 @@ class SupportingDocumentController extends Controller
         //uploading appraisal documents
         if ($request->hasFile('supportingdoc')) {
             foreach ($allUploadedFiles as $key=> $docum) {
-                $filename=auth()->user()->lastname.'_'.auth()->user()->staffnumb.'_'.rand(1234567,6789099).'.'.$docum->getClientOriginalExtension();
-                // $filename=rand(1234567,6789099).'.'.$docum->getClientOriginalExtension();              
+                // $filename=auth()->user()->lastname.'_'.auth()->user()->staffnumb.'_'.rand(1234567,6789099).'.'.$docum->getClientOriginalExtension();
+                $filename=rand(1234567,6789099).'.'.$docum->getClientOriginalExtension();              
                 $docum->storeAs('public/staff_appraisal_documents/', $filename);
                 //  Storage::put('public/staff_appraisal_documents/',$filename);
              
@@ -70,8 +70,8 @@ class SupportingDocumentController extends Controller
         if ($request->hasFile('supportingdoc')) {
             foreach ($moreUploadedFiles as $key=> $docum) {
                 
-                $filename=auth()->user()->lastname.'_'.auth()->user()->staffnumb.'_'.rand(2345678,7890989).'.'.$docum->getClientOriginalExtension();
-                // $filename=rand(2345678,7890989).'.'.$docum->getClientOriginalExtension();
+                // $filename=auth()->user()->lastname.'_'.auth()->user()->staffnumb.'_'.rand(2345678,7890989).'.'.$docum->getClientOriginalExtension();
+                $filename=rand(2345678,7890989).'.'.$docum->getClientOriginalExtension();
                 
                 $docum->storeAs('public/staff_appraisal_documents/', $filename);
                 
