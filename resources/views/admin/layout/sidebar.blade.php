@@ -49,13 +49,12 @@
             {{--  for HOD only  --}}
             @if (auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['HOD']))
                 <li><a href="{{ route('mydepartment') }}"><i class="fa fa-tag"></i> My Department/Unit</a></li>
-            @endif
-            
+            @endif            
             @endif
             
 
 
-            @if ($user->profileupdated==1 && $user->hasAnyRole(['Staff']))
+            @if ($user->hasAnyRole(['Staff']))
                 <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-pdf-o"></i>
@@ -75,6 +74,40 @@
                     <li><a href="{{ route('submitted.appraisals') }}"><i class="fa fa-file-pdf-o"></i> Submitted</a></li>
                 </ul>
             </li>
+
+             {{--  scored appraisals  --}}
+
+            @if ((auth()->user()->hasAnyRole(['Admin']) || $user->hasAnyRole(['HOD']) || $user->hasAnyRole(['Dean']) || $user->hasAnyRole(['Registrar']) || $user->hasAnyRole(['Director']) || $user->hasAnyRole(['Rector']) || $user->hasAnyRole(['Management'])))
+            <li class="treeview">
+            <a href="#">
+                <i class="fa fa-check-circle-o"></i>
+                <span>Scored Appraisals</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['HOD']) || auth()->user()->hasAnyRole(['Dean']) || auth()->user()->hasAnyRole(['Registrar']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Appraisal Committee']) || auth()->user()->hasAnyRole(['Management']))
+                <li><a href="{{ route('hod.scoredappraisals') }}"><i class="fa fa-check-circle-o"></i> By HOD</a></li>
+                @endif
+                @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Dean']) || auth()->user()->hasAnyRole(['Registrar']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Appraisal Committee']) || auth()->user()->hasAnyRole(['Management']))
+                <li><a href="{{ route('dean.scoredappraisals') }}"><i class="fa fa-check-circle-o"></i> By Dean</a></li>
+                @endif
+                @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Registrar']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Appraisal Committee']) || auth()->user()->hasAnyRole(['Management']))
+                <li><a href="{{ route('management.scoredappraisals') }}"><i class="fa fa-check-circle-o"></i> By Management</a></li>
+                @endif
+                @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['SSAP Committee']) || auth()->user()->hasAnyRole(['Registrar']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Appraisal Committee']) || auth()->user()->hasAnyRole(['Management']))
+                <li><a href="{{ route('ssapc.scoredappraisals') }}"><i class="fa fa-check-circle-o"></i> By SSAPC</a></li>
+                @endif
+                @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Council']) || auth()->user()->hasAnyRole(['Registrar']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Management']))
+                <li><a href="{{ route('council.scoredappraisals') }}"><i class="fa fa-check-circle-o"></i> By Council</a></li>
+                @endif
+                @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Appraisal Committee']) || auth()->user()->hasAnyRole(['Council']) || auth()->user()->hasAnyRole(['Registrar']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Management']))
+                <li><a href="{{ route('all.scoredappraisals') }}"><i class="fa fa-check-circle-o"></i> All</a></li>
+                @endif
+                
+            </ul>
+        </li>
 
             @if(auth()->user()->hasAnyRole(['Admin']) || auth()->user()->hasAnyRole(['Rector']) || auth()->user()->hasAnyRole(['Registrar']))
                 <li><a href="{{ route('appraisal.reports') }}"><i class="fa fa-bar-chart"></i> Reports</a></li>
@@ -133,6 +166,7 @@
                     <li><a href="{{ route('staffs.index') }}"><i class="fa fa-users"></i> All Staff</a></li>
                 </ul>
             </li>
+         @endif
          @endif
 
 

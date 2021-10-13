@@ -784,13 +784,13 @@ Academic Staff Appraisal Form
                                                         </small>
                                                     </div>
                                                     <div class="col-md-3 col-xs-3">
-                                                        <a href="#" data-toggle="modal"
+                                                        {{--  <a href="#" data-toggle="modal"
                                                             class="text-warning editappraisal" data-position="14"
                                                             data-target="#modal-uploadfiles-{{ $appraisal_id }}"
                                                             data-route="{{route('appraisal.data', [$appraisal_id, 14])}}"
                                                             id="editUploadfiles">
                                                             <span class="fa fa-edit fa-2x"></span>
-                                                        </a>
+                                                        </a>  --}}
                                                     </div>
 
                                                     <div class="col-md-3 col-xs-3">
@@ -1311,7 +1311,7 @@ Academic Staff Appraisal Form
                                             <option selected="disabled">Select Appriaser</option>
                                             @foreach ($appraisers as $appraiser)
                                             <option value="{{$appraiser->id}}">
-                                                {{$appraiser->title->title.' '.$appraiser->firstname.' '.$appraiser->lastname}}
+                                                {{($appraiser->title->title==1?'':$appraiser->title->title).' '.$appraiser->firstname.' '.$appraiser->lastname}}
                                                 @if ($appraiser->profileupdated=='1')
                                                     @if ($appraiser->hasAnyRole('HOD'))
                                                         {{ ' - '.'HOD, ' . $appraiser->department->name }}

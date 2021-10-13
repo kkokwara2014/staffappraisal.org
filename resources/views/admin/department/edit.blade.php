@@ -25,6 +25,7 @@ Edit Department
 
                         <form action="{{ route('departments.update',$dept->id) }}" method="post">
                             @csrf
+                            @method('put')
                             <div class="form-group">
                                 <label for="">Name *</label>
                                 <input type="text"

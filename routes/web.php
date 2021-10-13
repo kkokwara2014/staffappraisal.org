@@ -214,6 +214,14 @@ Route::group(['prefix' => 'dashboard','middleware'=>['auth','staffaccess']], fun
     Route::post('staff/appraisal/ssapcrecommendation/{appraisalid}/{staffid}',[RecommendationController::class,'byssapc'])->name('ssapcrecomm');
     Route::post('staff/appraisal/councilrecommendation/{appraisalid}/{staffid}',[RecommendationController::class,'bycouncil'])->name('councilrecomm');
 
+    //scored appraisals by Appraisers
+    Route::get('hod/scored-appraisals','ScoredAppraisalController@scoredbyhod')->name('hod.scoredappraisals');
+    Route::get('dean/scored-appraisals','ScoredAppraisalController@scoredbydean')->name('dean.scoredappraisals');
+    Route::get('management/scored-appraisals','ScoredAppraisalController@scoredbymanagement')->name('management.scoredappraisals');
+    Route::get('ssapc/scored-appraisals','ScoredAppraisalController@scoredbyssapc')->name('ssapc.scoredappraisals');
+    Route::get('council/scored-appraisals','ScoredAppraisalController@scoredbycouncil')->name('council.scoredappraisals');
+    Route::get('completely/scored-appraisals','ScoredAppraisalController@allscoredappraisals')->name('all.scoredappraisals');
+
     // access denied
     Route::get('access-denied','AccessDeniedController@index')->name('access.denied');
 });
